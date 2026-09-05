@@ -1,0 +1,48 @@
+{
+  "portal_w_ft": 62.0,
+  "portal_h_ft": 29.5,
+  "opening_w_ft": 50.0,
+  "opening_h_ft": 21.5,
+  "cyc_w_ft": 50.0,
+  "cyc_h_ft": 30.0,
+  "cyc_z_ft": 30.0,
+  "foh_throw_ft": 75.0,
+  "foh_height_ft": 6.5,
+  "foh_cover_w_ft": 62.0,
+  "cyc_proj_z_ft": 14.0,
+  "cyc_proj_trim_ft": 27.84,
+  "cyc_lit_w_ft": 45.71,
+  "cyc_lit_h_ft": 28.57,
+  "legs": [
+    {
+      "id": "LEG-SR1",
+      "z_ft": 6.0,
+      "x0_ft": -26.0,
+      "x1_ft": -21.0
+    },
+    {
+      "id": "LEG-SR2",
+      "z_ft": 12.0,
+      "x0_ft": -20.40740740740741,
+      "x1_ft": -15.407407407407408,
+      "aligns_with": "LEG-SR1",
+      "clear_by_ft": 2.0
+    },
+    {
+      "id": "LEG-SL2",
+      "z_ft": 12.0,
+      "x0_ft": 15.407407407407408,
+      "x1_ft": 20.40740740740741,
+      "aligns_with": "LEG-SL1",
+      "clear_by_ft": 2.0
+    },
+    {
+      "id": "LEG-SL1",
+      "z_ft": 6.0,
+      "x0_ft": 21.0,
+      "x1_ft": 26.0
+    }
+  ],
+  "leg_w_ft": 5.0,
+  "leg_h_ft": 25.0
+}

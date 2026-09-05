@@ -1,0 +1,1554 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Technical design package for Disney's Frozen at Corner Canyon High School Performing Arts: projection, lighting and sound.">
+<meta name="robots" content="noindex">
+<title>Frozen &mdash; Technical Design Package</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>:root {
+  --ground:#EDF1F6; --surface:#FFFFFF; --surface-2:#E3E9F1;
+  --ink:#0E141C; --ink-2:#47535F; --ink-3:#6D7B8A;
+  --rule:#CFD8E3; --rule-strong:#A8B6C6;
+  --accent:#0C6FA8; --accent-soft:#D9EAF6;
+  --aurora:#6E52B8; --aurora-soft:#E5DFF5;
+  --warn:#A55C10; --warn-soft:#F7EBDA;
+  --good:#0E7A5F; --good-soft:#D8F0E6;
+  --shadow:0 1px 2px rgba(14,20,28,.06), 0 8px 26px rgba(14,20,28,.06);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground:#0A0F16; --surface:#121A24; --surface-2:#18222E;
+    --ink:#E6ECF4; --ink-2:#A3B1C2; --ink-3:#7C8A9B;
+    --rule:#243040; --rule-strong:#35455A;
+    --accent:#58B5E8; --accent-soft:#14293A;
+    --aurora:#A28FE8; --aurora-soft:#201C36;
+    --warn:#DDA05A; --warn-soft:#2B2013;
+    --good:#5CC7A4; --good-soft:#0F2A22;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 26px rgba(0,0,0,.35);
+  }
+}
+:root[data-theme="dark"] {
+  --ground:#0A0F16; --surface:#121A24; --surface-2:#18222E;
+  --ink:#E6ECF4; --ink-2:#A3B1C2; --ink-3:#7C8A9B;
+  --rule:#243040; --rule-strong:#35455A;
+  --accent:#58B5E8; --accent-soft:#14293A;
+  --aurora:#A28FE8; --aurora-soft:#201C36;
+  --warn:#DDA05A; --warn-soft:#2B2013;
+  --good:#5CC7A4; --good-soft:#0F2A22;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 26px rgba(0,0,0,.35);
+}
+
+* { box-sizing: border-box; }
+body {
+  margin:0; background:var(--ground); color:var(--ink);
+  font-family:"IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size:16px; line-height:1.62; -webkit-font-smoothing:antialiased;
+}
+.skip { position:absolute; left:-9999px; }
+.skip:focus { left:12px; top:12px; background:var(--surface); padding:10px 16px; z-index:50; }
+
+.shell { display:grid; grid-template-columns:238px minmax(0,1fr); gap:0; max-width:1320px; margin:0 auto; }
+.toc {
+  position:sticky; top:0; align-self:start; max-height:100vh; overflow-y:auto;
+  padding:34px 20px 40px 28px; border-right:1px solid var(--rule); font-size:13.5px;
+}
+.toctitle {
+  font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--ink-3); margin:0 0 12px;
+}
+.toc a { display:block; padding:4px 0; color:var(--ink-2); text-decoration:none; border-bottom:1px solid transparent; }
+.toc a:hover { color:var(--accent); }
+.wrap { min-width:0; padding:0 34px 120px; }
+.col { max-width:68ch; }
+
+.banner {
+  background:var(--accent-soft); color:var(--ink); border:1px solid var(--rule);
+  padding:12px 16px; font-size:14px; margin-top:28px;
+}
+
+header.masthead { border-bottom:1px solid var(--rule); padding:56px 0 32px; margin-bottom:8px; line-height:1.62; }
+.eyebrow {
+  font-family:"IBM Plex Mono",monospace; font-size:11.5px; font-weight:500;
+  letter-spacing:.16em; text-transform:uppercase; color:var(--accent); margin:0 0 16px;
+}
+h1 {
+  font-family:"IBM Plex Sans Condensed",sans-serif; font-weight:700;
+  font-size:clamp(46px,8vw,86px); line-height:.98; letter-spacing:-.02em; margin:0 0 20px;
+}
+.deck { font-family:"IBM Plex Sans Condensed",sans-serif; font-size:22px; font-weight:500;
+  color:var(--ink-2); margin:0 0 22px; letter-spacing:.005em; }
+.deck em { font-style:italic; }
+.standfirst { font-size:18.5px; color:var(--ink-2); max-width:62ch; margin:0 0 30px; }
+.titleblock {
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(148px,1fr)); gap:1px;
+  background:var(--rule); border:1px solid var(--rule); margin:0;
+}
+.titleblock div { background:var(--surface); padding:12px 14px; }
+.titleblock dt {
+  font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.13em;
+  text-transform:uppercase; color:var(--ink-3); margin:0 0 4px;
+}
+.titleblock dd { margin:0; font-family:"IBM Plex Mono",monospace; font-size:14px; font-weight:500; font-variant-numeric:tabular-nums; }
+
+section { padding-top:60px; scroll-margin-top:16px; }
+.sechead { display:flex; align-items:baseline; gap:16px; border-top:2px solid var(--ink); padding-top:14px; margin-bottom:24px; flex-wrap:wrap; }
+.secnum { font-family:"IBM Plex Mono",monospace; font-size:13px; font-weight:600; color:var(--accent); padding-top:4px; }
+h2 { font-family:"IBM Plex Sans Condensed",sans-serif; font-weight:700; font-size:clamp(25px,3.4vw,34px); line-height:1.12; letter-spacing:-.01em; margin:0; text-wrap:balance; }
+h3 { font-family:"IBM Plex Sans Condensed",sans-serif; font-weight:600; font-size:20px; line-height:1.25; margin:38px 0 10px; text-wrap:balance; }
+h4 { font-family:"IBM Plex Mono",monospace; font-size:11.5px; font-weight:600; letter-spacing:.13em; text-transform:uppercase; color:var(--ink-3); margin:28px 0 8px; }
+p { margin:0 0 16px; }
+a { color:var(--accent); text-underline-offset:2px; }
+a:focus-visible, .toc a:focus-visible { outline:2px solid var(--accent); outline-offset:3px; }
+strong { font-weight:600; }
+.dim { color:var(--ink-3); font-size:13.5px; }
+em.term { font-style:normal; font-family:"IBM Plex Mono",monospace; font-size:.9em; background:var(--surface-2); padding:1px 5px; border-radius:3px; }
+code { font-family:"IBM Plex Mono",monospace; font-size:.9em; background:var(--surface-2); padding:1px 5px; border-radius:3px; }
+ul, ol { margin:0 0 18px; padding-left:22px; }
+li { margin-bottom:7px; }
+li::marker { color:var(--ink-3); }
+
+.tablewrap { overflow-x:auto; margin:20px 0 26px; border:1px solid var(--rule); background:var(--surface); box-shadow:var(--shadow); }
+table { border-collapse:collapse; width:100%; font-size:14px; min-width:540px; }
+caption { text-align:left; font-family:"IBM Plex Mono",monospace; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3); padding:11px 14px; border-bottom:1px solid var(--rule); background:var(--surface-2); }
+th, td { text-align:left; padding:9px 14px; border-bottom:1px solid var(--rule); vertical-align:top; }
+thead th { font-family:"IBM Plex Sans Condensed",sans-serif; font-weight:600; font-size:13px; color:var(--ink-2); border-bottom:1px solid var(--rule-strong); white-space:nowrap; }
+tbody tr:last-child td { border-bottom:none; }
+td.num, th.num { font-family:"IBM Plex Mono",monospace; font-variant-numeric:tabular-nums; white-space:nowrap; }
+td.id { font-family:"IBM Plex Mono",monospace; font-weight:500; color:var(--accent); white-space:nowrap; }
+
+.pill { display:inline-block; font-family:"IBM Plex Mono",monospace; font-size:11px; font-weight:500; letter-spacing:.04em; padding:2px 7px; border-radius:2px; white-space:nowrap; }
+.pill.good { background:var(--good-soft); color:var(--good); }
+.pill.mid { background:var(--aurora-soft); color:var(--aurora); }
+.pill.low { background:var(--warn-soft); color:var(--warn); }
+
+.note { border-left:3px solid var(--accent); background:var(--surface); padding:16px 20px; margin:24px 0; box-shadow:var(--shadow); max-width:72ch; }
+.note.caution { border-left-color:var(--warn); }
+.note .label { font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-3); display:block; margin-bottom:6px; }
+.note p:last-child { margin-bottom:0; }
+
+figure { margin:28px 0; }
+.figbox { background:var(--surface); border:1px solid var(--rule); padding:20px; overflow-x:auto; box-shadow:var(--shadow); }
+.figbox svg { display:block; width:100%; height:auto; min-width:560px; }
+.plate { background:#05070a; border:1px solid var(--rule); box-shadow:var(--shadow); line-height:0; overflow:hidden; }
+.plate img { width:100%; height:auto; display:block; }
+figcaption { font-size:13.5px; color:var(--ink-3); margin-top:10px; max-width:70ch; }
+.svg-label { font-family:"IBM Plex Mono",monospace; font-size:11px; fill:var(--ink-2); }
+.svg-label.sm { font-size:9.5px; fill:var(--ink-3); }
+.svg-label.hi { fill:var(--accent); font-weight:600; }
+
+.formula { font-family:"IBM Plex Mono",monospace; font-size:14.5px; background:var(--surface); border:1px solid var(--rule); border-left:3px solid var(--aurora); padding:14px 18px; margin:18px 0; overflow-x:auto; box-shadow:var(--shadow); }
+.formula b { color:var(--aurora); font-weight:600; }
+
+ol.steps { list-style:none; padding:0; counter-reset:s; margin:22px 0; }
+ol.steps > li { counter-increment:s; position:relative; padding:0 0 22px 46px; margin:0; border-left:1px solid var(--rule); margin-left:14px; max-width:74ch; }
+ol.steps > li:last-child { border-left-color:transparent; padding-bottom:0; }
+ol.steps > li::before {
+  content:counter(s,decimal-leading-zero); position:absolute; left:-14px; top:-2px;
+  width:28px; height:28px; border-radius:50%; background:var(--surface); border:1px solid var(--rule-strong);
+  color:var(--accent); font-family:"IBM Plex Mono",monospace; font-size:11px; font-weight:600;
+  display:flex; align-items:center; justify-content:center;
+}
+ol.steps > li > strong { display:block; font-family:"IBM Plex Sans Condensed",sans-serif; font-size:17px; font-weight:600; margin-bottom:4px; }
+ol.steps .when { display:inline-block; font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-3); margin-bottom:6px; }
+ol.steps .gate { display:block; margin-top:8px; font-size:13.5px; color:var(--warn); border-top:1px dashed var(--rule); padding-top:7px; }
+
+.cl { break-inside:avoid; margin-bottom:34px; }
+ul.check { list-style:none; padding:0; max-width:74ch; }
+ul.check li { position:relative; padding-left:28px; margin-bottom:9px; }
+ul.check li::before { content:""; position:absolute; left:0; top:6px; width:13px; height:13px; border:1.5px solid var(--rule-strong); border-radius:2px; }
+
+.dlrow { margin:22px 0 28px; }
+a.dl, span.dl {
+  display:inline-block; font-family:"IBM Plex Mono",monospace; font-size:12px; font-weight:500;
+  padding:5px 11px; border:1px solid var(--accent); color:var(--accent);
+  text-decoration:none; border-radius:3px; white-space:nowrap;
+}
+a.dl:hover { background:var(--accent-soft); }
+.dlrow a.dl, .dlrow span.dl { font-size:14px; padding:10px 18px; }
+span.dl.off { border-color:var(--rule-strong); color:var(--ink-3); }
+
+footer { border-top:1px solid var(--rule); margin-top:76px; padding-top:26px; font-size:13.5px; color:var(--ink-3); }
+footer ul { padding-left:18px; }
+
+@media (max-width:960px) {
+  .shell { grid-template-columns:1fr; }
+  .toc { position:static; max-height:none; border-right:none; border-bottom:1px solid var(--rule); padding:24px 20px; display:flex; flex-wrap:wrap; gap:4px 18px; }
+  .toc .toctitle { width:100%; margin-bottom:4px; }
+  .wrap { padding:0 20px 80px; }
+}
+@media print {
+  .toc, .banner { display:none; }
+  .shell { display:block; }
+  body { background:#fff; color:#000; font-size:11pt; }
+  section { page-break-before:auto; padding-top:24px; }
+  #checklists { page-break-before:always; }
+  .cl { page-break-inside:avoid; }
+  .note, .tablewrap, .figbox { box-shadow:none; }
+}
+
+/* ---- package shell additions ---------------------------------------- */
+.toc .tocgroup { margin:0 0 18px; }
+.toc .tocgroup > p {
+  font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--ink-3); margin:0 0 6px; padding-top:12px;
+  border-top:1px solid var(--rule);
+}
+.toc a.home { font-weight:600; color:var(--ink); margin-bottom:10px; }
+.toc a.on { color:var(--accent); font-weight:600; }
+
+.hub { padding:8px 0 40px; }
+.hubgrid { display:grid; grid-template-columns:repeat(auto-fit,minmax(268px,1fr)); gap:20px; margin:28px 0 0; }
+.card {
+  background:var(--surface); border:1px solid var(--rule); border-radius:4px;
+  padding:22px 22px 18px; box-shadow:var(--shadow); display:flex; flex-direction:column;
+}
+.card .cnum {
+  font-family:"IBM Plex Mono",monospace; font-size:11px; letter-spacing:.16em;
+  color:var(--accent); margin:0 0 6px;
+}
+.card h3 { margin:0 0 8px; font-size:23px; letter-spacing:-.015em; }
+.card > p { margin:0 0 16px; font-size:14.5px; color:var(--ink-2); }
+.card dl { display:flex; flex-wrap:wrap; gap:2px 20px; margin:0 0 16px; }
+.card dl div { min-width:78px; }
+.card dt {
+  font-family:"IBM Plex Mono",monospace; font-size:9.5px; letter-spacing:.12em;
+  text-transform:uppercase; color:var(--ink-3); margin:0;
+}
+.card dd { margin:0; font-family:"IBM Plex Mono",monospace; font-size:13px; font-weight:500; }
+.card ol { margin:0 0 18px; padding:0 0 0 2px; list-style:none; counter-reset:c; font-size:13.5px; }
+.card ol li { counter-increment:c; padding:2px 0; }
+.card ol li::before {
+  content:counter(c,decimal-leading-zero); font-family:"IBM Plex Mono",monospace;
+  font-size:10.5px; color:var(--ink-3); margin-right:9px;
+}
+.card ol a { color:var(--ink-2); text-decoration:none; border-bottom:1px solid transparent; }
+.card ol a:hover { color:var(--accent); border-bottom-color:var(--accent); }
+.card .go {
+  margin-top:auto; align-self:flex-start; font-family:"IBM Plex Sans Condensed",sans-serif;
+  font-weight:600; font-size:14px; letter-spacing:.02em; text-decoration:none;
+  color:var(--surface); background:var(--accent); padding:8px 16px; border-radius:3px;
+}
+.card .go:hover { filter:brightness(1.08); }
+
+.dischead {
+  display:flex; align-items:baseline; gap:14px; flex-wrap:wrap;
+  border-bottom:2px solid var(--ink); padding:26px 0 12px; margin:0 0 8px;
+}
+.dischead h2 { margin:0; font-size:30px; letter-spacing:-.02em; }
+.dischead .dnum { font-family:"IBM Plex Mono",monospace; font-size:13px; color:var(--accent); }
+.backhome {
+  display:inline-block; margin:0 0 4px; font-size:13px; text-decoration:none; color:var(--ink-3);
+  font-family:"IBM Plex Mono",monospace; letter-spacing:.06em;
+}
+.backhome:hover { color:var(--accent); }
+@media (max-width:960px) { .hubgrid { grid-template-columns:1fr; } }
+@media print { .toc, .card .go, .backhome { display:none !important; }
+  .disc, .hub { display:block !important; } }
+</style>
+</head>
+<body>
+<a class="skip" href="#view-home">Skip to content</a>
+<div class="shell">
+<nav class="toc" aria-label="Contents"><p class="toctitle">Contents</p><a class="home" href="#" data-view="home">&#8962;&nbsp; Package home</a>
+<div class="tocgroup"><p>I &middot; Projection</p>
+<a href="projection-plot.html">Open projection plot &rarr;</a>
+</div>
+<div class="tocgroup"><p>II &middot; Lighting</p>
+<a href="#lx-premise" data-view="lx">01 The premise</a>
+<a href="#lx-house" data-view="lx">02 The house</a>
+<a href="#lx-conflict" data-view="lx">03 Where the two plots collide</a>
+<a href="#lx-systems" data-view="lx">04 The systems</a>
+<a href="#lx-rental" data-view="lx">05 What the fixture change bought</a>
+<a href="#lx-focus" data-view="lx">06 Focus &mdash; the four cuts that decide the show</a>
+<a href="#lx-colour" data-view="lx">07 Colour</a>
+<a href="#lx-cues" data-view="lx">08 Cue plan by system</a>
+<a href="#lx-process" data-view="lx">09 Order of process</a>
+<a href="#lx-checks" data-view="lx">10 Checklists</a>
+<a href="#lx-open" data-view="lx">11 Still open</a>
+<a href="#lx-assets" data-view="lx">12 Companion files</a>
+</div>
+<div class="tocgroup"><p>III &middot; Sound</p>
+<a href="#au-premise" data-view="au">01 The premise</a>
+<a href="#au-console" data-view="au">02 The console, and where it runs out</a>
+<a href="#au-patch" data-view="au">03 Input patch and routing</a>
+<a href="#au-outputs" data-view="au">04 Mixes, Matrices and outputs</a>
+<a href="#au-method" data-view="au">05 The mixing method</a>
+<a href="#au-conflict" data-view="au">06 Where audio collides with the other two plots</a>
+<a href="#au-rf" data-view="au">07 RF &mdash; three systems, one coordination</a>
+<a href="#au-showfile" data-view="au">08 Show file and scene plan</a>
+<a href="#au-process" data-view="au">09 Order of process</a>
+<a href="#au-checks" data-view="au">10 Checklists</a>
+<a href="#au-open" data-view="au">11 Still open</a>
+<a href="#au-assets" data-view="au">12 Companion files</a>
+</div></nav>
+<main class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">Corner Canyon High School Performing Arts</p>
+  <h1>Arendelle</h1>
+  <p class="deck">Technical Design Package &mdash; Disney's <em>Frozen</em></p>
+  <p class="standfirst">Three designs that constrain each other. Every scenic surface is a projection
+  screen, which decides how the stage is lit; the lighting rig and the loudspeakers then compete for
+  the same air above the deck. Projection, lighting and sound are documented here as one package
+  because that is the only way the conflicts show up before tech week.</p>
+  <dl class="titleblock">
+    <div><dt>Venue</dt><dd>Corner Canyon HS</dd></div>
+    <div><dt>Parts</dt><dd>3</dd></div>
+    <div><dt>Sections</dt><dd>40</dd></div>
+    <div><dt>Playback</dt><dd>QLab 5.6.3</dd></div>
+    <div><dt>Console</dt><dd>A&amp;H Avantis</dd></div>
+    <div><dt>Cyc</dt><dd>18.7 fL</dd></div>
+  </dl>
+</header>
+
+<div class="hub" id="view-home" data-title="Frozen &mdash; Technical Design Package">
+  <div class="hubgrid">
+      <article class="card">
+        <p class="cnum">PART I</p>
+        <h3>Projection</h3>
+        <p>Projection design, mapping and setup reference for Disney's Frozen at Corner Canyon High School &mdash; three projectors, nine mapped surfaces, one QLab workspace.</p>
+        <a class="go" href="projection-plot.html">Open projection &rarr;</a>
+      </article>
+
+      <article class="card">
+        <p class="cnum">PART II</p>
+        <h3>Lighting</h3>
+        <p>Seven systems built backwards from the projection: shuttered where it matters, weighted to back and side, and disciplined about a spill budget of 2,442 lumens.</p>
+        <dl><div><dt>Systems</dt><dd>7</dd></div><div><dt>Front key</dt><dd>catwalk &middot; 21.9&deg;</dd></div><div><dt>Spill budget</dt><dd>2,442 lm</dd></div></dl>
+        <ol><li><a href="#lx-premise">The premise</a></li><li><a href="#lx-house">The house</a></li><li><a href="#lx-conflict">Where the two plots collide</a></li><li><a href="#lx-systems">The systems</a></li><li><a href="#lx-rental">What the fixture change bought</a></li><li><a href="#lx-focus">Focus &mdash; the four cuts that decide the show</a></li><li><a href="#lx-colour">Colour</a></li><li><a href="#lx-cues">Cue plan by system</a></li><li><a href="#lx-process">Order of process</a></li><li><a href="#lx-checks">Checklists</a></li><li><a href="#lx-open">Still open</a></li><li><a href="#lx-assets">Companion files</a></li></ol>
+        <a class="go" href="#lx-premise">Open lighting &rarr;</a>
+      </article>
+
+      <article class="card">
+        <p class="cnum">PART III</p>
+        <h3>Sound</h3>
+        <p>Twenty-four radio mics on an Allen &amp; Heath Avantis with a GX4816 stagebox &mdash; five audio Groups under five DCAs, seven matrices, and a one-second scene crossfade.</p>
+        <dl><div><dt>Console</dt><dd>Avantis + GX4816</dd></div><div><dt>Inputs</dt><dd>34 of 64</dd></div><div><dt>Groups</dt><dd>5 &rarr; 5 DCAs</dd></div></dl>
+        <ol><li><a href="#au-premise">The premise</a></li><li><a href="#au-console">The console, and where it runs out</a></li><li><a href="#au-patch">Input patch and routing</a></li><li><a href="#au-outputs">Mixes, Matrices and outputs</a></li><li><a href="#au-method">The mixing method</a></li><li><a href="#au-conflict">Where audio collides with the other two plots</a></li><li><a href="#au-rf">RF &mdash; three systems, one coordination</a></li><li><a href="#au-showfile">Show file and scene plan</a></li><li><a href="#au-process">Order of process</a></li><li><a href="#au-checks">Checklists</a></li><li><a href="#au-open">Still open</a></li><li><a href="#au-assets">Companion files</a></li></ol>
+        <a class="go" href="#au-premise">Open sound &rarr;</a>
+      </article>
+  </div>
+</div>
+
+<div class="disc" id="view-lx" data-title="Lighting &mdash; Frozen Technical Design Package" hidden>
+  <a class="backhome" href="#">&larr; Package home</a>
+  <div class="dischead"><span class="dnum">PART II</span><h2>Lighting</h2></div>
+
+<section id="lx-premise">
+  <div class="sechead"><span class="secnum">01</span><h2>The premise</h2></div>
+  <div class="col">
+    <p>Every scenic surface in this production is a projection screen. The cyclorama, the four canvas
+    legs and the proscenium surround carry the entire visual world of the show, and they do it at
+    <strong>13 to 19 foot-lamberts</strong>. That is dim &mdash; dimmer than a single Source Four at
+    full, dimmer than one LED PAR from an eighteen-foot trim.</p>
+    <p>So this plot is built backwards from a conventional musical rig. The usual instinct is to fill
+    the stage with light and then find the picture. Here, <strong>light that lands anywhere it was
+    not aimed is the enemy of the design</strong>, because it does not merely look untidy &mdash; it
+    raises the black level of the projected image and flattens the contrast the whole show depends
+    on.</p>
+  </div>
+
+  <div class="note">
+    <span class="label">The number that governs everything</span>
+    <p>With two Epsons stacked the cyc averages <strong>18.7&nbsp;fL</strong>. Raise the whole
+    45.7&nbsp;&times;&nbsp;28.6&nbsp;ft image by ten percent and the picture visibly milks. Ten
+    percent of 18.7&nbsp;fL across that area is <strong>2,442 lumens</strong>.</p>
+    <p>That is your entire spill budget for the show. One Fuze Max Profile makes 21,000
+    lumens. <strong>Twelve percent of one rented fixture, landing where it should not, spends the
+    whole allowance.</strong></p>
+  </div>
+
+  <div class="col">
+    <p>Three consequences follow, and they shape every choice below.</p>
+    <p><strong>Shutters are not a nicety, they are the specification.</strong> A fixture that can be
+    cut is worth more here than a fixture that is brighter &mdash; which is exactly what the revised
+    rental delivers. Eight Elation Fuze Max Profiles bring <strong>four rotating framing blades</strong>
+    apiece, so for the first time in this plot every automated fixture can be cut off a projection
+    surface. That single change rewrites Sections 04 and 05.</p>
+    <p><strong>The rig lives low.</strong> Most systems will sit between 35% and 60% at their
+    brightest. Crews used to pushing faces up will find this uncomfortable for about a day, then
+    stop noticing.</p>
+    <p><strong>Geometry beats intensity control.</strong> The best answer to spill is a position
+    from which spill is physically impossible. Two of the systems below have that property, and they
+    are the ones to lean on.</p>
+  </div>
+</section>
+
+<section id="lx-house">
+  <div class="sechead"><span class="secnum">02</span><h2>The house</h2></div>
+  <div class="col">
+    <p>All depths are feet upstage of the plaster line, all heights above the stage deck. The
+    correction that the cyc sits at 30&prime; rather than 29.6&prime; puts the line sets on exact
+    one-foot centres, so <strong>line set <em>n</em> stands at <em>n</em> feet</strong> &mdash; which
+    makes every number below checkable with a tape.</p>
+  </div>
+
+  <div class="tablewrap">
+    <table>
+      <caption>Positions and what they see</caption>
+      <thead><tr><th>Position</th><th class="num">Distance</th><th class="num">Height</th><th class="num">Circuits</th><th>Angle at the acting areas</th></tr></thead>
+      <tbody>
+        <tr><td class="id">FOH CATWALK</td><td class="num">40 ft out</td><td class="num">25 ft</td><td class="num">1&ndash;44</td>
+          <td><strong>21.9&deg; down</strong> at +8&prime;. The best front position in the house.</td></tr>
+        <tr><td class="id">SPOT POSITIONS</td><td class="num">89 ft out</td><td class="num">30 ft</td><td class="num">&mdash;</td>
+          <td>18.9&deg; down at the stage lip. Flat, but aimed where flat does not matter.</td></tr>
+        <tr><td class="id">SIDE WALL BARS</td><td class="num">house walls</td><td class="num">15&ndash;20 ft</td><td class="num">45&ndash;56</td>
+          <td>Low side onto the lip and apron. Four circuits spare each side.</td></tr>
+        <tr><td class="id">ELECTRIC 1</td><td class="num">+3 ft</td><td class="num">18 ft trim</td><td class="num">57&ndash;88</td>
+          <td>Downstage of the first legs. Top light and downstage specials.</td></tr>
+        <tr><td class="id">ELECTRIC 2</td><td class="num">+8 ft</td><td class="num">18 ft trim</td><td class="num">89&ndash;120</td>
+          <td>Between the leg pairs. The main top wash.</td></tr>
+        <tr><td class="id">ELECTRIC 3</td><td class="num">+17 ft</td><td class="num">18 ft trim</td><td class="num">121&ndash;152</td>
+          <td>Upstage. Clears the projector beam by <strong>4.75&prime;</strong> now the Epsons hang at 27.84&prime; &mdash; still do not trim it above 22&prime;.</td></tr>
+        <tr><td class="id">ELECTRIC 4</td><td class="num">+21 ft</td><td class="num">&mdash;</td><td class="num">153&ndash;168</td>
+          <td><span class="pill low">out</span> Inside the projector beam. Flies out for the run.</td></tr>
+        <tr><td class="id">DECK, WINGS</td><td class="num">+3 ft</td><td class="num">floor</td><td class="num">&mdash;</td>
+          <td>&plusmn;23&prime;, behind the portal side bands. Aerial beams over the house.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  
+  <figure>
+    <div class="figbox">
+      <svg viewBox="0 104 810 288" role="img" aria-label="Side section of Corner Canyon Theatre showing the followspot positions, FOH catwalk, three electrics, the stacked Epsons and the projector beam envelope."><path d="M650.4 144.1 L740.0 136.1 L740.0 296.1 Z" fill="var(--aurora)" opacity=".17"/><path d="M348.0 160.0 L696.9 300.0 L566.4 300.0 Z" fill="var(--accent)" opacity=".13"/><path d="M73.6 132.0 L587.1 300.0 L510.4 319.6 Z" fill="var(--good)" opacity=".16"/><line x1="40.0" y1="319.6" x2="532.8" y2="319.6" stroke="var(--ink-3)" stroke-width="2"/><path d="M532.8 319.6 V300.0 H762.4" fill="none" stroke="var(--ink)" stroke-width="2.5"/><text x="264.0" y="335.6" text-anchor="middle" class="svg-label sm">HOUSE FLOOR</text><text x="684.0" y="316.0" text-anchor="middle" class="svg-label sm">STAGE DECK</text><rect x="570.0" y="134.8" width="4" height="165.2" fill="var(--ink)" opacity=".85"/><text x="572.0" y="127.8" text-anchor="middle" class="svg-label sm">PORTAL</text><rect x="603.6" y="160.0" width="4" height="140.0" fill="var(--aurora)" opacity=".85"/><text x="605.6" y="153.0" text-anchor="middle" class="svg-label sm">LEG 1</text><rect x="637.2" y="160.0" width="4" height="140.0" fill="var(--aurora)" opacity=".85"/><text x="639.2" y="190.0" text-anchor="middle" class="svg-label sm">LEG 2</text><rect x="738.0" y="132.0" width="4" height="168.0" fill="var(--accent)" opacity=".85"/><text x="740.0" y="125.0" text-anchor="middle" class="svg-label sm">CYC</text><circle cx="588.8" cy="199.2" r="4.5" fill="var(--surface)" stroke="var(--warn)" stroke-width="2"/><text x="588.8" y="190.2" text-anchor="middle" class="svg-label sm" style="fill:var(--warn)">E1</text><circle cx="616.8" cy="199.2" r="4.5" fill="var(--surface)" stroke="var(--warn)" stroke-width="2"/><text x="616.8" y="190.2" text-anchor="middle" class="svg-label sm" style="fill:var(--warn)">E2</text><circle cx="667.2" cy="199.2" r="4.5" fill="var(--surface)" stroke="var(--warn)" stroke-width="2"/><text x="667.2" y="190.2" text-anchor="middle" class="svg-label sm" style="fill:var(--warn)">E3</text><line x1="555.2" y1="199.2" x2="689.6" y2="199.2" stroke="var(--warn)" stroke-width="1" stroke-dasharray="4 4" opacity=".8"/><text x="552.4" y="203.2" text-anchor="end" class="svg-label sm" style="fill:var(--warn)">ELEC TRIM 18&prime;</text><line x1="631.4" y1="199.2" x2="631.4" y2="144.1" stroke="var(--ink-3)" stroke-width="1"/><line x1="626.4" y1="199.2" x2="636.4" y2="199.2" stroke="var(--ink-3)"/><line x1="626.4" y1="144.1" x2="636.4" y2="144.1" stroke="var(--ink-3)"/><text x="623.4" y="175.6" text-anchor="end" class="svg-label sm">9.8&prime;</text><rect x="641.4" y="138.1" width="18" height="11" rx="2" fill="var(--surface)" stroke="var(--aurora)" stroke-width="2"/><text x="650.4" y="133.1" text-anchor="middle" class="svg-label sm" style="fill:var(--aurora);font-weight:600">EPSON &times;2</text><text x="663.4" y="148.1" text-anchor="start" class="svg-label sm" style="fill:var(--aurora)">trim 27.84&prime;</text><rect x="338.0" y="154.0" width="20" height="12" rx="2" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/><text x="348.0" y="149.0" text-anchor="middle" class="svg-label hi">CATWALK</text><text x="348.0" y="180.0" text-anchor="middle" class="svg-label sm">40&prime; &middot; 25&prime; up</text><rect x="69.6" y="126.0" width="20" height="12" rx="2" fill="var(--surface)" stroke="var(--good)" stroke-width="2"/><text x="79.6" y="121.0" text-anchor="middle" class="svg-label" style="fill:var(--good);font-weight:600">SPOT POSNS</text><text x="79.6" y="152.0" text-anchor="middle" class="svg-label sm">89&prime; &middot; 30&prime; up</text><path d="M588.8 288.8 l-8 -9" stroke="var(--warn)" stroke-width="2.5"/><circle cx="588.8" cy="294.4" r="4" fill="var(--warn)"/><text x="596.8" y="255.2" text-anchor="start" class="svg-label sm" style="fill:var(--warn)">deck beams &times;4</text><line x1="527.2" y1="319.6" x2="527.2" y2="287.4" stroke="var(--good)" stroke-width="3"/><text x="527.2" y="280.4" text-anchor="middle" class="svg-label sm" style="fill:var(--good)">lip actors</text><line x1="73.6" y1="352.0" x2="740.0" y2="352.0" stroke="var(--ink-3)"/><line x1="73.6" y1="347.0" x2="73.6" y2="357.0" stroke="var(--ink-3)"/><text x="73.6" y="370.0" text-anchor="middle" class="svg-label sm">89&prime;</text><line x1="348.0" y1="347.0" x2="348.0" y2="357.0" stroke="var(--ink-3)"/><text x="348.0" y="370.0" text-anchor="middle" class="svg-label sm">40&prime;</text><line x1="572.0" y1="347.0" x2="572.0" y2="357.0" stroke="var(--ink-3)"/><text x="572.0" y="370.0" text-anchor="middle" class="svg-label sm">0</text><line x1="740.0" y1="347.0" x2="740.0" y2="357.0" stroke="var(--ink-3)"/><text x="740.0" y="370.0" text-anchor="middle" class="svg-label sm">30&prime;</text></svg>
+    </div>
+    <figcaption>Side section, to scale. Note the vertical relationship: the Epsons hang at 27.84&prime;, <strong>9.8&prime; above the 18&prime; electric trim</strong>. An ultra-short lens sits near the top of its own picture, so it has to be above everything it clears &mdash; the beam then falls away downstage-to-upstage and passes over Electric 3 with 4.75&prime; to spare. The violet wedge is that beam &mdash; nothing may hang inside it, which is why Electric 4 flies out. The blue wedge is the catwalk front wash, top-cut so it dies on the deck at +22&prime; rather than climbing the cyc. The green wedge is the lip wash from the followspot positions: cut at 7&prime; above the house floor it is stopped by the apron at +2.7&prime;, downstage of the first legs, so it can never reach a screen.</figcaption>
+  </figure>
+  
+  <figure>
+    <div class="figbox">
+      <svg viewBox="0 26 700 306" role="img" aria-label="Plan view showing the cyclorama, four leg panels, three electrics, the deck beam units and the five acting areas."><path d="M158.0 46.0 L542.0 46.0 L360.0 148.4 L340.0 148.4 Z" fill="var(--aurora)" opacity=".13"/><text x="350" y="91" text-anchor="middle" class="svg-label sm" style="fill:var(--aurora)">KEEP CLEAR &mdash; projector beam</text><circle cx="182.0" cy="186.8" r="17" fill="var(--surface)" stroke="var(--ink-3)" stroke-width="1" stroke-dasharray="3 3" opacity=".9"/><text x="182.0" y="190.8" text-anchor="middle" class="svg-label sm">1</text><circle cx="266.0" cy="186.8" r="17" fill="var(--surface)" stroke="var(--ink-3)" stroke-width="1" stroke-dasharray="3 3" opacity=".9"/><text x="266.0" y="190.8" text-anchor="middle" class="svg-label sm">2</text><circle cx="350.0" cy="186.8" r="17" fill="var(--surface)" stroke="var(--ink-3)" stroke-width="1" stroke-dasharray="3 3" opacity=".9"/><text x="350.0" y="190.8" text-anchor="middle" class="svg-label sm">3</text><circle cx="434.0" cy="186.8" r="17" fill="var(--surface)" stroke="var(--ink-3)" stroke-width="1" stroke-dasharray="3 3" opacity=".9"/><text x="434.0" y="190.8" text-anchor="middle" class="svg-label sm">4</text><circle cx="518.0" cy="186.8" r="17" fill="var(--surface)" stroke="var(--ink-3)" stroke-width="1" stroke-dasharray="3 3" opacity=".9"/><text x="518.0" y="190.8" text-anchor="middle" class="svg-label sm">5</text><rect x="140.0" y="40.0" width="420.0" height="6" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.5"/><text x="350" y="35" text-anchor="middle" class="svg-label hi">CYC 50&prime; &middot; line set 30</text><line x1="123.2" y1="218.8" x2="576.8" y2="218.8" stroke="var(--warn)" stroke-width="2.5"/><text x="110.6" y="222.8" text-anchor="end" class="svg-label sm" style="fill:var(--warn)">ELEC 1</text><text x="589.4" y="222.8" text-anchor="start" class="svg-label sm" style="fill:var(--warn)">+3&prime;</text><line x1="123.2" y1="186.8" x2="576.8" y2="186.8" stroke="var(--warn)" stroke-width="2.5"/><text x="110.6" y="190.8" text-anchor="end" class="svg-label sm" style="fill:var(--warn)">ELEC 2</text><text x="589.4" y="190.8" text-anchor="start" class="svg-label sm" style="fill:var(--warn)">+8&prime;</text><line x1="123.2" y1="129.2" x2="576.8" y2="129.2" stroke="var(--warn)" stroke-width="2.5"/><text x="110.6" y="133.2" text-anchor="end" class="svg-label sm" style="fill:var(--warn)">ELEC 3</text><text x="589.4" y="133.2" text-anchor="start" class="svg-label sm" style="fill:var(--warn)">+17&prime;</text><rect x="334.0" y="143.4" width="32" height="10" rx="2" fill="var(--surface)" stroke="var(--aurora)" stroke-width="2"/><text x="350" y="139" text-anchor="middle" class="svg-label sm" style="fill:var(--aurora);font-weight:600">EPSON &times;2 &middot; set 14</text><rect x="131.6" y="195.6" width="42.0" height="8" fill="var(--aurora-soft)" stroke="var(--aurora)" stroke-width="1.4"/><rect x="526.4" y="195.6" width="42.0" height="8" fill="var(--aurora-soft)" stroke="var(--aurora)" stroke-width="1.4"/><rect x="178.7" y="157.2" width="42.0" height="8" fill="var(--aurora-soft)" stroke="var(--aurora)" stroke-width="1.4"/><rect x="479.3" y="157.2" width="42.0" height="8" fill="var(--aurora-soft)" stroke="var(--aurora)" stroke-width="1.4"/><line x1="89.6" y1="238.0" x2="140.0" y2="238.0" stroke="var(--ink)" stroke-width="5"/><line x1="560.0" y1="238.0" x2="610.4" y2="238.0" stroke="var(--ink)" stroke-width="5"/><line x1="140.0" y1="238.0" x2="560.0" y2="238.0" stroke="var(--ink)" stroke-width="1.2" stroke-dasharray="4 4"/><text x="72.8" y="242.0" text-anchor="end" class="svg-label sm">PLASTER 0</text><line x1="140.0" y1="282.8" x2="560.0" y2="282.8" stroke="var(--ink)" stroke-width="2"/><text x="350" y="298" text-anchor="middle" class="svg-label sm">STAGE LIP &minus;7&prime;</text><circle cx="156.8" cy="213.7" r="4" fill="var(--warn)"/><circle cx="156.8" cy="230.3" r="4" fill="var(--warn)"/><circle cx="543.2" cy="213.7" r="4" fill="var(--warn)"/><circle cx="543.2" cy="230.3" r="4" fill="var(--warn)"/><text x="156.8" y="240.8" text-anchor="middle" class="svg-label sm" style="fill:var(--warn)">2 beams</text><text x="543.2" y="240.8" text-anchor="middle" class="svg-label sm" style="fill:var(--warn)">2 beams</text><text x="350" y="313" text-anchor="middle" class="svg-label sm">five acting areas on 10&prime; centres at +8&prime;, keyed from the catwalk at 19&deg;</text></svg>
+    </div>
+    <figcaption>Plan. Five acting areas on 10&prime; centres at +8&prime;, each keyed from the catwalk at 19&deg;. The four deck beam units sit at &plusmn;23&prime;, three feet upstage of plaster &mdash; downstage of the first legs so nothing blocks them, and behind the 6&prime; portal side bands so the bodies are masked from most of the house.</figcaption>
+  </figure>
+</section>
+
+<section id="lx-conflict">
+  <div class="sechead"><span class="secnum">03</span><h2>Where the two plots collide</h2></div>
+  <div class="col">
+    <p>The stacked Epsons on line set 14 throw upstage and down to the cyc at 30&prime;. That cone is
+    a solid object as far as this plot is concerned. Anything inside it prints a hard shadow across
+    the surface carrying every pale image in the show.</p>
+  </div>
+
+  <div class="tablewrap">
+    <table>
+      <caption>Projector beam envelope &mdash; nothing may occupy these volumes</caption>
+      <thead><tr><th>Line set</th><th class="num">Depth</th><th class="num">Beam occupies</th><th class="num">Half-width</th><th>Verdict</th></tr></thead>
+      <tbody>
+        <tr><td class="id">17 &mdash; Electric 3</td><td class="num">17 ft</td><td class="num">22.8 &ndash; 28.1 ft</td><td class="num">&plusmn;4.3 ft</td>
+          <td><span class="pill good">clear</span> An 18&prime; trim passes 4.75&prime; underneath.</td></tr>
+        <tr><td class="id">19 &mdash; Leg 3</td><td class="num">19 ft</td><td class="num">19.4 &ndash; 28.2 ft</td><td class="num">&plusmn;7.1 ft</td>
+          <td><span class="pill low">out</span> Fly it.</td></tr>
+        <tr><td class="id">21 &mdash; Electric 4</td><td class="num">21 ft</td><td class="num">16.0 &ndash; 28.5 ft</td><td class="num">&plusmn;10.0 ft</td>
+          <td><span class="pill low">out</span> A normal trim sits squarely inside.</td></tr>
+        <tr><td class="id">25 &mdash; Border 4</td><td class="num">25 ft</td><td class="num">9.1 &ndash; 28.7 ft</td><td class="num">&plusmn;15.7 ft</td>
+          <td><span class="pill low">out</span> Fly it.</td></tr>
+        <tr><td class="id">27 &mdash; Back traveler</td><td class="num">27 ft</td><td class="num">5.7 &ndash; 28.8 ft</td><td class="num">&plusmn;18.5 ft</td>
+          <td><span class="pill low">out</span> Fly it.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="col">
+    <p>Clearing line sets 14 through 29 of soft goods and scenery, and flying Electric 4 for the run,
+    resolves all of it. <strong>Put that on the run sheet as a standing note</strong>, because the
+    first person to fly something in to that empty space during a scene change will not understand
+    why the cyc suddenly has a stripe down it.</p>
+  </div>
+</section>
+
+<section id="lx-systems">
+  <div class="sechead"><span class="secnum">04</span><h2>The systems</h2></div>
+  <div class="col">
+    <p>Seven systems, each with one job. The discipline that makes this rig work is that no system
+    does two jobs, because the moment a wash is asked to be a special it stops being cuttable.</p>
+  </div>
+
+  <div class="tablewrap">
+    <table>
+      <caption>System assignment</caption>
+      <thead><tr><th>System</th><th>Fixtures</th><th class="num">Position</th><th>Job</th></tr></thead>
+      <tbody>
+        <tr><td class="id">A &mdash; LIP WASH</td><td>8 &times; Prolights EclipseFS RGBL</td><td class="num">spot positions, 4/side</td>
+          <td>The actors standing on the house floor across the front. Four areas, keyed from both sides.</td></tr>
+        <tr><td class="id">B &mdash; FRONT KEY</td><td>20 &times; ETC Source Four 750W</td><td class="num">FOH catwalk</td>
+          <td>Five acting areas from two angles, plus apron blend. The primary stage wash.</td></tr>
+        <tr><td class="id">C &mdash; TOP WASH</td><td>10 &times; Ovation P-56FC, wide</td><td class="num">Electrics 2 and 3</td>
+          <td>Colour from above. Sculpts the stage without touching a face.</td></tr>
+        <tr><td class="id">D &mdash; FOH COLOUR</td><td>5 &times; Rogue R2X Wash</td><td class="num">FOH catwalk</td>
+          <td>The temperature of the show &mdash; winter to summer &mdash; from the front.</td></tr>
+        <tr><td class="id">E &mdash; AUTOMATED FRAMED</td><td>4 &times; Vari-Lite VL1100 TSD</td><td class="num">FOH catwalk</td>
+          <td>Moving specials that can be <em>cut</em>. Elsa, Anna, the Act I button.</td></tr>
+        <tr><td class="id">F &mdash; AUTOMATED PROFILE</td><td>8 &times; Elation Fuze Max Profile</td><td class="num">4 deck &middot; 2 Electric 3 &middot; 2 catwalk</td>
+          <td>Framed specials, gobo texture and aerials. Cuttable, so no longer restricted to air.</td></tr>
+        <tr><td class="id">G &mdash; SIDE / TEXTURE</td><td>3 &times; R2X &middot; 2 &times; P-56FC</td><td class="num">Electric 1, side bars</td>
+          <td>Side light on the lip and apron, downstage colour.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>A &mdash; the lip wash, and why it is the safest system in the rig</h3>
+  <div class="col">
+    <p>Your actors stand on the house floor, three and a half feet below the deck, across the front of
+    the stage. Nothing else in the house can light them, so all eight EclipseFS commit here: four per
+    side from the followspot positions, 18.9&deg; down over an 85.6&prime; throw. With the 14&deg; tube
+    that is a 21&prime; pool at <strong>13.3&nbsp;fL</strong> &mdash; two units on an area gives
+    26.6&nbsp;fL, which works but has less headroom than the fixture it replaces.</p>
+    <p>Here is the thing worth understanding, because it is a gift. <strong>The stage deck is the
+    shutter.</strong> A beam aimed at someone standing below the lip is travelling downward; if you
+    cut its top edge at roughly seven feet above the house floor, the beam strikes the apron at
+    <strong>+2.7&prime;</strong> &mdash; downstage of the first legs, and nowhere near the cyc. The
+    apron face and the deck block it before it can reach a single projection surface.</p>
+  </div>
+
+  <div class="note caution">
+    <span class="label">The tolerance is two and a half feet</span>
+    <p>Cut the top edge at 7&prime; above the house floor and the beam dies at +2.7&prime; on the
+    apron. Let it drift to 9.5&prime; and the same beam reaches <strong>+12.25&prime;</strong>
+    &mdash; past both leg pairs, straight onto the canvas. A focus call that is two feet sloppy is the
+    difference between a clean system and a washed-out set.</p>
+  </div>
+
+  <div class="note">
+    <span class="label">Consider 10&deg; tubes instead of 14&deg;</span>
+    <p>The EclipseFS is a 200&nbsp;W fixture making 4,619&nbsp;lm at 14&deg;, against the 7,500 the
+    R&ecirc;ve E-3 put out. The lip is a strip six or eight feet deep, and a 21&prime; pool wastes most
+    of its height on the seat backs and the stage face.</p>
+    <p>Swap to the <strong>10&deg; lens tube</strong> and the pool tightens to about 15&prime; while the
+    output barely falls &mdash; roughly <strong>23&nbsp;fL per unit, 47&nbsp;fL on a doubled area</strong>,
+    close to double what the 14&deg; gives. Four units per side at 13&prime; centres still cover a
+    55&prime; strip. The 14&deg; figure is from the manufacturer; the 10&deg; is extrapolated from their
+    published 14/19/26&deg; outputs, so <strong>borrow one tube and meter it</strong> before buying eight.</p>
+    <p>One thing you lose either way: CRI drops from 95.4 to about 85, and TLCI to 82. Faces will read
+    slightly less true than the previous fixture, which matters most if you stream or record.</p>
+  </div>
+
+  <h3>B &mdash; the front key, and why it moved to the catwalk</h3>
+  <div class="col">
+    <p>The catwalk at 40&prime; and 25&prime; up gives <strong>21.9&deg;</strong> at mid-stage against
+    the spot positions&rsquo; 13.8&deg;. Steeper front light means less of it carries past the actors
+    onto the cyc, which is the entire game. Five acting areas on 10&prime; centres at +8&prime;, each
+    from two 19&deg; Source Fours &mdash; 17.3&prime; pools, generous overlap, and every unit has a
+    shutter barrel.</p>
+    <p>Use the 36&deg; units for the apron and the downstage blend, where the throw shortens and a
+    19&deg; would scallop.</p>
+    <p><strong>Top-cut every unit to 10&prime; at its area centre.</strong> That holds catwalk spill
+    below 3.1&prime; on the cyc &mdash; inside the band the projection design already reserves as its
+    darkest. Leave them uncut and the same wash climbs to 14&prime;, which is the middle of the ice
+    palace.</p>
+  </div>
+
+  <h3>C &mdash; top wash</h3>
+  <div class="col">
+    <p>Five P-56FC on Electric 2, five on Electric 3, <strong>wide lens</strong> (103.7&deg; field).
+    At a 12.2&prime; drop that is a 31&prime; pool &mdash; at 10&prime; centres they blend into a true
+    blanket rather than five discs. About 33&nbsp;fc, which is still above the projection, so they run
+    low.</p>
+    <p><strong>Order ten 7.5&Prime; beam shapers.</strong> A PAR has no shutters; barn doors are the
+    only thing standing between Electric 3 and your cyc. And the Electric 3 units aim <em>straight
+    down or slightly downstage</em> &mdash; never upstage, or you are lighting the screen directly.</p>
+  </div>
+
+  <h3>E &mdash; the four fixtures that earn their keep</h3>
+  <div class="col">
+    <p>The VL1100 TSD is an automated ellipsoidal with <strong>framing shutters</strong>, a 1000W
+    tungsten lamp and an IGBT dimmer. In this show that combination is unique: it is the only mover
+    in the building that can be cut off a projection surface, it is 3200K so it sits beside the Source
+    Fours without a colour argument, and being tungsten it dims to a true zero in silence.</p>
+    <p>Do not spend them on colour washes &mdash; the R2X units do that better. Spend them on the
+    moments where one person has to be isolated against a full-stage image: Elsa alone at the top of
+    <em>Let It Go</em>, Anna freezing, the Act I curtain.</p>
+  </div>
+
+  <h3>F &mdash; the eight Fuze Max Profiles</h3>
+  <div class="col">
+    <p>This is the change that improves the plot most. The Fuze Max Profile is an <strong>800&nbsp;W
+    RGBMA LED</strong> making 21,000 lumens at CRI 92, tunable 2400&ndash;8500&nbsp;K, zooming
+    7&ndash;53&deg;, with <strong>four rotating framing blades indexed &plusmn;60&deg;</strong>, gobos
+    and an animation wheel.</p>
+    <p>Every restriction the previous rental carried is gone. It can be cut, so it can point at a leg.
+    Its colour matches the tungsten side of the rig, so it can join the front light. It is LED, so it
+    dims to zero and does not run a lamp fan through the quiet numbers. The rotating blades matter more
+    than they sound: a straight shutter cannot follow the raked edge of a leg panel, and these can.</p>
+    <p>It is dimmer than the hybrid it replaces &mdash; roughly 143&nbsp;fL against 211 at a 20&deg;
+    beam from 30&prime; &mdash; and it is <strong>heavier at 76.3&nbsp;lb</strong>. Neither matters
+    much: you were never going to run these at full in this show, and the weight is a rigging note
+    rather than a design one.</p>
+  </div>
+
+  <div class="tablewrap">
+    <table>
+      <caption>Where the eight go</caption>
+      <thead><tr><th class="num">Qty</th><th>Position</th><th>Job</th></tr></thead>
+      <tbody>
+        <tr><td class="num">4</td><td>Deck, &plusmn;23&prime; at +3&prime;</td>
+          <td>Aerial beams out over the house at 40&deg;. Still the signature <em>Let It Go</em> effect, and still puts nothing on a screen because it aims away from every one.</td></tr>
+        <tr><td class="num">2</td><td>Electric 3</td>
+          <td>Backlight and upstage texture. <strong>Now framed</strong>, so they can be cut off the cyc and used on the deck rather than kept strictly in the air.</td></tr>
+        <tr><td class="num">2</td><td>FOH catwalk</td>
+          <td>Colour-mixing framed specials &mdash; the one thing the four VL1100 TSDs cannot do. Between them you now have six automated framed units at FOH.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="col"><strong>Check Electric 3&rsquo;s load before you hang.</strong> Two Fuze Max at
+  76.3&nbsp;lb is 153&nbsp;lb, plus five P-56FCs and the Source Fours on the same pipe. Re-weight the
+  arbor, and confirm the batten rating rather than assuming.</p>
+</section>
+
+<section id="lx-rental">
+  <div class="sechead"><span class="secnum">05</span><h2>What the fixture change bought</h2></div>
+  <div class="col">
+    <p>The rental moved from nine shutterless discharge hybrids to eight LED framing profiles, and the
+    lip wash from Ovation R&ecirc;ve E-3 to Prolights EclipseFS. The first is a straight upgrade for
+    this show. The second is a trade.</p>
+  </div>
+
+  <div class="tablewrap">
+    <table>
+      <caption>Automated fixtures &mdash; what changed</caption>
+      <thead><tr><th>Property</th><th class="num">Storm 1 Hybrid <span class="dim">was</span></th><th class="num">Fuze Max Profile <span class="dim">now</span></th><th>Consequence here</th></tr></thead>
+      <tbody>
+        <tr><td>Framing shutters</td><td class="num">none</td><td class="num"><strong>4, rotating &plusmn;60&deg;</strong></td>
+          <td><span class="pill good">decisive</span> Can be cut off legs, portal and cyc</td></tr>
+        <tr><td>Source</td><td class="num">420 W discharge</td><td class="num">800 W RGBMA LED</td>
+          <td>Dims to zero; no restrike delay; no lamp fan through quiet scenes</td></tr>
+        <tr><td>Output</td><td class="num">30,978 lm</td><td class="num">21,000 lm</td>
+          <td>Less punch, but 12% of one fixture still spends the whole spill budget</td></tr>
+        <tr><td>Colour</td><td class="num">6,995 K &middot; CRI 80.6</td><td class="num">2400&ndash;8500 K &middot; CRI 92</td>
+          <td><span class="pill good">joins the rig</span> Can now sit beside the Source Fours on a face</td></tr>
+        <tr><td>Zoom</td><td class="num">1.3&ndash;40.8&deg;</td><td class="num">7&ndash;53&deg;</td>
+          <td>Loses the tight beam, gains a usable wide</td></tr>
+        <tr><td>Weight</td><td class="num">64.4 lb</td><td class="num">76.3 lb</td>
+          <td>Heavier &mdash; check Electric 3</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="tablewrap">
+    <table>
+      <caption>Lip wash &mdash; what changed</caption>
+      <thead><tr><th>Property</th><th class="num">Ovation R&ecirc;ve E-3 <span class="dim">was</span></th><th class="num">EclipseFS RGBL <span class="dim">now</span></th><th>Consequence here</th></tr></thead>
+      <tbody>
+        <tr><td>Output at 14&deg;</td><td class="num">~7,500 lm</td><td class="num">4,619 lm</td>
+          <td><span class="pill mid">watch this</span> 13.3 fL per unit instead of 21.6</td></tr>
+        <tr><td>CRI / TLCI</td><td class="num">95.4 / &mdash;</td><td class="num">85&ndash;86 / 82</td>
+          <td>Faces read less true, and noticeably so on camera</td></tr>
+        <tr><td>Colour system</td><td class="num">RGB + royal + amber + mint</td><td class="num">RGB + lime</td>
+          <td>Fewer emitters, so less subtle in the pale tints this show lives in</td></tr>
+        <tr><td>Draw / weight</td><td class="num">367 W &middot; 18.6 lb</td><td class="num">200 W &middot; 16.1 lb</td>
+          <td><span class="pill good">easier</span> Half the power at the spot positions</td></tr>
+        <tr><td>Lens tubes</td><td class="num">5&ndash;50&deg; + zooms</td><td class="num">5&ndash;70&deg; + zooms</td>
+          <td>The 10&deg; option above is the way to buy the brightness back</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note">
+    <span class="label">Net effect on the plot</span>
+    <p><strong>Better where it counts.</strong> The document previously argued that shutters were the
+    specification and that nine uncuttable fixtures was the wrong order. That argument is settled: you
+    now have eight automated units that can be cut, and they can be used anywhere rather than confined
+    to the air.</p>
+    <p><strong>Thinner on the lip.</strong> The EclipseFS is a smaller fixture doing the same job with
+    less light and lower colour rendering. Test the 10&deg; tube before you commit to eight of them,
+    and if the budget allows a mixed order, put the higher-CRI fixture on the principals&rsquo; side of
+    the lip.</p>
+  </div>
+</section>
+
+<section id="lx-focus">
+  <div class="sechead"><span class="secnum">06</span><h2>Focus &mdash; the four cuts that decide the show</h2></div>
+  <div class="col">
+    <p>Most of this plot is ordinary work. Four numbers are not, and if they are wrong the projection
+    design fails no matter how good the content is. Walk these with a meter and a tape, at trim, before
+    anyone starts writing cues.</p>
+  </div>
+
+  <div class="tablewrap">
+    <table>
+      <caption>The cuts</caption>
+      <thead><tr><th>#</th><th>System</th><th class="num">Cut</th><th class="num">Result</th><th class="num">If wrong</th></tr></thead>
+      <tbody>
+        <tr><td class="id">1</td><td>Lip wash &mdash; top shutter</td><td class="num">7 ft above house floor</td>
+          <td class="num">beam dies at +2.7&prime;</td><td class="num">9.5&prime; &rarr; reaches +12.25&prime;, onto the legs</td></tr>
+        <tr><td class="id">2</td><td>Catwalk key &mdash; top shutter</td><td class="num">10 ft at area centre</td>
+          <td class="num">spill below 3.1&prime; on the cyc</td><td class="num">uncut &rarr; 14&prime;, mid-picture</td></tr>
+        <tr><td class="id">3</td><td>Electric 3 top wash &mdash; barn doors</td><td class="num">straight down, upstage flap closed</td>
+          <td class="num">nothing on the cyc</td><td class="num">any upstage tilt lights the screen directly</td></tr>
+        <tr><td class="id">4</td><td>Electric 3 trim</td><td class="num">18 ft, not higher</td>
+          <td class="num">clears the beam by 2.4&prime;</td><td class="num">above 20.4&prime; &rarr; shadow across the cyc</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note caution">
+    <span class="label">Check it the only way that works</span>
+    <p>Put the cyc alignment grid up from the projection pack, bring each lighting system to full one
+    at a time, and <strong>look at the cyc, not at the stage</strong>. Anything that lifts the grid&rsquo;s
+    black squares is spending your spill budget. A meter at five heights on the cyc, systems off then
+    on, gives you the number rather than an opinion.</p>
+  </div>
+</section>
+
+<section id="lx-colour">
+  <div class="sechead"><span class="secnum">07</span><h2>Colour</h2></div>
+  <div class="col">
+    <p>The projection carries the colour of the world. The lighting carries the colour of the
+    <em>people</em>, and the two must not both try to tell the audience it is winter or the picture
+    turns to mud.</p>
+    <p><strong>Keep the front light close to white.</strong> The EclipseFS and the R2X are both
+    tunable; run the front systems between 3000&nbsp;K and 3400&nbsp;K for the warm world and drift to
+    around 5000&nbsp;K for the frozen one. That is a temperature shift, not a colour wash, and it lets
+    the projected image supply the saturation.</p>
+    <p><strong>Put the saturation overhead.</strong> The P-56FC top wash is where deep ice blue,
+    aurora green and the finale&rsquo;s warm gold belong &mdash; on shoulders and the deck, not on
+    faces, and never bounced back into the screens.</p>
+    <p><strong>Gel the Source Fours conservatively.</strong> They are your only fixed-colour system.
+    A light correction and a light frost is usually enough; the tunable systems do the moving.</p>
+  </div>
+</section>
+
+<section id="lx-cues">
+  <div class="sechead"><span class="secnum">08</span><h2>Cue plan by system</h2></div>
+  <div class="col">
+    <p>A starting allocation. The recurring discipline: <strong>when the projection is doing the
+    work, the rig gets out of the way</strong> &mdash; and the numbers where the rig takes over are the
+    ones where the projected image should simplify to a field of colour.</p>
+  </div>
+
+  <div class="tablewrap">
+    <table>
+      <caption>Frozen &mdash; system by moment</caption>
+      <thead><tr><th>Moment</th><th class="num">Lead</th><th>Lighting</th><th class="num">Haze</th></tr></thead>
+      <tbody>
+        <tr><td class="id">Vuelie / prologue</td><td class="num">projection</td>
+          <td>Lip wash low, top wash deep blue, everything else out. Let the cyc be the show.</td><td class="num">none</td></tr>
+        <tr><td class="id">Do You Want to Build a Snowman</td><td class="num">lighting</td>
+          <td>VL1100 special on Anna at each door. Front key at 35%. Projection simplifies to a held interior.</td><td class="num">none</td></tr>
+        <tr><td class="id">For the First Time in Forever</td><td class="num">shared</td>
+          <td>Full front key, R2X warm, top wash gold. The brightest the stage gets in Act I.</td><td class="num">light</td></tr>
+        <tr><td class="id">The freeze</td><td class="num">projection</td>
+          <td>Front key snaps to 5000&nbsp;K and drops 20%. Top wash to hard ice. Nothing warm survives.</td><td class="num">light</td></tr>
+        <tr><td class="id">Let It Go</td><td class="num">both</td>
+          <td>VL1100 isolation to open. Deck Fuze Max build with the palace. The Electric 3 pair silhouette on the final chorus &mdash; framed off the cyc.</td><td class="num">full</td></tr>
+        <tr><td class="id">Fixer Upper</td><td class="num">lighting</td>
+          <td>Top wash saturated, gobo texture from the rented profiles, deck beams on the button.</td><td class="num">medium</td></tr>
+        <tr><td class="id">Finale</td><td class="num">shared</td>
+          <td>Everything to 3200&nbsp;K, top wash to summer green and gold, lip wash full for the company line.</td><td class="num">light</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note caution">
+    <span class="label">Haze fights the projection</span>
+    <p>Haze is what makes the beams read, and it is also what scatters the projectors&rsquo; own light
+    and lifts the black level of every image in the show. <strong>Run it in timed bursts for the
+    numbers that need beams, never as a continuous bed.</strong> Build it two cues before the beam
+    moment and let it fall out afterward. The scenes in between are the ones where the projection is
+    carrying the design, and they need clean air.</p>
+  </div>
+</section>
+
+<section id="lx-process">
+  <div class="sechead"><span class="secnum">09</span><h2>Order of process</h2></div>
+  <ol class="steps">
+    <li><strong>Confirm the flys.</strong> Electric 4 out. Line sets 14&ndash;29 cleared of soft goods
+    and scenery, and marked on the run sheet as staying clear. This is the single prerequisite for
+    everything else.</li>
+    <li><strong>Hang the projection first.</strong> The two Epsons on line set 14 dictate a trim the
+    lighting has to work around, not the other way round. Converge them before a single lighting
+    fixture is focused.</li>
+    <li><strong>Trim Electric 3 at 18&prime; and prove it.</strong> Project the cyc alignment grid,
+    look for the pipe&rsquo;s shadow. Two and a half feet of margin is not much.</li>
+    <li><strong>Hang and circuit.</strong> Remember every LED fixture needs constant power &mdash; set
+    those dimmer circuits to non-dim before load-in, not during.</li>
+    <li><strong>Rough focus with the grid up.</strong> Every system, one at a time, watching the cyc.</li>
+    <li><strong>Make the four cuts</strong> in Section 06. Meter the cyc before and after each.</li>
+    <li><strong>Balance against the projection at show levels</strong>, in a dark house, with content
+    playing. Not with worklights, not from the stage.</li>
+    <li><strong>Write cues.</strong> Only now.</li>
+  </ol>
+</section>
+
+<section id="lx-checks">
+  <div class="sechead"><span class="secnum">10</span><h2>Checklists</h2></div>
+
+  <h3>Before load-in</h3>
+  <ul class="check">
+    <li>Ten 7.5&Prime; beam shapers ordered for the P-56FCs</li>
+    <li>Eight Fuze Max Profiles confirmed, with framing modules fitted</li>
+    <li>Electric 3 arbor re-weighted for two Fuze Max at 76.3 lb plus five P-56FCs</li>
+    <li>One EclipseFS 10&deg; lens tube borrowed and metered against the 14&deg; before ordering eight</li>
+    <li>DMX runs confirmed to catwalk, spot positions, side bars, Electrics 1&ndash;3 and the deck</li>
+    <li>Dimmer circuits feeding LED fixtures set to non-dim</li>
+    <li>VL1100 lamps checked and hours logged</li>
+    <li>Floor plates and cable protection for the four deck units</li>
+  </ul>
+
+  <h3>Before first tech</h3>
+  <ul class="check">
+    <li>All four cuts made and metered</li>
+    <li>Cyc read with every system at full, one at a time &mdash; nothing lifts the black</li>
+    <li>Deck beam elevation set at 40&deg; and sighted from row 1 and the back row</li>
+    <li>Cast briefed on the deck beam corridor at the portal plane</li>
+    <li>Haze tested against a projected image, not against an empty stage</li>
+  </ul>
+
+  <h3>Before every performance</h3>
+  <ul class="check">
+    <li>Line sets 14&ndash;29 clear</li>
+    <li>Electric 3 at 18&prime;</li>
+    <li>Deck units in position and clamped, wing traffic path clear</li>
+    <li>Projector convergence spot-checked on the alignment grid</li>
+  </ul>
+</section>
+
+<section id="lx-open">
+  <div class="sechead"><span class="secnum">11</span><h2>Still open</h2></div>
+  <div class="col">
+    <p>Three things this plot assumes rather than knows. None of them blocks hanging, all of them
+    should be settled before focus.</p>
+    <ul>
+      <li><strong>The distribution of the 15 Source Fours and 15 PARs across Electrics 1&ndash;3.</strong>
+      They are counted as a base layer here but not assigned. Once inventoried by position they should
+      take over the top-light gaps between the P-56FC pools and free the R2X units for colour.</li>
+      <li><strong>Followspot pickup points.</strong> The EclipseFS units share the spot positions;
+      confirm the operators have clear sightlines to the lip and to centre once the fixtures are hung.</li>
+      <li><strong>Horizontal lens shift on the ELPLX02.</strong> Vertical is &plusmn;10% in Native 4K
+      &mdash; that is &plusmn;2.57&prime; of trim adjustment, which is plenty. Horizontal is unconfirmed,
+      and it decides whether the two Epsons converge optically or entirely in warp.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="lx-assets">
+  <div class="sechead"><span class="secnum">12</span><h2>Companion files</h2></div>
+  <div class="col">
+    <p>This plot is generated from the same venue numbers as the projection design, so the two stay in
+    agreement. Change a number in one and re-run both.</p>
+  </div>
+  <div class="dlrow">
+    <a class="dl" href="assets/lx_diagrams.py" download>lx_diagrams.py</a>
+    <a class="dl" href="assets/venue.json" download>venue.json</a>
+  </div>
+</section>
+
+</div>
+<div class="disc" id="view-au" data-title="Sound &mdash; Frozen Technical Design Package" hidden>
+  <a class="backhome" href="#">&larr; Package home</a>
+  <div class="dischead"><span class="dnum">PART III</span><h2>Sound</h2></div>
+
+<section id="au-premise">
+  <div class="sechead"><span class="secnum">01</span><h2>The premise</h2></div>
+  <div class="col">
+    <p>Twenty-four radio mics is not a channel-count problem. The Avantis has 64 input channels and
+    a GX4816 stagebox carrying 48 preamps. <strong>It is an attention problem</strong>, and the
+    answer is to split it in two.</p>
+    <p><strong>The console decides who is open. The operator decides how loud.</strong> Every scene
+    carries a level map &mdash; the mics for the people in that scene ride up, everyone else parks
+    15&nbsp;dB down, over a one-second crossfade &mdash; and the operator never hunts for a channel.
+    What they hold instead is five group faders that never change meaning all night:</p>
+    <ul>
+      <li><strong>DCA 1 &mdash; Principals</strong></li>
+      <li><strong>DCA 2 &mdash; Ensemble Male</strong></li>
+      <li><strong>DCA 3 &mdash; Ensemble Female</strong></li>
+      <li><strong>DCA 4 &mdash; Orchestra</strong></li>
+      <li><strong>DCA 5 &mdash; FX returns</strong></li>
+    </ul>
+    <p>Beside them sit the music, SFX and announce faders. That is the entire performance surface:
+    eight faders, the same eight in Act I scene 1 and in the bows. A student can learn that in a
+    week and get good at it in a run &mdash; and &ldquo;bring the boys up a bit&rdquo; becomes one
+    move instead of six.</p>
+  </div>
+
+  <div class="note">
+    <span class="label">Three decisions that shape everything below</span>
+    <p><strong>DCA membership is fixed and never recalled.</strong> Principals are always DCA 1. If a
+    scene changed what a fader controlled, the operator would have to remember which show they were
+    in; this way they never do.</p>
+    <p><strong>The surrounds never carry dialogue.</strong> They are behind the audience. Any voice in
+    them pulls the image off the stage and into the back wall.</p>
+    <p><strong>Record the show and mix it again tomorrow.</strong> Take a multitrack of a full run over
+    the I/O card or a USB drive, then let the operator practise on it with no cast in the building. For
+    a school production this is worth more than any other single thing in this document.</p>
+  </div>
+</section>
+
+<section id="au-console">
+  <div class="sechead"><span class="secnum">02</span><h2>The console, and where it runs out</h2></div>
+  <div class="tablewrap">
+    <table>
+      <caption>Allen &amp; Heath Avantis &mdash; capacity against this show</caption>
+      <thead><tr><th>Resource</th><th class="num">Available</th><th class="num">Used</th><th>Headroom</th></tr></thead>
+      <tbody>
+        <tr><td class="id">Input channels</td><td class="num">64</td><td class="num">34</td>
+          <td><span class="pill good">comfortable</span> 30 spare, and 96 with the dPack upgrade</td></tr>
+        <tr><td class="id">Mic preamps</td><td class="num">12 local<br>+ 48 on GX4816</td><td class="num">28</td>
+          <td><span class="pill good">comfortable</span> 20 spare preamps at the stage end</td></tr>
+        <tr><td class="id">Line outputs</td><td class="num">12 local<br>+ 16 on GX4816</td><td class="num">18</td>
+          <td><span class="pill good">comfortable</span> 10 spare</td></tr>
+        <tr><td class="id">Configurable buses</td><td class="num">42</td><td class="num">~32</td>
+          <td><span class="pill good">comfortable</span> 5 groups, 10 mixes, 7 matrices</td></tr>
+        <tr><td class="id">DCAs</td><td class="num">16</td><td class="num">5</td>
+          <td><span class="pill good">comfortable</span> deliberately &mdash; five is what one person can hold</td></tr>
+        <tr><td class="id">FX engines</td><td class="num">12 RackExtra</td><td class="num">4</td>
+          <td><span class="pill good">comfortable</span></td></tr>
+        <tr><td class="id">I/O ports</td><td class="num">2 &times; 128&times;128</td><td class="num">1</td>
+          <td>gigaACE carries the GX4816. The second port is free for Dante</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note">
+    <span class="label">The GX4816 settles the input question</span>
+    <p>48 mic preamps and 16 line outputs over a single gigaACE Ethercon run, at 96&nbsp;kHz. Against 28
+    mics and 18 outputs that is not close &mdash; you have twenty spare preamps and a spare I/O port
+    for a Dante card later if the video department wants a clean feed.</p>
+    <p><strong>Split the I/O by where the equipment lives.</strong> Everything on stage &mdash; all 24
+    lavs, the orchestra pair, the four monitor feeds, backstage and dressing rooms &mdash; lands on the
+    GX4816. Everything in the house &mdash; the mains, front fill, surrounds, subs and the three
+    recording matrices &mdash; comes off the console&rsquo;s twelve local outputs. One cable across the
+    building instead of a multicore.</p>
+  </div>
+
+  <div class="note">
+    <span class="label">The one-second scene fade is available</span>
+    <p>You asked at the outset for a <strong>one-second fade on every scene</strong> so levels would not
+    jump. The Avantis has a scene crossfade of up to 20 seconds, and current SQ firmware has since added
+    it too &mdash; so the constraint this design once worked around no longer exists on either desk.</p>
+    <p>Section 05 sets the crossfade out as the method: scenes carry a level map, performers park
+    15&nbsp;dB down rather than muted, and everything glides.</p>
+  </div>
+</section>
+
+<section id="au-patch">
+  <div class="sechead"><span class="secnum">03</span><h2>Input patch and routing</h2></div>
+  <div class="col">
+    <p>Every input lands on the GX4816 except the three that live in the booth. Each block of channels
+    routes to <strong>one audio Group</strong>, and each Group is controlled by <strong>one DCA</strong>.
+    Groups are where the bus compression lives; DCAs are what the operator touches.</p>
+  </div>
+
+  <div class="tablewrap">
+    <table>
+      <caption>Channel list</caption>
+      <thead><tr><th class="num">Ch</th><th>Name</th><th class="num">Input</th><th>Channel processing</th><th class="num">Group</th><th class="num">DCA</th></tr></thead>
+      <tbody>
+        <tr><td class="num">1&ndash;8</td><td>Principals &mdash; Elsa, Anna, Kristoff, Hans, Olaf, Sven, Weselton, Pabbie</td><td class="num">GX 1&ndash;8</td>
+          <td>HPF 110&nbsp;Hz &middot; de-ess &middot; <strong>Dyn8 multiband</strong></td><td class="num">1</td><td class="num">1</td></tr>
+        <tr><td class="num">9&ndash;14</td><td>Featured &mdash; Young Anna, Young Elsa, Oaken, Bulda, Duke&rsquo;s men</td><td class="num">GX 9&ndash;14</td>
+          <td>As above; HPF nearer 140&nbsp;Hz on the children</td><td class="num">1</td><td class="num">1</td></tr>
+        <tr><td class="num">15&ndash;19</td><td><strong>Ensemble Female</strong></td><td class="num">GX 15&ndash;19</td>
+          <td>Same chain, shared settings across the block</td><td class="num">3</td><td class="num">3</td></tr>
+        <tr><td class="num">20&ndash;24</td><td><strong>Ensemble Male</strong></td><td class="num">GX 20&ndash;24</td>
+          <td>Same chain, shared settings across the block</td><td class="num">2</td><td class="num">2</td></tr>
+        <tr><td class="num">25&ndash;26</td><td>Orchestra &mdash; stereo pair over the pit</td><td class="num">GX 25&ndash;26</td>
+          <td>HPF 40&nbsp;Hz, no channel compression</td><td class="num">4</td><td class="num">4</td></tr>
+        <tr><td class="num">27&ndash;28</td><td><strong>Music</strong></td><td class="num">local 1&ndash;2</td>
+          <td>Line, no processing</td><td class="num">&mdash;</td><td class="num">direct</td></tr>
+        <tr><td class="num">29&ndash;30</td><td><strong>SFX</strong></td><td class="num">local 3&ndash;4</td>
+          <td>Line; also sent to the surrounds on Mix 7&ndash;8</td><td class="num">&mdash;</td><td class="num">direct</td></tr>
+        <tr><td class="num">31&ndash;33</td><td><em>spare</em></td><td class="num">&mdash;</td><td>Held for a swing, a doubler or a guest input</td><td class="num">&mdash;</td><td class="num">&mdash;</td></tr>
+        <tr><td class="num">34</td><td><strong>Announce</strong> &mdash; tech booth</td><td class="num">local 5</td>
+          <td>HPF 150, hard limit; ducks the show</td><td class="num">&mdash;</td><td class="num">direct</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Groups, and why they are not DCAs</h3>
+  <div class="col">
+    <p>A <strong>Group</strong> is a real audio bus &mdash; the signal passes through it, so you can put
+    a compressor across it and hear it work on the sum. A <strong>DCA</strong> is a control link: it
+    moves faders without the audio passing through anything. This design uses both, and the distinction
+    is what makes the bus compression possible.</p>
+  </div>
+
+  <div class="tablewrap">
+    <table>
+      <caption>Group structure</caption>
+      <thead><tr><th class="num">Group</th><th>Name</th><th class="num">Width</th><th>Fed by</th><th>Bus processing</th><th class="num">DCA</th></tr></thead>
+      <tbody>
+        <tr><td class="num">1</td><td>Principals</td><td class="num">mono</td><td class="num">Ch 1&ndash;14</td><td><strong>Bus compressor</strong> &mdash; slow, 2:1, 2&ndash;3&nbsp;dB of gain reduction on peaks</td><td class="num">1</td></tr>
+        <tr><td class="num">2</td><td>Ensemble Male</td><td class="num">stereo</td><td class="num">Ch 20&ndash;24</td><td><strong>Bus compressor</strong> &mdash; firmer, 3:1, glues the block</td><td class="num">2</td></tr>
+        <tr><td class="num">3</td><td>Ensemble Female</td><td class="num">stereo</td><td class="num">Ch 15&ndash;19</td><td><strong>Bus compressor</strong> &mdash; matched to Group 2</td><td class="num">3</td></tr>
+        <tr><td class="num">4</td><td>Orchestra</td><td class="num">stereo</td><td class="num">Ch 25&ndash;26</td><td><strong>Bus compressor</strong> &mdash; gentle, 2:1, high threshold</td><td class="num">4</td></tr>
+        <tr><td class="num"><strong>8</strong></td><td><strong>GrpFX</strong> &mdash; FX returns</td><td class="num">stereo</td><td class="num">FXRet 1&ndash;8</td><td>None &mdash; never compress a reverb return</td><td class="num">5</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="col">All five Groups feed LR. Nothing else does, which means <strong>LR is the sum of five
+  faders</strong> and the operator can see the whole show on one meter bridge. Note the FX group is
+  <strong>Group 8, named GrpFX</strong> &mdash; Groups 5 to 7 stay free so a future show can add a
+  band or a choir block without renumbering anything.</p>
+
+  
+  <figure>
+    <div class="figbox">
+      <svg viewBox="0 0 720 372" role="img" aria-label="Signal flow from sources through DCAs and buses to the loudspeaker systems."><defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="var(--ink-3)"/></marker></defs><text x="14" y="32" class="svg-label" style="font-weight:600;letter-spacing:.1em">CHANNELS</text><rect x="14" y="46" width="158" height="42" fill="var(--surface)" stroke="var(--rule-strong)" stroke-width="1.4" rx="3"/><text x="25" y="64" class="svg-label">Ch 1&ndash;14</text><text x="25" y="79" class="svg-label sm">principals</text><rect x="14" y="102" width="158" height="42" fill="var(--surface)" stroke="var(--rule-strong)" stroke-width="1.4" rx="3"/><text x="25" y="120" class="svg-label">Ch 15&ndash;19</text><text x="25" y="135" class="svg-label sm">ens. male</text><rect x="14" y="158" width="158" height="42" fill="var(--surface)" stroke="var(--rule-strong)" stroke-width="1.4" rx="3"/><text x="25" y="176" class="svg-label">Ch 20&ndash;24</text><text x="25" y="191" class="svg-label sm">ens. female</text><rect x="14" y="214" width="158" height="42" fill="var(--surface)" stroke="var(--rule-strong)" stroke-width="1.4" rx="3"/><text x="25" y="232" class="svg-label">Ch 25&ndash;26</text><text x="25" y="247" class="svg-label sm">orchestra</text><rect x="14" y="270" width="158" height="42" fill="var(--surface)" stroke="var(--rule-strong)" stroke-width="1.4" rx="3"/><text x="25" y="288" class="svg-label">FX 1&ndash;7</text><text x="25" y="303" class="svg-label sm">returns</text><text x="186" y="32" class="svg-label" style="font-weight:600;letter-spacing:.1em">GROUP + bus comp</text><rect x="186" y="46" width="158" height="42" fill="var(--surface)" stroke="var(--rule-strong)" stroke-width="1.4" rx="3"/><text x="197" y="64" class="svg-label">Group 1</text><text x="197" y="79" class="svg-label sm">mono &middot; comp</text><rect x="186" y="102" width="158" height="42" fill="var(--surface)" stroke="var(--rule-strong)" stroke-width="1.4" rx="3"/><text x="197" y="120" class="svg-label">Group 2</text><text x="197" y="135" class="svg-label sm">stereo &middot; comp</text><rect x="186" y="158" width="158" height="42" fill="var(--surface)" stroke="var(--rule-strong)" stroke-width="1.4" rx="3"/><text x="197" y="176" class="svg-label">Group 3</text><text x="197" y="191" class="svg-label sm">stereo &middot; comp</text><rect x="186" y="214" width="158" height="42" fill="var(--surface)" stroke="var(--rule-strong)" stroke-width="1.4" rx="3"/><text x="197" y="232" class="svg-label">Group 4</text><text x="197" y="247" class="svg-label sm">stereo &middot; comp</text><rect x="186" y="270" width="158" height="42" fill="var(--surface)" stroke="var(--rule-strong)" stroke-width="1.4" rx="3"/><text x="197" y="288" class="svg-label">Group 5</text><text x="197" y="303" class="svg-label sm">stereo &middot; no comp</text><text x="358" y="32" class="svg-label" style="font-weight:600;letter-spacing:.1em">DCA &mdash; fixed</text><rect x="358" y="46" width="158" height="42" fill="var(--surface)" stroke="var(--rule-strong)" stroke-width="1.4" rx="3"/><text x="369" y="64" class="svg-label">DCA 1</text><text x="369" y="79" class="svg-label sm">principals</text><rect x="358" y="102" width="158" height="42" fill="var(--surface)" stroke="var(--rule-strong)" stroke-width="1.4" rx="3"/><text x="369" y="120" class="svg-label">DCA 2</text><text x="369" y="135" class="svg-label sm">ensemble male</text><rect x="358" y="158" width="158" height="42" fill="var(--surface)" stroke="var(--rule-strong)" stroke-width="1.4" rx="3"/><text x="369" y="176" class="svg-label">DCA 3</text><text x="369" y="191" class="svg-label sm">ensemble female</text><rect x="358" y="214" width="158" height="42" fill="var(--surface)" stroke="var(--rule-strong)" stroke-width="1.4" rx="3"/><text x="369" y="232" class="svg-label">DCA 4</text><text x="369" y="247" class="svg-label sm">orchestra</text><rect x="358" y="270" width="158" height="42" fill="var(--surface)" stroke="var(--rule-strong)" stroke-width="1.4" rx="3"/><text x="369" y="288" class="svg-label">DCA 5</text><text x="369" y="303" class="svg-label sm">FX returns</text><text x="530" y="32" class="svg-label" style="font-weight:600;letter-spacing:.1em">LR &rarr; OUT</text><rect x="530" y="46" width="158" height="42" fill="var(--surface)" stroke="var(--rule-strong)" stroke-width="1.4" rx="3"/><text x="541" y="64" class="svg-label">Matrix 1</text><text x="541" y="79" class="svg-label sm">flown arrays</text><rect x="530" y="102" width="158" height="42" fill="var(--surface)" stroke="var(--rule-strong)" stroke-width="1.4" rx="3"/><text x="541" y="120" class="svg-label">Matrix 2</text><text x="541" y="135" class="svg-label sm">front fill</text><rect x="530" y="158" width="158" height="42" fill="var(--surface)" stroke="var(--rule-strong)" stroke-width="1.4" rx="3"/><text x="541" y="176" class="svg-label">Matrix 3&ndash;4</text><text x="541" y="191" class="svg-label sm">backstage / DR</text><rect x="530" y="214" width="158" height="42" fill="var(--surface)" stroke="var(--rule-strong)" stroke-width="1.4" rx="3"/><text x="541" y="232" class="svg-label">Matrix 5&ndash;7</text><text x="541" y="247" class="svg-label sm">rec / stream / 2-trk</text><rect x="530" y="270" width="158" height="42" fill="var(--surface)" stroke="var(--rule-strong)" stroke-width="1.4" rx="3"/><text x="541" y="288" class="svg-label">Mix 1&ndash;10</text><text x="541" y="303" class="svg-label sm">monitors, surr, subs</text><line x1="172" y1="67" x2="198" y2="67" stroke="var(--ink-3)" stroke-width="1.2" marker-end="url(#ar)"/><line x1="172" y1="123" x2="198" y2="123" stroke="var(--ink-3)" stroke-width="1.2" marker-end="url(#ar)"/><line x1="172" y1="179" x2="198" y2="179" stroke="var(--ink-3)" stroke-width="1.2" marker-end="url(#ar)"/><line x1="172" y1="235" x2="198" y2="235" stroke="var(--ink-3)" stroke-width="1.2" marker-end="url(#ar)"/><line x1="172" y1="291" x2="198" y2="291" stroke="var(--ink-3)" stroke-width="1.2" marker-end="url(#ar)"/><line x1="344" y1="67" x2="370" y2="67" stroke="var(--ink-3)" stroke-width="1.2" marker-end="url(#ar)"/><line x1="344" y1="123" x2="370" y2="123" stroke="var(--ink-3)" stroke-width="1.2" marker-end="url(#ar)"/><line x1="344" y1="179" x2="370" y2="179" stroke="var(--ink-3)" stroke-width="1.2" marker-end="url(#ar)"/><line x1="344" y1="235" x2="370" y2="235" stroke="var(--ink-3)" stroke-width="1.2" marker-end="url(#ar)"/><line x1="344" y1="291" x2="370" y2="291" stroke="var(--ink-3)" stroke-width="1.2" marker-end="url(#ar)"/><line x1="516" y1="67" x2="542" y2="67" stroke="var(--ink-3)" stroke-width="1.2" marker-end="url(#ar)"/><line x1="516" y1="123" x2="542" y2="123" stroke="var(--ink-3)" stroke-width="1.2" marker-end="url(#ar)"/><line x1="516" y1="179" x2="542" y2="179" stroke="var(--ink-3)" stroke-width="1.2" marker-end="url(#ar)"/><line x1="516" y1="235" x2="542" y2="235" stroke="var(--ink-3)" stroke-width="1.2" marker-end="url(#ar)"/><line x1="516" y1="291" x2="542" y2="291" stroke="var(--ink-3)" stroke-width="1.2" marker-end="url(#ar)"/></svg>
+    </div>
+    <figcaption>Signal flow. Channels sum into five audio <strong>Groups</strong> &mdash; which is where the bus compressors live, because a Group is a bus the signal actually passes through &mdash; and each Group is driven by one <strong>DCA</strong>, which is a control link rather than an audio path. All five Groups feed LR, so LR is the sum of five faders. The scene&rsquo;s level map decides who is open, glided over one second; the operator only ever decides how loud.</figcaption>
+  </figure>
+</section>
+
+<section id="au-outputs">
+  <div class="sechead"><span class="secnum">04</span><h2>Mixes, Matrices and outputs</h2></div>
+  <div class="col">
+    <p>Two different things, easily conflated. A <strong>Mix</strong> is fed from channel sends &mdash;
+    it is how you build a monitor balance that is different from the house. A <strong>Matrix</strong> is
+    fed from LR, Groups and Mixes &mdash; it is how you take something already mixed and send it
+    somewhere else with its own level, EQ and delay.</p>
+    <p>Monitors, surrounds and the subs are Mixes because they need their own balance. The mains, fills
+    and every distribution feed are Matrices because they are all derived from a mix that already
+    exists.</p>
+  </div>
+
+  <div class="tablewrap">
+    <table>
+      <caption>Mixes &mdash; fed from channel sends</caption>
+      <thead><tr><th class="num">Mix</th><th>Destination</th><th class="num">Width</th><th>Content</th></tr></thead>
+      <tbody>
+        <tr><td class="num">1&ndash;2</td><td>Downstage monitors &mdash; wedges SR / SL</td><td class="num">mono</td><td>Orchestra-heavy, vocals low</td></tr>
+        <tr><td class="num">3&ndash;4</td><td>Upstage monitors &mdash; flown SR / SL</td><td class="num">mono</td><td>More vocal than the wedges &mdash; they are further from the arrays</td></tr>
+        <tr><td class="num">5&ndash;6</td><td><em>spare</em></td><td class="num">&mdash;</td><td>Held for a conductor feed or a third monitor position</td></tr>
+        <tr><td class="num">7&ndash;8</td><td>Surround L / R, spot booth</td><td class="num">stereo</td><td><strong>SFX and reverb returns only.</strong> No dialogue, ever</td></tr>
+        <tr><td class="num">9</td><td><em>spare</em></td><td class="num">&mdash;</td><td>&mdash;</td></tr>
+        <tr><td class="num">10</td><td>Subwoofers</td><td class="num">mono</td><td>Aux-fed: Music, SFX and the orchestra low end. <strong>No vocals</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="tablewrap">
+    <table>
+      <caption>Matrices &mdash; fed from LR</caption>
+      <thead><tr><th class="num">Matrix</th><th>Destination</th><th class="num">Width</th><th class="num">Tap</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td class="num">1</td><td>Flown arrays L / R</td><td class="num">stereo</td><td class="num"><strong>post</strong></td><td>System EQ and delay live here, so tuning the room never touches LR. Post-fade because the master fader should close the PA</td></tr>
+        <tr><td class="num">2</td><td>Front fill, 4 cabinets</td><td class="num">mono</td><td class="num"><strong>post</strong></td><td>Part of the same PA, so it follows the master with the arrays</td></tr>
+        <tr><td class="num">3</td><td>Backstage</td><td class="num">mono</td><td class="num"><strong>pre</strong></td><td>Cast cues must survive the master being pulled</td></tr>
+        <tr><td class="num">4</td><td>Dressing rooms</td><td class="num">mono</td><td class="num"><strong>pre</strong></td><td>As Matrix 3, but louder &mdash; it competes with a room of teenagers</td></tr>
+        <tr><td class="num">5</td><td>Video recording</td><td class="num">stereo</td><td class="num"><strong>pre</strong></td><td>The archive must not record a fader move made for the room</td></tr>
+        <tr><td class="num">6</td><td>Video stream</td><td class="num">stereo</td><td class="num"><strong>pre</strong></td><td>Wants more compression and less dynamic range than the archive</td></tr>
+        <tr><td class="num">7</td><td>2-track recording</td><td class="num">stereo</td><td class="num"><strong>pre</strong></td><td>The clean reference copy</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note">
+    <span class="label">Why the pre/post split is the important line in that table</span>
+    <p><strong>Matrix 1 and 2 are post-fade</strong>, so the LR master closes the house PA the way an
+    operator expects. <strong>Matrix 3 to 7 are pre-fade</strong>, so pulling that master does not
+    silence backstage, kill the dressing-room feed, or punch a hole in three recordings.</p>
+    <p>This matters most at the one moment nobody rehearses: something goes wrong, an adult&rsquo;s hand
+    goes to the master, and the house goes quiet. With this split, the cast still hears their cues, the
+    archive still runs, and the stream does not drop.</p>
+  </div>
+
+  
+  <figure>
+    <div class="figbox">
+      <svg viewBox="0 40 720 258" role="img" aria-label="Section showing the flown array, front fill and surround coverage with delay times."><line x1="22.0" y1="258.0" x2="550.0" y2="258.0" stroke="var(--ink-3)" stroke-width="2"/><path d="M550.0 258.0 V239.1 H664.0" fill="none" stroke="var(--ink)" stroke-width="2.5"/><text x="658.0" y="255.1" text-anchor="end" class="svg-label sm">STAGE</text><path d="M604.0 120.3 L64.0 258.0 L412.0 258.0 Z" fill="var(--accent)" opacity=".13"/><path d="M550.0 233.7 L388.0 258.0 L538.0 258.0 Z" fill="var(--good)" opacity=".22"/><path d="M58.0 77.1 L352.0 258.0 L124.0 258.0 Z" fill="var(--warn)" opacity=".16"/><rect x="593.0" y="113.3" width="22" height="14" rx="2" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/><text x="604.0" y="108.3" text-anchor="middle" class="svg-label" style="fill:var(--accent);font-weight:600">FLOWN ARRAY</text><text x="604.0" y="146.3" text-anchor="middle" class="svg-label sm">L / R</text><rect x="539.0" y="226.7" width="22" height="14" rx="2" fill="var(--surface)" stroke="var(--good)" stroke-width="2"/><text x="550.0" y="221.7" text-anchor="middle" class="svg-label" style="fill:var(--good);font-weight:600">FRONT FILL</text><text x="550.0" y="259.7" text-anchor="middle" class="svg-label sm">4 cabinets, one bus</text><rect x="47.0" y="70.1" width="22" height="14" rx="2" fill="var(--surface)" stroke="var(--warn)" stroke-width="2"/><text x="58.0" y="65.1" text-anchor="middle" class="svg-label" style="fill:var(--warn);font-weight:600">SURROUND</text><text x="58.0" y="103.1" text-anchor="middle" class="svg-label sm">spot booth</text><rect x="607.0" y="226.1" width="18" height="12" rx="2" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.6"/><text x="631.0" y="221.1" text-anchor="start" class="svg-label sm">SUBS &middot; 7.75 ms</text><text x="436.0" y="276.0" text-anchor="middle" class="svg-label sm" style="fill:var(--good);font-weight:600">12.35 ms</text><text x="244.0" y="276.0" text-anchor="middle" class="svg-label sm" style="fill:var(--warn);font-weight:600">22 ms</text><line x1="454.0" y1="258.0" x2="454.0" y2="264.0" stroke="var(--ink-3)"/><text x="454.0" y="290.0" text-anchor="middle" class="svg-label sm">row 1</text><line x1="274.0" y1="258.0" x2="274.0" y2="264.0" stroke="var(--ink-3)"/><text x="274.0" y="290.0" text-anchor="middle" class="svg-label sm">row 12</text><line x1="94.0" y1="258.0" x2="94.0" y2="264.0" stroke="var(--ink-3)"/><text x="94.0" y="290.0" text-anchor="middle" class="svg-label sm">back</text></svg>
+    </div>
+    <figcaption>Coverage and time alignment, one value per system. The front fill runs 12.35&nbsp;ms so the image stays on the actor rather than at the lip; the subs 7.75&nbsp;ms to sit with the arrays. The surround is a different problem &mdash; sitting behind the audience, no single value is right everywhere &mdash; so it is tuned to 22&nbsp;ms for the middle of the house, kept low, and never carries dialogue.</figcaption>
+  </figure>
+
+  <div class="tablewrap">
+    <table>
+      <caption>Delay alignment &mdash; one value per system</caption>
+      <thead><tr><th>System</th><th class="num">Bus</th><th class="num">Delay</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td class="id">FRONT FILL</td><td class="num">Matrix 2</td><td class="num"><strong>12.35 ms</strong></td>
+          <td>One value for all four cabinets. Keeps the image on the actor rather than at the lip</td></tr>
+        <tr><td class="id">SUBWOOFERS</td><td class="num">Mix 10</td><td class="num"><strong>7.75 ms</strong></td>
+          <td>Aligns the subs to the arrays. Get this wrong and the low end thins out rather than sounding late</td></tr>
+        <tr><td class="id">SURROUND</td><td class="num">Mix 7&ndash;8</td><td class="num"><strong>22 ms</strong></td>
+          <td>One value, tuned for the middle of the house. A speaker behind the audience cannot be right everywhere</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="col"><strong>Every delay value lives in the show file, not in an amplifier.</strong> That way
+  it is documented, recallable, and survives someone power-cycling a rack. Re-measure the front fill and
+  sub figures once the arrays are flown &mdash; they were computed from the design hang, and a foot of
+  trim moves them by about a millisecond.</p>
+
+  <div class="tablewrap">
+    <table>
+      <caption>Physical output patch</caption>
+      <thead><tr><th class="num">Connector</th><th>Carries</th><th class="num">Bus</th></tr></thead>
+      <tbody>
+        <tr><td class="num">Console 1&ndash;2</td><td>Flown arrays L / R</td><td class="num">Matrix 1</td></tr>
+        <tr><td class="num">Console 3</td><td>Front fill</td><td class="num">Matrix 2</td></tr>
+        <tr><td class="num">Console 4&ndash;5</td><td>Downstage monitors</td><td class="num">Mix 1&ndash;2</td></tr>
+        <tr><td class="num">Console 6&ndash;7</td><td>Upstage monitors</td><td class="num">Mix 3&ndash;4</td></tr>
+        <tr><td class="num">Console 8</td><td>Backstage</td><td class="num">Matrix 3</td></tr>
+        <tr><td class="num">Console 9</td><td>Dressing rooms</td><td class="num">Matrix 4</td></tr>
+        <tr><td class="num">Console 10&ndash;11</td><td>2-track recording</td><td class="num">Matrix 7</td></tr>
+        <tr><td class="num">Console 12</td><td><em>spare</em></td><td class="num">&mdash;</td></tr>
+        <tr><td class="num">GX 1&ndash;2</td><td>Surround L / R</td><td class="num">Mix 7&ndash;8</td></tr>
+        <tr><td class="num">GX 3</td><td>Subwoofers</td><td class="num">Mix 10</td></tr>
+        <tr><td class="num">GX 4&ndash;5</td><td>Video recording</td><td class="num">Matrix 5</td></tr>
+        <tr><td class="num">GX 6&ndash;7</td><td>Video stream</td><td class="num">Matrix 6</td></tr>
+        <tr><td class="num">GX 8&ndash;16</td><td><em>spare</em></td><td class="num">&mdash;</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="col">Eighteen of twenty-eight outputs used, with nine spare at the stage end and one at the
+  desk. Label both ends of every line before load-in &mdash; the patch is legible on paper and
+  completely opaque at the back of a rack at eleven at night.</p>
+</section>
+
+<section id="au-method">
+  <div class="sechead"><span class="secnum">05</span><h2>The mixing method</h2></div>
+  <div class="col">
+    <p><strong>Layers A and B are the show.</strong> Principals live on A, ensemble and orchestra on B,
+    and both carry the same five DCAs on the right-hand bank &mdash; so the operator can reach every
+    group from whichever layer they happen to be watching. Everything else is build and maintenance.</p>
+  </div>
+
+  <div class="tablewrap">
+    <table>
+      <caption>Fader layout &mdash; six layers, two banks of twelve</caption>
+      <thead><tr><th class="num">Layer</th><th>Left bank &mdash; faders 1&ndash;12</th><th>Right bank &mdash; faders 1&ndash;12</th></tr></thead>
+      <tbody>
+        <tr><td class="id">A</td><td>Principals, ch 1&ndash;12</td>
+          <td>Ch 13&ndash;14 <span class="dim">(1&ndash;2)</span> &middot; DCA 1&ndash;4 <span class="dim">(3&ndash;6)</span> &middot; DCA 5 FX <span class="dim">(9)</span> &middot; Sub <span class="dim">(11)</span> &middot; Main <span class="dim">(12)</span></td></tr>
+        <tr><td class="id">B</td><td>Ensemble Female 15&ndash;19 <span class="dim">(1&ndash;5)</span> &middot; Ensemble Male 20&ndash;24 <span class="dim">(6&ndash;10)</span></td>
+          <td>Orchestra 25&ndash;26 <span class="dim">(1&ndash;2)</span> &middot; DCA 1&ndash;4 <span class="dim">(3&ndash;6)</span> &middot; DCA 5 FX <span class="dim">(9)</span> &middot; Sub <span class="dim">(11)</span> &middot; Main <span class="dim">(12)</span></td></tr>
+        <tr><td class="id">C</td><td><em>empty</em></td>
+          <td>Music <span class="dim">(1)</span> &middot; SFX <span class="dim">(3)</span> &middot; Announce <span class="dim">(5)</span> &middot; Sub <span class="dim">(11)</span> &middot; Main <span class="dim">(12)</span></td></tr>
+        <tr><td class="id">D</td><td>FX Sends 1&ndash;8</td>
+          <td>FX Returns 1&ndash;8 <span class="dim">(1&ndash;8)</span> &middot; Sub <span class="dim">(11)</span> &middot; Main <span class="dim">(12)</span></td></tr>
+        <tr><td class="id">E</td><td>Monitor sends</td>
+          <td>Matrix 1&ndash;7 <span class="dim">(1&ndash;7)</span> &middot; Sub <span class="dim">(11)</span> &middot; Main <span class="dim">(12)</span></td></tr>
+        <tr><td class="id">F</td><td>Groups 1&ndash;5 <span class="dim">(1&ndash;5)</span></td>
+          <td>Sub <span class="dim">(11)</span> &middot; Main <span class="dim">(12)</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="col">
+    <p>Three things about that layout are worth naming, because they are what make it teachable.</p>
+    <p><strong>Sub and Main never move.</strong> Faders 11 and 12 of the right bank carry them on every
+    single layer. Whatever the operator is looking at, the two faders they might need in a hurry are
+    under the same two fingers.</p>
+    <p><strong>The five DCAs repeat on A and B.</strong> Those are the two layers the show actually
+    lives on &mdash; principals on A, ensemble and orchestra on B &mdash; and from either one the
+    operator can reach every group without changing layer. The gap at faders 7 and 8 is deliberate:
+    it separates the four vocal DCAs from the FX DCA so the hand does not find the wrong one in the
+    dark.</p>
+    <p><strong>Layers C to F are build and maintenance, not performance.</strong> Playback and announce
+    on C, the FX rack on D, monitors and matrices on E, group masters on F. In a good run nobody visits
+    them after the house opens.</p>
+  </div>
+
+  <h3>Scenes carry the levels, and they glide</h3>
+  <div class="col">
+    <p>Set every channel at tech to the level it should be when that performer is speaking, and park
+    everyone else <strong>15&nbsp;dB down</strong> rather than muted. Each scene then recalls the level
+    map for the unit &mdash; who is up, who is parked &mdash; with a <strong>1.0&nbsp;second
+    crossfade</strong>. Nothing snaps. A performer entering mid-scene rises over a second, which is
+    about how long it takes an audience to stop noticing a change.</p>
+    <p>Parking at &minus;15 rather than muting is what makes the fade work. A mute is binary and
+    instant; a level glides. It also keeps the room tone continuous instead of twenty-four ambiences
+    switching in and out under the dialogue.</p>
+    <p>Set the crossfade once in the show settings and leave it. Longer than a second starts to feel
+    like the desk is lagging behind the script; shorter stops sounding like a fade at all.</p>
+  </div>
+
+  <div class="note">
+    <span class="label">Two things to know about how it behaves</span>
+    <p><strong>The faders jump, the audio does not.</strong> On recall the surface snaps to the new
+    positions immediately while the audio crosses over the set time. That is normal, and it means the
+    faders briefly show where you are going rather than where you are.</p>
+    <p><strong>Mutes are still instant.</strong> If you want the glide, drive it with levels. Keep
+    mutes for hard cuts &mdash; a mic that must be dead now, an offstage pack going into a costume
+    change.</p>
+  </div>
+
+  <div class="note caution">
+    <span class="label">The fallback, if the crossfade proves fiddly</span>
+    <p>The mute-map method this document previously specified still works and is simpler to build:
+    every channel sits at its correct level permanently and scenes change only mutes, so there is
+    nothing to fade because nothing changes level. A stage manager can build that show file from the
+    script.</p>
+    <p><strong>Try the crossfade first &mdash; it is what you asked for and the console now does it.</strong>
+    But if scene-building starts eating rehearsal time, the mute map gets you 90% of the result for a
+    third of the work.</p>
+  </div>
+
+  <h3>Why not the automatic mic mixer</h3>
+  <div class="col">
+    <p>The Avantis automixer is built for panel discussions and worship &mdash; rooms where nobody knows
+    who speaks next. A musical is the opposite: <strong>you have a script.</strong> An automixer
+    gating twenty-four channels is always a beat behind the line, chewing first syllables and pumping
+    the room tone under the ensemble.</p>
+    <p><strong>Use it in exactly one place</strong> if at all: the ensemble lavs in big chorus numbers,
+    where the intent really is &ldquo;whoever is loudest&rdquo; and nobody has a line to protect. Keep
+    every principal out of it. The level map is doing this job better already.</p>
+  </div>
+
+  <h3>Feedback margin</h3>
+  <div class="col">
+    <p>Hairline lavs into flown arrays over the same stage is the least forgiving gain structure in
+    live sound. Three things buy back margin, in the order they are worth doing:</p>
+    <ul>
+      <li><strong>Placement beats EQ.</strong> Hairline at the forehead or a cheek boom gets you
+      6&ndash;10&nbsp;dB over a chest mount, plus far less costume rustle. Budget the tape and the time.</li>
+      <li><strong>The level map is free gain.</strong> Twelve mics at working level and twelve parked
+      15&nbsp;dB down is close to 3&nbsp;dB of system gain you did not have to fight for. This is the
+      quiet second benefit of scene-driven levels.</li>
+      <li><strong>High-pass hard.</strong> 110&nbsp;Hz on adult lavs, 140 on the children. Nothing musical
+      lives below that on a lavaliere and everything problematic does.</li>
+    </ul>
+    <p>Ring the system out with the cast on stage and the set in place. The canvas legs and the cyc are
+    large soft surfaces that change the room noticeably from the bare stage you rehearse in.</p>
+  </div>
+</section>
+
+<section id="au-conflict">
+  <div class="sechead"><span class="secnum">06</span><h2>Where audio collides with the other two plots</h2></div>
+  <div class="note caution">
+    <span class="label">The upstage monitors need to move</span>
+    <p>Two flown monitors on Electric 2 &mdash; line set 8, an 18&prime; trim &mdash; sit inside the
+    picture. A cabinet at 16&prime; reads at <strong>14.9&prime; apparent</strong> from the house, and
+    the proscenium header only cuts at 21.5&prime;. It would have to fly at <strong>23.3&prime;</strong>
+    to hide behind the header, which Electric 2 cannot do.</p>
+    <p>Worse, it also blocks light. A cabinet at &plusmn;18&prime; sits directly in the FOH
+    projectors&rsquo; path to LEG-*2 and prints a <strong>four-foot dark band across the upstage leg
+    panel, from 14.4&prime; to 18.6&prime;</strong>.</p>
+  </div>
+
+  <div class="tablewrap">
+    <table>
+      <caption>Where a cabinet on Electric 2 can actually go</caption>
+      <thead><tr><th class="num">Position</th><th class="num">Apparent</th><th>Seen from the house?</th><th>Shadow on the legs?</th></tr></thead>
+      <tbody>
+        <tr><td class="num">&plusmn;12 ft</td><td class="num">10.8 ft</td><td><span class="pill low">in the open</span> silhouetted on the cyc</td><td>clear</td></tr>
+        <tr><td class="num">&plusmn;18 ft</td><td class="num">16.3 ft</td><td><span class="pill low">in the open</span></td><td><span class="pill low">4 ft band on LEG-*2</span></td></tr>
+        <tr><td class="num"><strong>&plusmn;23 ft</strong></td><td class="num">20.8 ft</td><td><span class="pill good">masked by LEG-*1</span></td><td><span class="pill good">clear</span></td></tr>
+        <tr><td class="num">&plusmn;26 ft</td><td class="num">23.5 ft</td><td><span class="pill good">masked</span></td><td><span class="pill good">clear</span> but poor coverage</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="col"><strong>Hang them at &plusmn;23&nbsp;ft.</strong> It is the one position that is both
+  hidden behind the downstage legs from house centre and clear of every lit surface &mdash; their light
+  path lands at 24.1&prime; on the leg plane, outside both leg panels and outside the projected cyc.
+  Sightline it from row 1 centre and from both extreme side seats before you trust it; the masking
+  geometry changes off-axis.</p>
+
+  <div class="col">
+    <h4>Two smaller ones</h4>
+    <p><strong>The spot booth is getting crowded.</strong> Two surround cabinets, two followspots and
+    eight Ovation R&ecirc;ve E-3s now share that position. Confirm the speakers do not sit in a
+    R&ecirc;ve&rsquo;s beam or block a followspot operator&rsquo;s sightline to the stage lip.</p>
+    <p><strong>Nine rented hybrids idle at 40&nbsp;dB(A) each.</strong> That noise floor is a lighting
+    decision with an audio consequence, and it is one more argument for the six-fixture rental in the
+    lighting plan. The quiet numbers in this score have almost no orchestration under them.</p>
+  </div>
+</section>
+
+<section id="au-rf">
+  <div class="sechead"><span class="secnum">07</span><h2>RF &mdash; three systems, one coordination</h2></div>
+  <div class="col">
+    <p>Twenty-four channels across two manufacturers and three frequency ranges. That is workable, and
+    it is workable specifically because the three ranges can be pushed apart into blocks that barely
+    interact &mdash; but it will not coordinate itself.</p>
+  </div>
+
+  <div class="tablewrap">
+    <table>
+      <caption>The inventory, and where to put it</caption>
+      <thead><tr><th class="num">Qty</th><th>System</th><th class="num">Full range</th><th class="num">Use</th><th class="num">Channels</th></tr></thead>
+      <tbody>
+        <tr><td class="num">8</td><td>Shure ULXS4, G3 band <span class="dim">analogue</span></td><td class="num">470&ndash;506 MHz</td>
+          <td class="num"><strong>470&ndash;506</strong></td><td class="num">17&ndash;24 &mdash; ensemble</td></tr>
+        <tr><td class="num">8</td><td>Sennheiser EW-D, R1-6 <span class="dim">digital</span></td><td class="num">520&ndash;576 MHz</td>
+          <td class="num"><strong>520&ndash;550</strong></td><td class="num">1&ndash;8 &mdash; principals</td></tr>
+        <tr><td class="num">8</td><td>Sennheiser EW-D, R4-9 <span class="dim">digital</span></td><td class="num">552&ndash;607.8 MHz</td>
+          <td class="num"><strong>578&ndash;606</strong></td><td class="num">9&ndash;16 &mdash; featured and ensemble</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note">
+    <span class="label">Three blocks that do not touch</span>
+    <p>The two EW-D ranges <strong>overlap between 552 and 576&nbsp;MHz</strong>, which is the only real
+    trap in this inventory. Rather than treating sixteen units as one coordination problem across a
+    shared band, push them apart: <strong>R1-6 into 520&ndash;550, R4-9 into 578&ndash;606</strong>, and
+    leave the shared middle empty as a buffer.</p>
+    <p>The Shure sits in 470&ndash;506 with fourteen megahertz of clear air between it and anything
+    Sennheiser. That gives you three blocks of eight, each with roughly 30&nbsp;MHz to itself &mdash;
+    comfortable spacing for eight channels, and intermod products from one block that mostly land
+    outside the others.</p>
+    <p><strong>Stay below 608&nbsp;MHz.</strong> 608&ndash;614 is the radio-astronomy guard band and
+    everything above it was sold to cellular. R4-9 tops out at 607.8, so do not reach for the very top
+    of its range.</p>
+  </div>
+
+  <div class="col">
+    <h4>Put the Shure on the ensemble</h4>
+    <p>The ULXS4 is a capable receiver and it is also the oldest, analogue link in the building. It has
+    no scan-and-deploy workflow worth the name, and analogue companding on a hairline lav is a step
+    behind the EW-D on both noise floor and dropout behaviour.</p>
+    <p>So the sixteen digital packs go where a dropout costs the most &mdash; <strong>all fourteen
+    principals plus the first two ensemble</strong> &mdash; and the eight Shure carry the rest of the
+    ensemble, where one channel briefly hashing is covered by nine other voices.</p>
+
+    <h4>The rest of it</h4>
+    <ul>
+      <li><strong>Coordinate as one set, not three.</strong> Sennheiser&rsquo;s Wireless Systems Manager
+      and Shure&rsquo;s Wireless Workbench each handle their own gear well and neither knows about the
+      other. Coordinate the larger Sennheiser inventory first, then enter those frequencies into
+      Workbench as inclusions before solving the Shure &mdash; or do the whole thing in one tool that
+      accepts a manual inventory.</li>
+      <li><strong>Scan with the LED rig powered and running.</strong> This plot adds a great many LED
+      fixtures and their drivers are broadband RF noise sources. A scan taken under worklights tells
+      you nothing useful.</li>
+      <li><strong>Three antenna paths, not twenty-four whips.</strong> The two EW-D ranges can share a
+      wideband distribution; the Shure needs its own. Budget for two distros minimum, with paddles out
+      in front of the racks.</li>
+      <li><strong>Log every pack to a performer, a channel and a frequency</strong>, and keep the sheet
+      taped inside the rack door. Three systems means three battery types and three ways to be handed
+      back the wrong pack at interval.</li>
+      <li><strong>Batteries are a consumable.</strong> Twenty-four packs over a two-act show is
+      forty-eight changes a performance if you swap at the interval &mdash; and the analogue Shure packs
+      will not warn you as gracefully as the EW-D when they get low.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="au-showfile">
+  <div class="sechead"><span class="secnum">08</span><h2>Show file and scene plan</h2></div>
+  <div class="col">
+    <p>Roughly ninety scenes: one per song, one per dialogue block, and one for each moment where a
+    principal enters or leaves the action. Number them to match the script&rsquo;s page or cue numbers,
+    not sequentially, so an insert does not renumber the show.</p>
+    <p><strong>Every scene is a level map.</strong> Building one is a mechanical job a stage manager can
+    do from the script &mdash; who is on stage in this unit, who is not &mdash; which means the show
+    file can be built and proofread long before anyone touches the console. Set the crossfade to
+    <strong>1.0&nbsp;s</strong> globally so nobody has to remember it per scene.</p>
+  </div>
+  <div class="tablewrap">
+    <table>
+      <caption>Recall filter &mdash; what a scene change is allowed to touch</caption>
+      <thead><tr><th>Parameter</th><th class="num">Recalled</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Channel fader level</strong></td><td class="num"><span class="pill good">yes</span></td><td><strong>This is the whole method.</strong> Up for this unit, parked 15 dB down otherwise &mdash; over a 1.0 s crossfade</td></tr>
+        <tr><td>Channel mute</td><td class="num"><span class="pill good">yes</span></td><td>Hard cuts only &mdash; mutes are instant and do not glide</td></tr>
+        <tr><td>Surround and sub sends</td><td class="num"><span class="pill good">yes</span></td><td>Mix 7&ndash;8 and Mix 10 change with the cue &mdash; an SFX moment is a routing change</td></tr>
+        <tr><td>Monitor sends</td><td class="num"><span class="pill low">no</span></td><td>Mix 1&ndash;4 are set at the sitzprobe. A monitor balance that moves under a performer is worse than one that is slightly wrong</td></tr>
+        <tr><td>FX parameters</td><td class="num"><span class="pill good">yes</span></td><td>Reverb changes with location</td></tr>
+        <tr><td>DCA assignment</td><td class="num"><span class="pill low">no</span></td><td>Fixed all night, so a fader always means the same thing</td></tr>
+        <tr><td>DCA fader level</td><td class="num"><span class="pill low">no</span></td><td>Never move the operator&rsquo;s hand for them</td></tr>
+        <tr><td>Preamp gain</td><td class="num"><span class="pill low">no</span></td><td>Set at tech; a recalled gain change is a pop</td></tr>
+        <tr><td>Channel EQ / dynamics</td><td class="num"><span class="pill low">no</span></td><td>One chain per performer, all night</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="tablewrap">
+    <table>
+      <caption>Effects &mdash; 8 of 12 RackExtra engines</caption>
+      <thead><tr><th class="num">#</th><th>Model</th><th class="num">Engine</th><th class="num">Return</th><th>Use</th></tr></thead>
+      <tbody>
+        <tr><td class="num">1</td><td><strong>481 Hall</strong></td><td class="num">FX 1</td><td class="num">FXRet 1</td>
+          <td>Principals &mdash; the room the leads sing in. Long enough to flatter, short enough to keep dialogue intelligible</td></tr>
+        <tr><td class="num">2</td><td><strong>Plate</strong></td><td class="num">FX 2</td><td class="num">FXRet 2</td>
+          <td>Principals &mdash; the bright, dense alternative. Songs rather than scenes</td></tr>
+        <tr><td class="num">3</td><td>481 Hall</td><td class="num">FX 3 &amp; 4</td><td class="num">FXRet 3 &amp; 4</td>
+          <td>Ensemble &mdash; two engines, one per ensemble group, so the chorus can sit in a bigger space than the leads without dragging them with it</td></tr>
+        <tr><td class="num">4</td><td>Plate</td><td class="num">FX 5</td><td class="num">FXRet 5</td>
+          <td>Ensemble</td></tr>
+        <tr><td class="num">5</td><td>481 Hall</td><td class="num">FX 6</td><td class="num">FXRet 6</td>
+          <td>Orchestra &mdash; usually the longest of the three. A pit under a stage is a dry box</td></tr>
+        <tr><td class="num">6</td><td>Plate</td><td class="num">FX 7</td><td class="num">FXRet 7</td>
+          <td>Orchestra</td></tr>
+        <tr><td class="num">7</td><td><strong>Stereo Delay</strong></td><td class="num">FX 8</td><td class="num">FXRet 8</td>
+          <td>Main system &mdash; tempo-tapped. Magic moments, Pabbie, the freeze, the palace</td></tr>
+        <tr><td class="num">&mdash;</td><td><em>spare</em></td><td class="num">FX 9&ndash;12</td><td class="num">&mdash;</td>
+          <td>Four engines in reserve for whatever tech week invents</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="col">
+    <p><strong>Every return lands in Group 8, GrpFX</strong>, which sits under DCA 5. One fader pulls all
+    reverb out of the show at once &mdash; the single most useful control on the surface when a scene
+    suddenly needs to be close and dry.</p>
+    <p><strong>Three dedicated reverb pairs is the point.</strong> A single shared hall forces the
+    orchestra, the chorus and a solo line into the same room, and the first thing that suffers is
+    intelligibility: the leads drown in a space built for forty voices. Separate instances let you put
+    the orchestra somewhere large, the ensemble somewhere medium and a principal almost dry, all in the
+    same cue.</p>
+  </div>
+
+  <h3>Dynamics</h3>
+  <div class="tablewrap">
+    <table>
+      <caption>Where the compression sits</caption>
+      <thead><tr><th>Stage</th><th>Processor</th><th>Setting</th><th>Job</th></tr></thead>
+      <tbody>
+        <tr><td>Every lav channel, 1&ndash;24</td><td><strong>Dyn8 multiband</strong></td>
+          <td>4 bands. Low band tames chest and costume thump, low-mid controls proximity, high-mid holds the shout, top does the sibilance</td>
+          <td>Fixes the specific problem each performer has without a single wideband compressor pumping the whole voice</td></tr>
+        <tr><td>Group 1 &mdash; Principals</td><td>Bus compressor</td><td>2:1, slow attack, auto release, 2&ndash;3&nbsp;dB on peaks</td><td>Holds the leads together without flattening a dynamic performance</td></tr>
+        <tr><td>Groups 2 and 3 &mdash; Ensemble</td><td>Bus compressor</td><td>3:1, faster, 4&ndash;6&nbsp;dB. Match the two settings exactly</td><td>Glues the chorus into one voice; the firmer ratio is what stops one loud singer from defining the block</td></tr>
+        <tr><td>Group 4 &mdash; Orchestra</td><td>Bus compressor</td><td>2:1, high threshold, slow. Barely working most of the night</td><td>Catches the tutti hits so the pit does not bury the vocals in the big numbers</td></tr>
+        <tr><td>Group 5 &mdash; FX returns</td><td><em>none</em></td><td>&mdash;</td><td>Compressing a reverb tail is how a mix starts breathing audibly</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</section>
+
+<section id="au-process">
+  <div class="sechead"><span class="secnum">09</span><h2>Order of process</h2></div>
+  <ol class="steps">
+    <li><strong>RF scan and coordinate</strong> with the full LED rig powered and running. Everything
+    else waits on knowing you have twenty-four clean channels.</li>
+    <li><strong>Hang and aim the systems.</strong> Upstage monitors at &plusmn;23&prime; per Section 06,
+    sightlined before the projection is focused.</li>
+    <li><strong>Time-align and tune</strong> the fills and surrounds with a measurement mic, house
+    empty. Record the settings.</li>
+    <li><strong>Build the show file</strong> offline in the Avantis editor &mdash; channel names, DCA structure,
+    recall filters, crossfade time, the first pass of scenes. This is a week of evenings, not a load-in task.</li>
+    <li><strong>Sitzprobe:</strong> set orchestra balance and lav gain structure. Freeze the input
+    chains here.</li>
+    <li><strong>Ring out with the set in and the cast on stage.</strong> The canvas changes the room.</li>
+    <li><strong>Multitrack a full run</strong> over the I/O card or a USB drive.</li>
+    <li><strong>Virtual soundcheck</strong> from that recording, as many times as the operator needs,
+    with nobody else in the building.</li>
+  </ol>
+</section>
+
+<section id="au-checks">
+  <div class="sechead"><span class="secnum">10</span><h2>Checklists</h2></div>
+
+  <h3>Pre-production</h3>
+  <ul class="check">
+    <li>Frequency coordination complete for all 24 channels across the three blocks &mdash; Shure 470&ndash;506, EW-D R1-6 520&ndash;550, EW-D R4-9 578&ndash;606 &mdash; printed and taped inside the rack</li>
+    <li>Antenna distribution in hand &mdash; at least two distros, since the Shure cannot share the Sennheiser path</li>
+    <li>Battery budget approved as a consumable</li>
+    <li>Show file built offline and backed up to two USB sticks</li>
+    <li>GX4816 gigaACE run tested end to end, with a spare Ethercon cable in the rack</li>
+    <li>Dyn8 instantiated on all 24 lav channels, with a saved template so a swing pack inherits the chain</li>
+    <li>Archive path confirmed over the I/O card, not an analogue output</li>
+  </ul>
+
+  <h3>Before first tech</h3>
+  <ul class="check">
+    <li>Upstage monitors at &plusmn;23&prime;, sightlined from row 1 centre and both extreme sides</li>
+    <li>Delays measured and entered; front fill 6&ndash;9&nbsp;dB under the mains</li>
+    <li>Subs confirmed aux-fed on Mix 10, mono, with no vocal sends</li>
+    <li>All three delays entered in the show file &mdash; Matrix 2 at 12.35 ms, Mix 10 at 7.75 ms, Mix 7&ndash;8 at 22 ms &mdash; not in the amplifiers</li>
+    <li>Matrix taps verified: 1 and 2 post-fade, 3 to 7 pre-fade. Pull the master and confirm backstage, dressing rooms and all three recordings keep running</li>
+    <li>All five Groups confirmed feeding LR, and nothing else feeding LR directly</li>
+    <li>Bus compressors metered &mdash; 2&ndash;3 dB on Principals, 4&ndash;6 on Ensemble, barely moving on Orchestra</li>
+    <li>Matrix 5, 6 and 7 checked independently: archive flat, stream compressed, 2-track clean</li>
+    <li>All eight FX returns confirmed landing in Group 8 (GrpFX) and nowhere else</li>
+    <li>Surrounds confirmed with no dialogue routed &mdash; check every scene, not just the first</li>
+    <li>Announce mic ducking tested against a full-level music cue</li>
+    <li>Dressing room feed audible over a room of teenagers getting into costume</li>
+    <li>Every scene&rsquo;s level map walked against the script with the stage manager</li>
+    <li>Scene crossfade set to 1.0 s globally; confirmed no scene recalls a DCA, Group or monitor-send level</li>
+    <li>Parked level agreed at &minus;15 dB and applied consistently across all 24 lavs</li>
+  </ul>
+
+  <h3>Every performance</h3>
+  <ul class="check">
+    <li>Pack log reconciled &mdash; performer, pack, channel, battery</li>
+    <li>Every lav walked and listened to on stage before the house opens</li>
+    <li>RF scan spot-checked for new interference</li>
+    <li>Scene 1 recalled and the surface confirmed before the house opens</li>
+    <li>Multitrack recording armed</li>
+  </ul>
+</section>
+
+<section id="au-open">
+  <div class="sechead"><span class="secnum">11</span><h2>Still open</h2></div>
+  <div class="col">
+    <p>Two things this plot assumes rather than knows. Neither blocks the build.</p>
+    <ul>
+      <li><strong>The array&rsquo;s actual hang position and height.</strong> The three delay values in
+      Section 04 &mdash; 12.35&nbsp;ms front fill, 7.75&nbsp;ms subs, 22&nbsp;ms surround &mdash; were
+      computed from the design hang at roughly 25.5&prime; above the house floor. Re-measure once the
+      arrays are flown; a foot of trim moves the fill and sub figures by about a millisecond.</li>
+      <li><strong>Whether the pit needs four orchestra mics rather than two.</strong> The orchestra is in
+      the 16&prime; pit. If it is open across its full width and the band is more than a handful of
+      players, a single stereo pair over the middle will favour whoever sits under it. Channels 31&ndash;33
+      are free, so this is a decision you can defer to the sitzprobe and still act on.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="au-assets">
+  <div class="sechead"><span class="secnum">12</span><h2>Companion files</h2></div>
+  <div class="dlrow">
+    <a class="dl" href="assets/au_diagrams.py" download>au_diagrams.py</a>
+    <a class="dl" href="assets/venue.json" download>venue.json</a>
+  </div>
+</section>
+
+</div>
+<footer>
+  <h4>Sources</h4>
+  <ul>
+    <li><a href="https://qlab.app/docs/v5/video/video-output/">Video Output &mdash; QLab 5</a> &middot;
+        <a href="https://qlab.app/cookbook/regional-stages/">Regional Stages</a></li>
+    <li><a href="https://www.projectorcentral.com/Panasonic-PT-RQ25KU.htm">Panasonic PT-RQ25K</a> &middot;
+        <a href="https://www.projectorcentral.com/epson-eb-pu2116w.htm">Epson EB-PU2116W</a></li>
+    <li><a href="https://acamericas.com/products/eclprofile-fs/">Prolights EclProfile FS</a> &middot;
+        <a href="https://chauvetprofessional.com/product/ovation-p-56fc/">Ovation P-56FC</a> &middot;
+        <a href="https://chauvetprofessional.com/product/rogue-r2x-wash/">Rogue R2X Wash</a> &middot;
+        <a href="https://www.elationlighting.com/products/fuze-max-profile">Elation Fuze Max Profile</a></li>
+    <li><a href="https://www.allen-heath.com/hardware/avantis/">Allen &amp; Heath Avantis</a> &middot;
+        <a href="https://www.mtishows.com/marketplace/broadway-media/authorized-disneys-frozen-scenic-projectionstm">Authorized Frozen Scenic Projections &mdash; MTI</a></li>
+  </ul>
+  <p>Every figure is computed from one surveyed set of venue numbers &mdash; line sets on one-foot
+  centres with the cyc on set 30, tech booth 75&prime; out, catwalk 40&prime; at 25&prime;, spot
+  positions 89&prime; at 30&prime;, electrics trimmed at 18&prime;. Change a number and re-run the
+  generators in each part&rsquo;s companion files.</p>
+</footer>
+</main>
+</div>
+<script>
+(function () {
+  var views = ['home', 'lx', 'au'];
+  function show(v) {
+    if (views.indexOf(v) < 0) v = 'home';
+    views.forEach(function (k) {
+      var el = document.getElementById('view-' + k);
+      if (el) el.hidden = (k !== v);
+    });
+    Array.prototype.forEach.call(document.querySelectorAll('.toc a'), function (a) {
+      a.classList.toggle('on', a.getAttribute('data-view') === v);
+    });
+    document.title = (v === 'home' ? 'Frozen \u2014 Technical Design Package'
+                                   : document.getElementById('view-' + v)
+                                       .getAttribute('data-title'));
+  }
+  function route() {
+    var h = (location.hash || '').replace(/^#/, '');
+    if (!h) { show('home'); window.scrollTo(0, 0); return; }
+    var view = h.split('-')[0];
+    show(views.indexOf(view) >= 0 ? view : 'home');
+    var t = document.getElementById(h);
+    if (t) t.scrollIntoView();
+    else window.scrollTo(0, 0);
+  }
+  window.addEventListener('hashchange', route);
+  if (document.readyState === 'loading')
+    document.addEventListener('DOMContentLoaded', route);
+  else route();
+})();
+</script>
+</body>
+</html>
