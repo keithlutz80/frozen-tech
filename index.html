@@ -341,7 +341,7 @@ footer ul { padding-left:18px; }
       <article class="card">
         <p class="cnum">PART III</p>
         <h3>Sound</h3>
-        <p>Twenty-four radio mics on an Allen &amp; Heath Avantis with a GX4816 stagebox &mdash; five audio Groups under five DCAs, seven matrices, and a one-second scene crossfade.</p>
+        <p>Twenty-four radio mics on an Allen &amp; Heath Avantis with a GX4816 stagebox &mdash; five audio Groups under five DCAs, six matrices, and a one-second scene crossfade.</p>
         <dl><div><dt>Console</dt><dd>Avantis + GX4816</dd></div><div><dt>Inputs</dt><dd>34 of 64</dd></div><div><dt>Groups</dt><dd>5 &rarr; 5 DCAs</dd></div></dl>
         <ol><li><a href="#au-premise">The premise</a></li><li><a href="#au-console">The console, and where it runs out</a></li><li><a href="#au-patch">Input patch and routing</a></li><li><a href="#au-outputs">Mixes, Matrices and outputs</a></li><li><a href="#au-method">The mixing method</a></li><li><a href="#au-conflict">Where audio collides with the other two plots</a></li><li><a href="#au-rf">RF &mdash; three systems, one coordination</a></li><li><a href="#au-showfile">Show file and scene plan</a></li><li><a href="#au-process">Order of process</a></li><li><a href="#au-checks">Checklists</a></li><li><a href="#au-open">Still open</a></li><li><a href="#au-assets">Companion files</a></li></ol>
         <a class="go" href="#au-premise">Open sound &rarr;</a>
@@ -881,6 +881,9 @@ footer ul { padding-left:18px; }
     eight faders, the same eight in Act I scene 1 and in the bows. A student can learn that in a
     week and get good at it in a run &mdash; and &ldquo;bring the boys up a bit&rdquo; becomes one
     move instead of six.</p>
+    <p>A sixth DCA, <strong>DCA 6 &mdash; Monitors</strong>, sits on the build layer rather than the
+    performance surface. It holds Aux 1 and Aux 2 together so one fader fades both monitor zones, and
+    nobody touches it during a normal run.</p>
   </div>
 
   <div class="note">
@@ -910,9 +913,9 @@ footer ul { padding-left:18px; }
         <tr><td class="id">Line outputs</td><td class="num">12 local<br>+ 16 on GX4816</td><td class="num">19</td>
           <td><span class="pill good">comfortable</span> 9 spare</td></tr>
         <tr><td class="id">Configurable buses</td><td class="num">42</td><td class="num">~32</td>
-          <td><span class="pill good">comfortable</span> 5 groups, aux and stereo aux mixes, 5 mono and 3 stereo matrices</td></tr>
-        <tr><td class="id">DCAs</td><td class="num">16</td><td class="num">5</td>
-          <td><span class="pill good">comfortable</span> deliberately &mdash; five is what one person can hold</td></tr>
+          <td><span class="pill good">comfortable</span> 5 groups, aux and stereo aux mixes, 4 mono and 3 stereo matrices</td></tr>
+        <tr><td class="id">DCAs</td><td class="num">16</td><td class="num">6</td>
+          <td><span class="pill good">comfortable</span> five for the performance surface, which is what one person can hold, plus one for monitors</td></tr>
         <tr><td class="id">FX engines</td><td class="num">12 RackExtra</td><td class="num">4</td>
           <td><span class="pill good">comfortable</span></td></tr>
         <tr><td class="id">I/O ports</td><td class="num">2 &times; 128&times;128</td><td class="num">1</td>
@@ -1041,7 +1044,7 @@ footer ul { padding-left:18px; }
 
   <div class="tablewrap">
     <table>
-      <caption>Matrices &mdash; fed from LR and Mixes</caption>
+      <caption>Matrices &mdash; fed from LR</caption>
       <thead><tr><th class="num">Matrix</th><th>Destination</th><th class="num">Width</th><th class="num">Tap</th><th class="num">I/O</th><th>Why</th></tr></thead>
       <tbody>
         <tr><td class="num">LR</td><td>Flown arrays L / R</td><td class="num">stereo</td><td class="num"><strong>post</strong></td><td class="num">Console 11&ndash;12</td><td>Straight off LR, no matrix. System EQ and delay for the room go on the LR output</td></tr>
@@ -1049,7 +1052,6 @@ footer ul { padding-left:18px; }
         <tr><td class="num">Matrix 2</td><td>Front fill, outer (FF-1, FF-5)</td><td class="num">mono</td><td class="num"><strong>post</strong></td><td class="num">Console 9</td><td>Same as Matrix 1, but these sit nearer the stage edge and serve the side blocks, so they need their own delay (about 15 ms) and level</td></tr>
         <tr><td class="num">Matrix 3</td><td>Dressing rooms</td><td class="num">mono</td><td class="num"><strong>pre</strong></td><td class="num">GX 9</td><td>It competes with a room of teenagers, so it runs loud and must survive the master being pulled</td></tr>
         <tr><td class="num">Matrix 4</td><td>Backstage</td><td class="num">mono</td><td class="num"><strong>pre</strong></td><td class="num">Console 5&ndash;6</td><td>Cast cues must survive the master being pulled. Two outputs carry the one mono feed</td></tr>
-        <tr><td class="num">Matrix 5</td><td>Monitors &mdash; one fade for both zones</td><td class="num">mono</td><td class="num"><strong>post</strong></td><td class="num">Console 1&ndash;4</td><td>Fed from Aux 1 and Aux 2, not LR, so a single fader fades the downstage and upstage monitors together</td></tr>
         <tr><td class="num">St Matrix 1</td><td>Video recording</td><td class="num">stereo</td><td class="num"><strong>pre</strong></td><td class="num">GX 11&ndash;12</td><td>The archive must not record a fader move made for the room</td></tr>
         <tr><td class="num">St Matrix 2</td><td>Video stream</td><td class="num">stereo</td><td class="num"><strong>pre</strong></td><td class="num">Console 7&ndash;8</td><td>Wants more compression and less dynamic range than the archive</td></tr>
         <tr><td class="num">St Matrix 3</td><td><em>spare</em></td><td class="num">stereo</td><td class="num">&mdash;</td><td class="num">&mdash;</td><td>Free</td></tr>
@@ -1137,7 +1139,8 @@ footer ul { padding-left:18px; }
       <caption>Physical output patch</caption>
       <thead><tr><th class="num">Connector</th><th>Carries</th><th class="num">Bus</th></tr></thead>
       <tbody>
-        <tr><td class="num">Console 1&ndash;4</td><td>Monitors, both zones</td><td class="num">Matrix 5</td></tr>
+        <tr><td class="num">Console 1&ndash;2</td><td>Downstage monitors</td><td class="num">Aux 1</td></tr>
+        <tr><td class="num">Console 3&ndash;4</td><td>Upstage monitors</td><td class="num">Aux 2</td></tr>
         <tr><td class="num">Console 5&ndash;6</td><td>Backstage</td><td class="num">Matrix 4</td></tr>
         <tr><td class="num">Console 7&ndash;8</td><td>Video stream L / R</td><td class="num">St Matrix 2</td></tr>
         <tr><td class="num">Console 9</td><td>Front fill &mdash; outer two</td><td class="num">Matrix 2</td></tr>
@@ -1181,7 +1184,7 @@ footer ul { padding-left:18px; }
         <tr><td class="id">D</td><td>FX Sends 1&ndash;8</td>
           <td>FX Returns 1&ndash;8 <span class="dim">(1&ndash;8)</span> &middot; Sub <span class="dim">(11)</span> &middot; Main <span class="dim">(12)</span></td></tr>
         <tr><td class="id">E</td><td>Monitor sends</td>
-          <td>Matrix 1&ndash;5 <span class="dim">(1&ndash;5)</span> &middot; St Matrix 1&ndash;2 <span class="dim">(6&ndash;7)</span> &middot; Sub <span class="dim">(11)</span> &middot; Main <span class="dim">(12)</span></td></tr>
+          <td>Matrix 1&ndash;4 <span class="dim">(1&ndash;4)</span> &middot; St Matrix 1&ndash;2 <span class="dim">(5&ndash;6)</span> &middot; DCA 6 Monitors <span class="dim">(9)</span> &middot; Sub <span class="dim">(11)</span> &middot; Main <span class="dim">(12)</span></td></tr>
         <tr><td class="id">F</td><td>Groups 1&ndash;5 <span class="dim">(1&ndash;5)</span></td>
           <td>Sub <span class="dim">(11)</span> &middot; Main <span class="dim">(12)</span></td></tr>
       </tbody>
@@ -1508,6 +1511,7 @@ footer ul { padding-left:18px; }
     <li>Upstage monitors at &plusmn;23&prime;, sightlined from row 1 centre and both extreme sides</li>
     <li>Delays measured and entered; front fill 6&ndash;9&nbsp;dB under the mains</li>
     <li>Front fill M1Ds lying on the apron deck at 0, &plusmn;12&prime; and &plusmn;21&prime;, each aimed along its radius; tops under 0.6&prime; above the deck and clear of the leg ray</li>
+    <li>DCA 6 confirmed to move Aux 1 and Aux 2 together, with each aux keeping its own balance and output</li>
     <li>Subs confirmed aux-fed on Aux 4, mono, with no vocal sends</li>
     <li>All four delays entered in the show file &mdash; front fill centre three 20 ms on Matrix 1, front fill outer two about 15 ms on Matrix 2, Aux 4 at 7.75 ms, St Aux 1 at 22 ms &mdash; not in the amplifiers</li>
     <li>Matrix taps verified: Matrix 1 and 2 post-fade, Matrix 3, Matrix 4 and St Matrix 1 and 2 pre-fade. Pull the master and confirm backstage, dressing rooms, the recording and the stream keep running</li>
@@ -1519,7 +1523,7 @@ footer ul { padding-left:18px; }
     <li>Announce mic ducking tested against a full-level music cue</li>
     <li>Dressing room feed audible over a room of teenagers getting into costume</li>
     <li>Every scene&rsquo;s level map walked against the script with the stage manager</li>
-    <li>Scene crossfade set to 1.0 s globally; confirmed no scene recalls a DCA, Group or monitor-send level</li>
+    <li>Scene crossfade set to 1.0 s globally; confirmed no scene recalls a DCA, Group or monitor-send level, DCA 6 included</li>
     <li>Parked level agreed at &minus;15 dB and applied consistently across all 24 lavs</li>
   </ul>
 
@@ -1543,11 +1547,10 @@ footer ul { padding-left:18px; }
       22&nbsp;ms surround &mdash; were computed from the design hang at roughly 25.5&prime; above the house
       floor, with the arrays on the centre line. Re-measure once the arrays are flown; a foot of trim moves
       the fill and sub figures by about a millisecond.</li>
-      <li><strong>Two monitor zones through one mono matrix.</strong> Matrix 5 is mono, so it sums Aux 1
-      and Aux 2 into one signal and all four monitors get the same mix. That gives one fade, but it
-      also removes the separate downstage and upstage balances. If the zones need to stay different,
-      keep Aux 1 and Aux 2 on their own outputs and put one fader over both another way, such as a
-      DCA.</li>
+      <li><strong>Whether DCA 6 can hold the aux masters on this desk.</strong> The monitor zones keep
+      their own outputs and balances, and one DCA fades both. Confirm on the console that a DCA accepts
+      Aux 1 and Aux 2 masters before the show file is built. If it does not, the fallback is a mono
+      matrix over both, which gives one fade but sums the two zones into a single signal.</li>
       <li><strong>Where the arrays are tuned.</strong> They come straight off LR on Console 11&ndash;12 with
       no matrix, so system EQ and delay for the room sit on the LR output and tuning the room touches LR.
       Re-check that against the master fader and any LR processing before the show file is locked.</li>
