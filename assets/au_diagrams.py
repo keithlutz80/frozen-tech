@@ -227,3 +227,166 @@ def coverage_svg():
            'and never carries dialogue.')
     return ('\n  <figure>\n    <div class="figbox">\n      ' + ''.join(p) +
             f'\n    </div>\n    <figcaption>{cap}</figcaption>\n  </figure>')
+
+
+# ---------------------------------------------------------------------------------------------
+# Front fill: level map, section and projector-clearance figures
+# ---------------------------------------------------------------------------------------------
+
+EAR = 3.5               # seated ear height above the house floor
+FOH_LENS_Z, FOH_LENS_Y = -75.0, DECK + 6.5   # FOH projector lens: 75 ft out, 6.5 ft above the deck
+
+
+def _fill_levels():
+    """Per-seat level relative to the median seat, for the first five rows."""
+    cabs = _fill_cabs()
+    seats = _seats()
+    lv = [_fill_level(x, z, cabs) for _, _, x, z in seats]
+    med = sorted(lv)[len(lv) // 2]
+    return seats, [v - med for v in lv]
+
+
+def fill_stats():
+    """Share of centre-block and side-block seats within 3 dB of the median, worst and hottest seat."""
+    seats, d = _fill_levels()
+    pick = lambda sel: [v for (n, deg, x, z), v in zip(seats, d) if sel(abs(deg))]
+    share = lambda vs: 100 * sum(abs(v) <= 3 for v in vs) / len(vs)
+    return dict(centre=share(pick(lambda a: a <= 17)), side=share(pick(lambda a: a >= 22)),
+                worst=min(d), hot=max(d))
+
+
+def _foh_ray(z_at, z_target):
+    """Height above the house floor, at z_at, of the FOH ray that lands on the deck at z_target."""
+    return FOH_LENS_Y + (DECK - FOH_LENS_Y) * ((z_at - FOH_LENS_Z) / (z_target - FOH_LENS_Z))
+
+
+def _fig(svg_parts, cap):
+    return ('\n  <figure>\n    <div class="figbox">\n      ' + ''.join(svg_parts) +
+            f'\n    </div>\n    <figcaption>{cap}</figcaption>\n  </figure>')
+
+
+def fill_level_svg():
+    """Predicted level along rows 1, 3 and 5 by seat angle."""
+    seats, d = _fill_levels()
+    W, H, L, R, T, B = 720, 250, 54, 24, 18, 44
+    cx = lambda a: L + (a + 50) / 100 * (W - L - R)
+    cy = lambda db: T + (8 - db) / 18 * (H - T - B)
+    p = []
+    A = p.append
+    A(f'<svg viewBox="0 0 {W} {H}" role="img" aria-label="Predicted level relative to the median seat along '
+      'rows 1, 3 and 5 by seat angle from the centre line.">')
+    for db in range(8, -11, -3):
+        A(f'<line x1="{L}" y1="{cy(db):.1f}" x2="{W-R}" y2="{cy(db):.1f}" '
+          f'stroke="{"var(--rule-strong)" if db == 0 else "var(--rule)"}"/>')
+        A(f'<text x="{L-8}" y="{cy(db)+4:.1f}" text-anchor="end" class="svg-label sm">'
+          f'{"median" if db == 0 else f"{db:+d} dB"}</text>')
+    for a0, a1 in ((17, 22), (-22, -17)):
+        A(f'<rect x="{cx(a0):.1f}" y="{T}" width="{cx(a1)-cx(a0):.1f}" height="{H-T-B}" fill="var(--rule)" opacity=".6"/>'
+          f'<text x="{(cx(a0)+cx(a1))/2:.1f}" y="{T+11}" text-anchor="middle" class="svg-label sm">aisle</text>')
+    for a in range(-50, 51, 10):
+        A(f'<line x1="{cx(a):.1f}" y1="{H-B}" x2="{cx(a):.1f}" y2="{H-B+5}" stroke="var(--ink-3)"/>'
+          f'<text x="{cx(a):.1f}" y="{H-B+18}" text-anchor="middle" class="svg-label sm">{a:+d}&deg;</text>'
+          if a else
+          f'<line x1="{cx(0):.1f}" y1="{H-B}" x2="{cx(0):.1f}" y2="{H-B+5}" stroke="var(--ink-3)"/>'
+          f'<text x="{cx(0):.1f}" y="{H-B+18}" text-anchor="middle" class="svg-label sm">0&deg;</text>')
+    A(f'<text x="{(L+W-R)/2:.0f}" y="{H-6}" text-anchor="middle" class="svg-label sm">'
+      'seat angle from the centre line, seen from the middle of the seat fan</text>')
+    for n, col in ((1, 'var(--accent)'), (3, 'var(--good)'), (5, 'var(--aurora)')):
+        row = sorted((deg, v) for (nn, deg, x, z), v in zip(seats, d) if nn == n)
+        for part in ([t for t in row if t[0] <= -22], [t for t in row if -17 <= t[0] <= 0],
+                     [t for t in row if 0 <= t[0] <= 17], [t for t in row if t[0] >= 22]):
+            if len(part) > 1:
+                A('<polyline points="' + ' '.join(f'{cx(a):.1f},{cy(v):.1f}' for a, v in part) +
+                  f'" fill="none" stroke="{col}" stroke-width="2" stroke-linejoin="round"/>')
+    A('</svg>')
+    cap = ('Predicted level along row 1 (<span style="color:var(--accent)">blue</span>), row 3 '
+           '(<span style="color:var(--good)">green</span>) and row 5 (<span style="color:var(--aurora)">violet</span>), '
+           'relative to the median seat. The model sums the five cabinets as power and ignores the vertical pattern '
+           'and comb filtering. The percentages carry about &plusmn;5 points of noise, so run the final aim in MAPP.')
+    return _fig(p, cap)
+
+
+def fill_section_svg():
+    """Centre-line section through FF-3: vertical wedge over rows 1 to 5 and the lowest FOH rays."""
+    zi = _fill_cabs()[2][1]
+    sz, z_left, ys = 14.0, -42, 20.0
+    sx = lambda z: 20 + (z - z_left) * sz
+    sy = lambda y: 232 - y * ys
+    row_z = lambda n: -(ROW1 + ROW_PITCH * (n - 1))
+    p = []
+    A = p.append
+    A('<svg viewBox="0 0 720 262" role="img" aria-label="Centre-line section: FF-3 lying on the apron deck, its '
+      'vertical coverage over rows 1 to 5, and the lowest projector rays.">')
+    A(f'<line x1="{sx(-42):.1f}" y1="{sy(0):.1f}" x2="{sx(zi):.1f}" y2="{sy(0):.1f}" stroke="var(--ink-3)" stroke-width="2"/>')
+    A(f'<path d="M{sx(zi):.1f} {sy(0):.1f} V{sy(DECK):.1f} H{sx(6):.1f}" fill="none" stroke="var(--ink)" stroke-width="2.5"/>')
+    A(f'<text x="{sx(5.6):.1f}" y="{sy(DECK)+16:.1f}" text-anchor="end" class="svg-label sm">APRON DECK +3.5&prime;</text>')
+    y0 = DECK + M1D_H / 2
+    for n in range(1, 6):
+        A(f'<line x1="{sx(row_z(n)):.1f}" y1="{sy(0):.1f}" x2="{sx(row_z(n)):.1f}" y2="{sy(0)+6:.1f}" stroke="var(--ink-3)"/>'
+          f'<text x="{sx(row_z(n)):.1f}" y="{sy(0)+19:.1f}" text-anchor="middle" class="svg-label sm">r{n}</text>')
+    z5 = row_z(5)
+    dy = abs(z5 - zi) * math.tan(math.radians(5))
+    A(f'<path d="M{sx(zi):.1f} {sy(y0):.1f} L{sx(z5):.1f} {sy(y0+dy):.1f} L{sx(z5):.1f} {sy(y0-dy):.1f} Z" '
+      'fill="var(--accent)" opacity=".16"/>')
+    A(f'<line x1="{sx(zi):.1f}" y1="{sy(y0):.1f}" x2="{sx(z5):.1f}" y2="{sy(EAR):.1f}" stroke="var(--accent)" stroke-width="1.2"/>')
+    A(f'<line x1="{sx(row_z(1)):.1f}" y1="{sy(EAR):.1f}" x2="{sx(z5):.1f}" y2="{sy(EAR):.1f}" '
+      'stroke="var(--ink-2)" stroke-width="1" stroke-dasharray="2 3"/>')
+    A(f'<text x="{sx(row_z(3)):.1f}" y="{sy(EAR)+15:.1f}" text-anchor="middle" class="svg-label sm">seated ear 3.5&prime;</text>')
+    for zt, col in ((0, 'var(--warn)'), (6, 'var(--aurora)')):
+        za = -38
+        A(f'<line x1="{sx(za):.1f}" y1="{sy(_foh_ray(za, zt)):.1f}" x2="{sx(zt):.1f}" y2="{sy(DECK):.1f}" '
+          f'stroke="{col}" stroke-width="1.4"/>')
+    A(f'<rect x="{sx(zi)-M1D_D*sz/2:.1f}" y="{sy(DECK+M1D_H):.1f}" width="{M1D_D*sz:.1f}" height="{M1D_H*ys:.1f}" '
+      'fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>')
+    A(f'<text x="{sx(zi)+14:.1f}" y="{sy(DECK+M1D_H)-26:.1f}" class="svg-label hi">FF-3 on the deck</text>'
+      f'<text x="{sx(zi)+14:.1f}" y="{sy(DECK+M1D_H)-14:.1f}" class="svg-label sm">apron apex, {abs(zi):.1f}&prime; downstage</text>')
+    A('</svg>')
+    cap = ('Centre-line section through FF-3. The blue wedge is the 10&deg; vertical minimum for one cabinet, aimed '
+           'at seated ears; it covers rows 1 to 5 on a flat floor. Orange and violet are the lowest rays from the '
+           'FOH projectors, 75&prime; out. Vertical scale is exaggerated about 1.5&times;.')
+    return _fig(p, cap)
+
+
+def fill_clearance_svg():
+    """Detail at the outer cabinets: top edge against the lowest FOH rays, on the deck and raised."""
+    zo = _fill_cabs()[0][1]
+    zs, ys, zl, zr, yb = 161.0, 125.0, zo - 2.0, zo + 2.0, 3.3
+    ix = lambda z: 56 + (z - zl) * zs
+    iy = lambda y: 215 - (y - yb) * ys
+    rl = _foh_ray(zo, 6) - DECK
+    rb = _foh_ray(zo, 0) - DECK
+    p = []
+    A = p.append
+    A('<svg viewBox="0 0 720 250" role="img" aria-label="Magnified view at the outer cabinets: the M1D top edge '
+      'against the lowest projector rays, on the deck and raised.">')
+    A(f'<rect x="{ix(zl):.1f}" y="{iy(DECK):.1f}" width="{(zr-zl)*zs:.1f}" height="{iy(yb)-iy(DECK):.1f}" fill="var(--surface-2)"/>')
+    A(f'<line x1="{ix(zl):.1f}" y1="{iy(DECK):.1f}" x2="{ix(zr):.1f}" y2="{iy(DECK):.1f}" stroke="var(--ink)" stroke-width="2.5"/>')
+    for yy in (DECK + 0.5, DECK + 1.0, DECK + 1.5):
+        A(f'<line x1="{ix(zl):.1f}" y1="{iy(yy):.1f}" x2="{ix(zr):.1f}" y2="{iy(yy):.1f}" stroke="var(--rule)"/>'
+          f'<text x="{ix(zl)-6:.1f}" y="{iy(yy)+4:.1f}" text-anchor="end" class="svg-label sm">+{yy-DECK:.1f}&prime;</text>')
+    for zt, col in ((0, 'var(--warn)'), (6, 'var(--aurora)')):
+        A(f'<line x1="{ix(zl):.1f}" y1="{iy(_foh_ray(zl, zt)):.1f}" x2="{ix(zr):.1f}" y2="{iy(_foh_ray(zr, zt)):.1f}" '
+          f'stroke="{col}" stroke-width="1.6"/>')
+    A(f'<text x="{ix(zl)+6:.1f}" y="{iy(_foh_ray(zl, 6))-8:.1f}" class="svg-label sm" style="fill:var(--aurora)">'
+      f'ray to LEG-*1, {rl:.2f}&prime; at FF-1 / FF-5</text>')
+    A(f'<text x="{ix(zl)+6:.1f}" y="{iy(_foh_ray(zl, 0))-8:.1f}" class="svg-label sm" style="fill:var(--warn)">'
+      f'ray to portal side band, {rb:.2f}&prime;</text>')
+    c1, c2 = zo - 0.9, zo + 0.9
+    A(f'<rect x="{ix(c1-M1D_D/2):.1f}" y="{iy(DECK+M1D_H):.1f}" width="{M1D_D*zs:.1f}" height="{M1D_H*ys:.1f}" '
+      'fill="var(--surface)" fill-opacity=".92" stroke="var(--good)" stroke-width="2"/>')
+    A(f'<rect x="{ix(c2-M1D_D/2):.1f}" y="{iy(DECK+0.7+M1D_H):.1f}" width="{M1D_D*zs:.1f}" height="{M1D_H*ys:.1f}" '
+      'fill="var(--surface)" fill-opacity=".92" stroke="var(--warn)" stroke-width="2" stroke-dasharray="4 3"/>')
+    A(f'<text x="{ix(c1):.1f}" y="{iy(DECK)+18:.1f}" text-anchor="middle" class="svg-label sm" '
+      'style="fill:var(--good);font-weight:600">on the deck</text>'
+      f'<text x="{ix(c1):.1f}" y="{iy(DECK)+31:.1f}" text-anchor="middle" class="svg-label sm">'
+      f'top +{M1D_H:.2f}&prime; &mdash; clears by {rl-M1D_H:.2f}&prime;</text>')
+    A(f'<text x="{ix(c2):.1f}" y="{iy(DECK)+18:.1f}" text-anchor="middle" class="svg-label sm" '
+      'style="fill:var(--warn);font-weight:600">raised to a 4.5&prime; centre</text>'
+      f'<text x="{ix(c2):.1f}" y="{iy(DECK)+31:.1f}" text-anchor="middle" class="svg-label sm">'
+      f'top +{0.7+M1D_H:.2f}&prime; &mdash; cuts the ray by {0.7+M1D_H-rl:.2f}&prime;</text>')
+    A('</svg>')
+    cap = (f'Detail at FF-1 and FF-5, four feet across and vertically exaggerated. On the deck the cabinet top clears '
+           f'the ray to LEG-*1 by {rl-M1D_H:.2f}&prime;. Raised to the 4.5&prime; centre an earlier plot showed, it would '
+           f'cut {0.7+M1D_H-rl:.2f}&prime; into the beam and shadow the foot of the panel. The three inner cabinets are '
+           'clear of every projected surface.')
+    return _fig(p, cap)
