@@ -907,10 +907,10 @@ footer ul { padding-left:18px; }
           <td><span class="pill good">comfortable</span> 30 spare, and 96 with the dPack upgrade</td></tr>
         <tr><td class="id">Mic preamps</td><td class="num">12 local<br>+ 48 on GX4816</td><td class="num">28</td>
           <td><span class="pill good">comfortable</span> 20 spare preamps at the stage end</td></tr>
-        <tr><td class="id">Line outputs</td><td class="num">12 local<br>+ 16 on GX4816</td><td class="num">18</td>
-          <td><span class="pill good">comfortable</span> 10 spare</td></tr>
+        <tr><td class="id">Line outputs</td><td class="num">12 local<br>+ 16 on GX4816</td><td class="num">19</td>
+          <td><span class="pill good">comfortable</span> 9 spare</td></tr>
         <tr><td class="id">Configurable buses</td><td class="num">42</td><td class="num">~32</td>
-          <td><span class="pill good">comfortable</span> 5 groups, 10 mixes, 3 mono and 3 stereo matrices</td></tr>
+          <td><span class="pill good">comfortable</span> 5 groups, aux and stereo aux mixes, 4 mono and 2 stereo matrices</td></tr>
         <tr><td class="id">DCAs</td><td class="num">16</td><td class="num">5</td>
           <td><span class="pill good">comfortable</span> deliberately &mdash; five is what one person can hold</td></tr>
         <tr><td class="id">FX engines</td><td class="num">12 RackExtra</td><td class="num">4</td>
@@ -924,13 +924,13 @@ footer ul { padding-left:18px; }
   <div class="note">
     <span class="label">The GX4816 settles the input question</span>
     <p>48 mic preamps and 16 line outputs over a single gigaACE Ethercon run, at 96&nbsp;kHz. Against 28
-    mics and 18 outputs that is not close &mdash; you have twenty spare preamps and a spare I/O port
+    mics and 19 outputs that is not close &mdash; you have twenty spare preamps and a spare I/O port
     for a Dante card later if the video department wants a clean feed.</p>
     <p><strong>Split the I/O by where the equipment lives.</strong> Everything on stage &mdash; all 24
-    lavs, the orchestra pair, the four monitor feeds, backstage and dressing rooms &mdash; lands on the
-    GX4816. Everything in the house &mdash; the mains, front fill, surrounds, subs and the
-    recording feeds &mdash; comes off the console&rsquo;s twelve local outputs. One cable across the
-    building instead of a multicore.</p>
+    lavs and the orchestra pair &mdash; lands on the GX4816 inputs. The arrays, front fills, monitors,
+    backstage and the stream come off the console&rsquo;s twelve local outputs. Subs, surrounds, dressing
+    rooms and the video recording go out the GX4816&rsquo;s line outputs. One cable across the building
+    instead of a multicore.</p>
   </div>
 
   <div class="note">
@@ -969,7 +969,7 @@ footer ul { padding-left:18px; }
         <tr><td class="num">27&ndash;28</td><td><strong>Music</strong></td><td class="num">local 1&ndash;2</td>
           <td>Line, no processing</td><td class="num">&mdash;</td><td class="num">direct</td></tr>
         <tr><td class="num">29&ndash;30</td><td><strong>SFX</strong></td><td class="num">local 3&ndash;4</td>
-          <td>Line; also sent to the surrounds on Mix 7&ndash;8</td><td class="num">&mdash;</td><td class="num">direct</td></tr>
+          <td>Line; also sent to the surrounds on St Aux 1</td><td class="num">&mdash;</td><td class="num">direct</td></tr>
         <tr><td class="num">31&ndash;33</td><td><em>spare</em></td><td class="num">&mdash;</td><td>Held for a swing, a doubler or a guest input</td><td class="num">&mdash;</td><td class="num">&mdash;</td></tr>
         <tr><td class="num">34</td><td><strong>Announce</strong> &mdash; tech booth</td><td class="num">local 5</td>
           <td>HPF 150, hard limit; ducks the show</td><td class="num">&mdash;</td><td class="num">direct</td></tr>
@@ -1007,7 +1007,7 @@ footer ul { padding-left:18px; }
   
   <figure>
     <div class="figbox">
-      <svg viewBox="0 0 720 372" role="img" aria-label="Signal flow from sources through DCAs and buses to the loudspeaker systems."><defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="var(--ink-3)"/></marker></defs><text x="14" y="32" class="svg-label" style="font-weight:600;letter-spacing:.1em">CHANNELS</text><rect x="14" y="46" width="158" height="42" fill="var(--surface)" stroke="var(--rule-strong)" stroke-width="1.4" rx="3"/><text x="25" y="64" class="svg-label">Ch 1&ndash;14</text><text x="25" y="79" class="svg-label sm">principals</text><rect x="14" y="102" width="158" height="42" fill="var(--surface)" stroke="var(--rule-strong)" stroke-width="1.4" rx="3"/><text x="25" y="120" class="svg-label">Ch 15&ndash;19</text><text x="25" y="135" class="svg-label sm">ens. male</text><rect x="14" y="158" width="158" height="42" fill="var(--surface)" stroke="var(--rule-strong)" stroke-width="1.4" rx="3"/><text x="25" y="176" class="svg-label">Ch 20&ndash;24</text><text x="25" y="191" class="svg-label sm">ens. female</text><rect x="14" y="214" width="158" height="42" fill="var(--surface)" stroke="var(--rule-strong)" stroke-width="1.4" rx="3"/><text x="25" y="232" class="svg-label">Ch 25&ndash;26</text><text x="25" y="247" class="svg-label sm">orchestra</text><rect x="14" y="270" width="158" height="42" fill="var(--surface)" stroke="var(--rule-strong)" stroke-width="1.4" rx="3"/><text x="25" y="288" class="svg-label">FX 1&ndash;7</text><text x="25" y="303" class="svg-label sm">returns</text><text x="186" y="32" class="svg-label" style="font-weight:600;letter-spacing:.1em">GROUP + bus comp</text><rect x="186" y="46" width="158" height="42" fill="var(--surface)" stroke="var(--rule-strong)" stroke-width="1.4" rx="3"/><text x="197" y="64" class="svg-label">Group 1</text><text x="197" y="79" class="svg-label sm">mono &middot; comp</text><rect x="186" y="102" width="158" height="42" fill="var(--surface)" stroke="var(--rule-strong)" stroke-width="1.4" rx="3"/><text x="197" y="120" class="svg-label">Group 2</text><text x="197" y="135" class="svg-label sm">stereo &middot; comp</text><rect x="186" y="158" width="158" height="42" fill="var(--surface)" stroke="var(--rule-strong)" stroke-width="1.4" rx="3"/><text x="197" y="176" class="svg-label">Group 3</text><text x="197" y="191" class="svg-label sm">stereo &middot; comp</text><rect x="186" y="214" width="158" height="42" fill="var(--surface)" stroke="var(--rule-strong)" stroke-width="1.4" rx="3"/><text x="197" y="232" class="svg-label">Group 4</text><text x="197" y="247" class="svg-label sm">stereo &middot; comp</text><rect x="186" y="270" width="158" height="42" fill="var(--surface)" stroke="var(--rule-strong)" stroke-width="1.4" rx="3"/><text x="197" y="288" class="svg-label">Group 5</text><text x="197" y="303" class="svg-label sm">stereo &middot; no comp</text><text x="358" y="32" class="svg-label" style="font-weight:600;letter-spacing:.1em">DCA &mdash; fixed</text><rect x="358" y="46" width="158" height="42" fill="var(--surface)" stroke="var(--rule-strong)" stroke-width="1.4" rx="3"/><text x="369" y="64" class="svg-label">DCA 1</text><text x="369" y="79" class="svg-label sm">principals</text><rect x="358" y="102" width="158" height="42" fill="var(--surface)" stroke="var(--rule-strong)" stroke-width="1.4" rx="3"/><text x="369" y="120" class="svg-label">DCA 2</text><text x="369" y="135" class="svg-label sm">ensemble male</text><rect x="358" y="158" width="158" height="42" fill="var(--surface)" stroke="var(--rule-strong)" stroke-width="1.4" rx="3"/><text x="369" y="176" class="svg-label">DCA 3</text><text x="369" y="191" class="svg-label sm">ensemble female</text><rect x="358" y="214" width="158" height="42" fill="var(--surface)" stroke="var(--rule-strong)" stroke-width="1.4" rx="3"/><text x="369" y="232" class="svg-label">DCA 4</text><text x="369" y="247" class="svg-label sm">orchestra</text><rect x="358" y="270" width="158" height="42" fill="var(--surface)" stroke="var(--rule-strong)" stroke-width="1.4" rx="3"/><text x="369" y="288" class="svg-label">DCA 5</text><text x="369" y="303" class="svg-label sm">FX returns</text><text x="530" y="32" class="svg-label" style="font-weight:600;letter-spacing:.1em">LR &rarr; OUT</text><rect x="530" y="46" width="158" height="42" fill="var(--surface)" stroke="var(--rule-strong)" stroke-width="1.4" rx="3"/><text x="541" y="64" class="svg-label">LR</text><text x="541" y="79" class="svg-label sm">flown arrays</text><rect x="530" y="102" width="158" height="42" fill="var(--surface)" stroke="var(--rule-strong)" stroke-width="1.4" rx="3"/><text x="541" y="120" class="svg-label">Matrix 1&ndash;2</text><text x="541" y="135" class="svg-label sm">front fill, 2 zones</text><rect x="530" y="158" width="158" height="42" fill="var(--surface)" stroke="var(--rule-strong)" stroke-width="1.4" rx="3"/><text x="541" y="176" class="svg-label">Matrix 3, St 3</text><text x="541" y="191" class="svg-label sm">dressing / backstage</text><rect x="530" y="214" width="158" height="42" fill="var(--surface)" stroke="var(--rule-strong)" stroke-width="1.4" rx="3"/><text x="541" y="232" class="svg-label">St Matrix 1&ndash;2</text><text x="541" y="247" class="svg-label sm">video rec / stream</text><rect x="530" y="270" width="158" height="42" fill="var(--surface)" stroke="var(--rule-strong)" stroke-width="1.4" rx="3"/><text x="541" y="288" class="svg-label">Mix 1&ndash;10</text><text x="541" y="303" class="svg-label sm">monitors, surr, subs</text><line x1="172" y1="67" x2="198" y2="67" stroke="var(--ink-3)" stroke-width="1.2" marker-end="url(#ar)"/><line x1="172" y1="123" x2="198" y2="123" stroke="var(--ink-3)" stroke-width="1.2" marker-end="url(#ar)"/><line x1="172" y1="179" x2="198" y2="179" stroke="var(--ink-3)" stroke-width="1.2" marker-end="url(#ar)"/><line x1="172" y1="235" x2="198" y2="235" stroke="var(--ink-3)" stroke-width="1.2" marker-end="url(#ar)"/><line x1="172" y1="291" x2="198" y2="291" stroke="var(--ink-3)" stroke-width="1.2" marker-end="url(#ar)"/><line x1="344" y1="67" x2="370" y2="67" stroke="var(--ink-3)" stroke-width="1.2" marker-end="url(#ar)"/><line x1="344" y1="123" x2="370" y2="123" stroke="var(--ink-3)" stroke-width="1.2" marker-end="url(#ar)"/><line x1="344" y1="179" x2="370" y2="179" stroke="var(--ink-3)" stroke-width="1.2" marker-end="url(#ar)"/><line x1="344" y1="235" x2="370" y2="235" stroke="var(--ink-3)" stroke-width="1.2" marker-end="url(#ar)"/><line x1="344" y1="291" x2="370" y2="291" stroke="var(--ink-3)" stroke-width="1.2" marker-end="url(#ar)"/><line x1="516" y1="67" x2="542" y2="67" stroke="var(--ink-3)" stroke-width="1.2" marker-end="url(#ar)"/><line x1="516" y1="123" x2="542" y2="123" stroke="var(--ink-3)" stroke-width="1.2" marker-end="url(#ar)"/><line x1="516" y1="179" x2="542" y2="179" stroke="var(--ink-3)" stroke-width="1.2" marker-end="url(#ar)"/><line x1="516" y1="235" x2="542" y2="235" stroke="var(--ink-3)" stroke-width="1.2" marker-end="url(#ar)"/><line x1="516" y1="291" x2="542" y2="291" stroke="var(--ink-3)" stroke-width="1.2" marker-end="url(#ar)"/></svg>
+      <svg viewBox="0 0 720 372" role="img" aria-label="Signal flow from sources through DCAs and buses to the loudspeaker systems."><defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="var(--ink-3)"/></marker></defs><text x="14" y="32" class="svg-label" style="font-weight:600;letter-spacing:.1em">CHANNELS</text><rect x="14" y="46" width="158" height="42" fill="var(--surface)" stroke="var(--rule-strong)" stroke-width="1.4" rx="3"/><text x="25" y="64" class="svg-label">Ch 1&ndash;14</text><text x="25" y="79" class="svg-label sm">principals</text><rect x="14" y="102" width="158" height="42" fill="var(--surface)" stroke="var(--rule-strong)" stroke-width="1.4" rx="3"/><text x="25" y="120" class="svg-label">Ch 15&ndash;19</text><text x="25" y="135" class="svg-label sm">ens. male</text><rect x="14" y="158" width="158" height="42" fill="var(--surface)" stroke="var(--rule-strong)" stroke-width="1.4" rx="3"/><text x="25" y="176" class="svg-label">Ch 20&ndash;24</text><text x="25" y="191" class="svg-label sm">ens. female</text><rect x="14" y="214" width="158" height="42" fill="var(--surface)" stroke="var(--rule-strong)" stroke-width="1.4" rx="3"/><text x="25" y="232" class="svg-label">Ch 25&ndash;26</text><text x="25" y="247" class="svg-label sm">orchestra</text><rect x="14" y="270" width="158" height="42" fill="var(--surface)" stroke="var(--rule-strong)" stroke-width="1.4" rx="3"/><text x="25" y="288" class="svg-label">FX 1&ndash;7</text><text x="25" y="303" class="svg-label sm">returns</text><text x="186" y="32" class="svg-label" style="font-weight:600;letter-spacing:.1em">GROUP + bus comp</text><rect x="186" y="46" width="158" height="42" fill="var(--surface)" stroke="var(--rule-strong)" stroke-width="1.4" rx="3"/><text x="197" y="64" class="svg-label">Group 1</text><text x="197" y="79" class="svg-label sm">mono &middot; comp</text><rect x="186" y="102" width="158" height="42" fill="var(--surface)" stroke="var(--rule-strong)" stroke-width="1.4" rx="3"/><text x="197" y="120" class="svg-label">Group 2</text><text x="197" y="135" class="svg-label sm">stereo &middot; comp</text><rect x="186" y="158" width="158" height="42" fill="var(--surface)" stroke="var(--rule-strong)" stroke-width="1.4" rx="3"/><text x="197" y="176" class="svg-label">Group 3</text><text x="197" y="191" class="svg-label sm">stereo &middot; comp</text><rect x="186" y="214" width="158" height="42" fill="var(--surface)" stroke="var(--rule-strong)" stroke-width="1.4" rx="3"/><text x="197" y="232" class="svg-label">Group 4</text><text x="197" y="247" class="svg-label sm">stereo &middot; comp</text><rect x="186" y="270" width="158" height="42" fill="var(--surface)" stroke="var(--rule-strong)" stroke-width="1.4" rx="3"/><text x="197" y="288" class="svg-label">Group 5</text><text x="197" y="303" class="svg-label sm">stereo &middot; no comp</text><text x="358" y="32" class="svg-label" style="font-weight:600;letter-spacing:.1em">DCA &mdash; fixed</text><rect x="358" y="46" width="158" height="42" fill="var(--surface)" stroke="var(--rule-strong)" stroke-width="1.4" rx="3"/><text x="369" y="64" class="svg-label">DCA 1</text><text x="369" y="79" class="svg-label sm">principals</text><rect x="358" y="102" width="158" height="42" fill="var(--surface)" stroke="var(--rule-strong)" stroke-width="1.4" rx="3"/><text x="369" y="120" class="svg-label">DCA 2</text><text x="369" y="135" class="svg-label sm">ensemble male</text><rect x="358" y="158" width="158" height="42" fill="var(--surface)" stroke="var(--rule-strong)" stroke-width="1.4" rx="3"/><text x="369" y="176" class="svg-label">DCA 3</text><text x="369" y="191" class="svg-label sm">ensemble female</text><rect x="358" y="214" width="158" height="42" fill="var(--surface)" stroke="var(--rule-strong)" stroke-width="1.4" rx="3"/><text x="369" y="232" class="svg-label">DCA 4</text><text x="369" y="247" class="svg-label sm">orchestra</text><rect x="358" y="270" width="158" height="42" fill="var(--surface)" stroke="var(--rule-strong)" stroke-width="1.4" rx="3"/><text x="369" y="288" class="svg-label">DCA 5</text><text x="369" y="303" class="svg-label sm">FX returns</text><text x="530" y="32" class="svg-label" style="font-weight:600;letter-spacing:.1em">LR &rarr; OUT</text><rect x="530" y="46" width="158" height="42" fill="var(--surface)" stroke="var(--rule-strong)" stroke-width="1.4" rx="3"/><text x="541" y="64" class="svg-label">LR</text><text x="541" y="79" class="svg-label sm">flown arrays</text><rect x="530" y="102" width="158" height="42" fill="var(--surface)" stroke="var(--rule-strong)" stroke-width="1.4" rx="3"/><text x="541" y="120" class="svg-label">Matrix 1&ndash;2</text><text x="541" y="135" class="svg-label sm">front fill, 2 zones</text><rect x="530" y="158" width="158" height="42" fill="var(--surface)" stroke="var(--rule-strong)" stroke-width="1.4" rx="3"/><text x="541" y="176" class="svg-label">Matrix 3&ndash;4</text><text x="541" y="191" class="svg-label sm">dressing / backstage</text><rect x="530" y="214" width="158" height="42" fill="var(--surface)" stroke="var(--rule-strong)" stroke-width="1.4" rx="3"/><text x="541" y="232" class="svg-label">St Matrix 1&ndash;2</text><text x="541" y="247" class="svg-label sm">video rec / stream</text><rect x="530" y="270" width="158" height="42" fill="var(--surface)" stroke="var(--rule-strong)" stroke-width="1.4" rx="3"/><text x="541" y="288" class="svg-label">Aux, St Aux</text><text x="541" y="303" class="svg-label sm">monitors, subs, surr</text><line x1="172" y1="67" x2="198" y2="67" stroke="var(--ink-3)" stroke-width="1.2" marker-end="url(#ar)"/><line x1="172" y1="123" x2="198" y2="123" stroke="var(--ink-3)" stroke-width="1.2" marker-end="url(#ar)"/><line x1="172" y1="179" x2="198" y2="179" stroke="var(--ink-3)" stroke-width="1.2" marker-end="url(#ar)"/><line x1="172" y1="235" x2="198" y2="235" stroke="var(--ink-3)" stroke-width="1.2" marker-end="url(#ar)"/><line x1="172" y1="291" x2="198" y2="291" stroke="var(--ink-3)" stroke-width="1.2" marker-end="url(#ar)"/><line x1="344" y1="67" x2="370" y2="67" stroke="var(--ink-3)" stroke-width="1.2" marker-end="url(#ar)"/><line x1="344" y1="123" x2="370" y2="123" stroke="var(--ink-3)" stroke-width="1.2" marker-end="url(#ar)"/><line x1="344" y1="179" x2="370" y2="179" stroke="var(--ink-3)" stroke-width="1.2" marker-end="url(#ar)"/><line x1="344" y1="235" x2="370" y2="235" stroke="var(--ink-3)" stroke-width="1.2" marker-end="url(#ar)"/><line x1="344" y1="291" x2="370" y2="291" stroke="var(--ink-3)" stroke-width="1.2" marker-end="url(#ar)"/><line x1="516" y1="67" x2="542" y2="67" stroke="var(--ink-3)" stroke-width="1.2" marker-end="url(#ar)"/><line x1="516" y1="123" x2="542" y2="123" stroke="var(--ink-3)" stroke-width="1.2" marker-end="url(#ar)"/><line x1="516" y1="179" x2="542" y2="179" stroke="var(--ink-3)" stroke-width="1.2" marker-end="url(#ar)"/><line x1="516" y1="235" x2="542" y2="235" stroke="var(--ink-3)" stroke-width="1.2" marker-end="url(#ar)"/><line x1="516" y1="291" x2="542" y2="291" stroke="var(--ink-3)" stroke-width="1.2" marker-end="url(#ar)"/></svg>
     </div>
     <figcaption>Signal flow. Channels sum into five audio <strong>Groups</strong> &mdash; which is where the bus compressors live, because a Group is a bus the signal actually passes through &mdash; and each Group is driven by one <strong>DCA</strong>, which is a control link rather than an audio path. All five Groups feed LR, so LR is the sum of five faders. The scene&rsquo;s level map decides who is open, glided over one second; the operator only ever decides how loud.</figcaption>
   </figure>
@@ -1030,12 +1030,10 @@ footer ul { padding-left:18px; }
       <caption>Mixes &mdash; fed from channel sends</caption>
       <thead><tr><th class="num">Mix</th><th>Destination</th><th class="num">Width</th><th>Content</th></tr></thead>
       <tbody>
-        <tr><td class="num">1&ndash;2</td><td>Downstage monitors &mdash; wedges SR / SL</td><td class="num">mono</td><td>Orchestra-heavy, vocals low</td></tr>
-        <tr><td class="num">3&ndash;4</td><td>Upstage monitors &mdash; flown SR / SL</td><td class="num">mono</td><td>More vocal than the wedges &mdash; they are further from the arrays</td></tr>
-        <tr><td class="num">5&ndash;6</td><td><em>spare</em></td><td class="num">&mdash;</td><td>Held for a conductor feed or a third monitor position</td></tr>
-        <tr><td class="num">7&ndash;8</td><td>Surround L / R, spot booth</td><td class="num">stereo</td><td><strong>SFX and reverb returns only.</strong> No dialogue, ever</td></tr>
-        <tr><td class="num">9</td><td><em>spare</em></td><td class="num">&mdash;</td><td>&mdash;</td></tr>
-        <tr><td class="num">10</td><td>Subwoofers</td><td class="num">mono</td><td>Aux-fed: Music, SFX and the orchestra low end. <strong>No vocals</strong></td></tr>
+        <tr><td class="num">Aux 1</td><td>Monitors &mdash; four outputs: wedges SR / SL and flown SR / SL</td><td class="num">mono</td><td>Orchestra-heavy, vocals low. One mix feeds all four, so the flown pair gets the same balance as the wedges</td></tr>
+        <tr><td class="num">Aux 2&ndash;3</td><td><em>spare</em></td><td class="num">&mdash;</td><td>Held for separate flown-monitor balance, a conductor feed or a third monitor position</td></tr>
+        <tr><td class="num">Aux 4</td><td>Subwoofers</td><td class="num">mono</td><td>Aux-fed: Music, SFX and the orchestra low end. <strong>No vocals</strong></td></tr>
+        <tr><td class="num">St Aux 1</td><td>Surround L / R, spot booth</td><td class="num">stereo</td><td><strong>SFX and reverb returns only.</strong> No dialogue, ever</td></tr>
       </tbody>
     </table>
   </div>
@@ -1043,14 +1041,16 @@ footer ul { padding-left:18px; }
   <div class="tablewrap">
     <table>
       <caption>Matrices &mdash; fed from LR</caption>
-      <thead><tr><th class="num">Matrix</th><th>Destination</th><th class="num">Width</th><th class="num">Tap</th><th>Why</th></tr></thead>
+      <thead><tr><th class="num">Matrix</th><th>Destination</th><th class="num">Width</th><th class="num">Tap</th><th class="num">I/O</th><th>Why</th></tr></thead>
       <tbody>
-        <tr><td class="num">Matrix 1</td><td>Front fill, centre (FF-2, FF-3, FF-4)</td><td class="num">mono</td><td class="num"><strong>post</strong></td><td>Part of the same PA, so it follows the master with the arrays. Own delay (20 ms) and level</td></tr>
-        <tr><td class="num">Matrix 2</td><td>Front fill, outer (FF-1, FF-5)</td><td class="num">mono</td><td class="num"><strong>post</strong></td><td>Same as Matrix 1, but these sit nearer the stage edge and serve the side blocks, so they need their own delay (about 15 ms) and level</td></tr>
-        <tr><td class="num">Matrix 3</td><td>Dressing rooms</td><td class="num">mono</td><td class="num"><strong>pre</strong></td><td>It competes with a room of teenagers, so it runs loud and must survive the master being pulled</td></tr>
-        <tr><td class="num">St Matrix 1</td><td>Video recording</td><td class="num">stereo</td><td class="num"><strong>pre</strong></td><td>The archive must not record a fader move made for the room</td></tr>
-        <tr><td class="num">St Matrix 2</td><td>Video stream</td><td class="num">stereo</td><td class="num"><strong>pre</strong></td><td>Wants more compression and less dynamic range than the archive</td></tr>
-        <tr><td class="num">St Matrix 3</td><td>Backstage</td><td class="num">stereo</td><td class="num"><strong>pre</strong></td><td>Cast cues must survive the master being pulled</td></tr>
+        <tr><td class="num">LR</td><td>Flown arrays L / R</td><td class="num">stereo</td><td class="num"><strong>post</strong></td><td class="num">Console 11&ndash;12</td><td>Straight off LR, no matrix. System EQ and delay for the room go on the LR output</td></tr>
+        <tr><td class="num">Matrix 1</td><td>Front fill, centre (FF-2, FF-3, FF-4)</td><td class="num">mono</td><td class="num"><strong>post</strong></td><td class="num">Console 10</td><td>Part of the same PA, so it follows the master with the arrays. Own delay (20 ms) and level</td></tr>
+        <tr><td class="num">Matrix 2</td><td>Front fill, outer (FF-1, FF-5)</td><td class="num">mono</td><td class="num"><strong>post</strong></td><td class="num">Console 9</td><td>Same as Matrix 1, but these sit nearer the stage edge and serve the side blocks, so they need their own delay (about 15 ms) and level</td></tr>
+        <tr><td class="num">Matrix 3</td><td>Dressing rooms</td><td class="num">mono</td><td class="num"><strong>pre</strong></td><td class="num">GX 9</td><td>It competes with a room of teenagers, so it runs loud and must survive the master being pulled</td></tr>
+        <tr><td class="num">Matrix 4</td><td>Backstage</td><td class="num">mono</td><td class="num"><strong>pre</strong></td><td class="num">Console 5&ndash;6</td><td>Cast cues must survive the master being pulled. Two outputs carry the one mono feed</td></tr>
+        <tr><td class="num">St Matrix 1</td><td>Video recording</td><td class="num">stereo</td><td class="num"><strong>pre</strong></td><td class="num">GX 11&ndash;12</td><td>The archive must not record a fader move made for the room</td></tr>
+        <tr><td class="num">St Matrix 2</td><td>Video stream</td><td class="num">stereo</td><td class="num"><strong>pre</strong></td><td class="num">Console 7&ndash;8</td><td>Wants more compression and less dynamic range than the archive</td></tr>
+        <tr><td class="num">St Matrix 3</td><td><em>spare</em></td><td class="num">stereo</td><td class="num">&mdash;</td><td class="num">&mdash;</td><td>Free</td></tr>
       </tbody>
     </table>
   </div>
@@ -1058,7 +1058,7 @@ footer ul { padding-left:18px; }
   <div class="note">
     <span class="label">Why the pre/post split is the important line in that table</span>
     <p><strong>Matrix 1 and 2 are post-fade</strong>, so the LR master closes the house PA the way an
-    operator expects. <strong>Matrix 3 and the three stereo matrices are pre-fade</strong>, so pulling
+    operator expects. <strong>Matrix 3, Matrix 4 and the two stereo matrices in use are pre-fade</strong>, so pulling
     that master does not silence backstage, kill the dressing-room feed, or punch a hole in the
     recording and the stream.</p>
     <p>This matters most at the one moment nobody rehearses: something goes wrong, an adult&rsquo;s hand
@@ -1117,9 +1117,9 @@ footer ul { padding-left:18px; }
           <td>FF-2, FF-3 and FF-4, 12.5&prime; to 15.2&prime; downstage on the apron arc. Keeps the image on the actor rather than at the apron</td></tr>
         <tr><td class="id">FRONT FILL &mdash; OUTER</td><td class="num">Matrix 2</td><td class="num"><strong>&asymp; 15 ms</strong></td>
           <td>FF-1 and FF-5, 5.8&prime; downstage on the arc, serving the side seats. A starting value from the array and side-seat geometry &mdash; measure it</td></tr>
-        <tr><td class="id">SUBWOOFERS</td><td class="num">Mix 10</td><td class="num"><strong>7.75 ms</strong></td>
+        <tr><td class="id">SUBWOOFERS</td><td class="num">Aux 4</td><td class="num"><strong>7.75 ms</strong></td>
           <td>Aligns the subs to the arrays. Get this wrong and the low end thins out rather than sounding late</td></tr>
-        <tr><td class="id">SURROUND</td><td class="num">Mix 7&ndash;8</td><td class="num"><strong>22 ms</strong></td>
+        <tr><td class="id">SURROUND</td><td class="num">St Aux 1</td><td class="num"><strong>22 ms</strong></td>
           <td>One value, tuned for the middle of the house. A speaker behind the audience cannot be right everywhere</td></tr>
       </tbody>
     </table>
@@ -1135,24 +1135,24 @@ footer ul { padding-left:18px; }
       <caption>Physical output patch</caption>
       <thead><tr><th class="num">Connector</th><th>Carries</th><th class="num">Bus</th></tr></thead>
       <tbody>
-        <tr><td class="num">Console 1&ndash;2</td><td>Flown arrays L / R</td><td class="num">LR</td></tr>
-        <tr><td class="num">Console 3</td><td>Front fill &mdash; centre three</td><td class="num">Matrix 1</td></tr>
-        <tr><td class="num">Console 4&ndash;5</td><td>Downstage monitors</td><td class="num">Mix 1&ndash;2</td></tr>
-        <tr><td class="num">Console 6&ndash;7</td><td>Upstage monitors</td><td class="num">Mix 3&ndash;4</td></tr>
-        <tr><td class="num">Console 8&ndash;9</td><td>Backstage</td><td class="num">St Matrix 3</td></tr>
-        <tr><td class="num">Console 10</td><td>Dressing rooms</td><td class="num">Matrix 3</td></tr>
-        <tr><td class="num">Console 11</td><td><em>spare</em></td><td class="num">&mdash;</td></tr>
-        <tr><td class="num">Console 12</td><td>Front fill &mdash; outer two</td><td class="num">Matrix 2</td></tr>
-        <tr><td class="num">GX 1&ndash;2</td><td>Surround L / R</td><td class="num">Mix 7&ndash;8</td></tr>
-        <tr><td class="num">GX 3</td><td>Subwoofers</td><td class="num">Mix 10</td></tr>
-        <tr><td class="num">GX 4&ndash;5</td><td>Video recording</td><td class="num">St Matrix 1</td></tr>
-        <tr><td class="num">GX 6&ndash;7</td><td>Video stream</td><td class="num">St Matrix 2</td></tr>
-        <tr><td class="num">GX 8&ndash;16</td><td><em>spare</em></td><td class="num">&mdash;</td></tr>
+        <tr><td class="num">Console 1&ndash;4</td><td>Monitors</td><td class="num">Aux 1</td></tr>
+        <tr><td class="num">Console 5&ndash;6</td><td>Backstage</td><td class="num">Matrix 4</td></tr>
+        <tr><td class="num">Console 7&ndash;8</td><td>Video stream L / R</td><td class="num">St Matrix 2</td></tr>
+        <tr><td class="num">Console 9</td><td>Front fill &mdash; outer two</td><td class="num">Matrix 2</td></tr>
+        <tr><td class="num">Console 10</td><td>Front fill &mdash; centre three</td><td class="num">Matrix 1</td></tr>
+        <tr><td class="num">Console 11&ndash;12</td><td>Flown arrays L / R</td><td class="num">LR</td></tr>
+        <tr><td class="num">GX 1&ndash;2</td><td>Subwoofers</td><td class="num">Aux 4</td></tr>
+        <tr><td class="num">GX 3&ndash;4</td><td>Surround L / R</td><td class="num">St Aux 1</td></tr>
+        <tr><td class="num">GX 5&ndash;8</td><td><em>spare</em></td><td class="num">&mdash;</td></tr>
+        <tr><td class="num">GX 9</td><td>Dressing rooms</td><td class="num">Matrix 3</td></tr>
+        <tr><td class="num">GX 10</td><td><em>spare</em></td><td class="num">&mdash;</td></tr>
+        <tr><td class="num">GX 11&ndash;12</td><td>Video recording</td><td class="num">St Matrix 1</td></tr>
+        <tr><td class="num">GX 13&ndash;16</td><td><em>spare</em></td><td class="num">&mdash;</td></tr>
       </tbody>
     </table>
   </div>
 
-  <p class="col">Eighteen of twenty-eight outputs used, with nine spare at the stage end and one at the
+  <p class="col">Nineteen of twenty-eight outputs used, with nine spare at the stage end and none at the
   desk. Label both ends of every line before load-in &mdash; the patch is legible on paper and
   completely opaque at the back of a rack at eleven at night.</p>
 </section>
@@ -1179,7 +1179,7 @@ footer ul { padding-left:18px; }
         <tr><td class="id">D</td><td>FX Sends 1&ndash;8</td>
           <td>FX Returns 1&ndash;8 <span class="dim">(1&ndash;8)</span> &middot; Sub <span class="dim">(11)</span> &middot; Main <span class="dim">(12)</span></td></tr>
         <tr><td class="id">E</td><td>Monitor sends</td>
-          <td>Matrix 1&ndash;3 <span class="dim">(1&ndash;3)</span> &middot; St Matrix 1&ndash;3 <span class="dim">(4&ndash;6)</span> &middot; Sub <span class="dim">(11)</span> &middot; Main <span class="dim">(12)</span></td></tr>
+          <td>Matrix 1&ndash;4 <span class="dim">(1&ndash;4)</span> &middot; St Matrix 1&ndash;2 <span class="dim">(5&ndash;6)</span> &middot; Sub <span class="dim">(11)</span> &middot; Main <span class="dim">(12)</span></td></tr>
         <tr><td class="id">F</td><td>Groups 1&ndash;5 <span class="dim">(1&ndash;5)</span></td>
           <td>Sub <span class="dim">(11)</span> &middot; Main <span class="dim">(12)</span></td></tr>
       </tbody>
@@ -1401,8 +1401,8 @@ footer ul { padding-left:18px; }
       <tbody>
         <tr><td><strong>Channel fader level</strong></td><td class="num"><span class="pill good">yes</span></td><td><strong>This is the whole method.</strong> Up for this unit, parked 15 dB down otherwise &mdash; over a 1.0 s crossfade</td></tr>
         <tr><td>Channel mute</td><td class="num"><span class="pill good">yes</span></td><td>Hard cuts only &mdash; mutes are instant and do not glide</td></tr>
-        <tr><td>Surround and sub sends</td><td class="num"><span class="pill good">yes</span></td><td>Mix 7&ndash;8 and Mix 10 change with the cue &mdash; an SFX moment is a routing change</td></tr>
-        <tr><td>Monitor sends</td><td class="num"><span class="pill low">no</span></td><td>Mix 1&ndash;4 are set at the sitzprobe. A monitor balance that moves under a performer is worse than one that is slightly wrong</td></tr>
+        <tr><td>Surround and sub sends</td><td class="num"><span class="pill good">yes</span></td><td>St Aux 1 and Aux 4 change with the cue &mdash; an SFX moment is a routing change</td></tr>
+        <tr><td>Monitor sends</td><td class="num"><span class="pill low">no</span></td><td>Aux 1 is set at the sitzprobe. A monitor balance that moves under a performer is worse than one that is slightly wrong</td></tr>
         <tr><td>FX parameters</td><td class="num"><span class="pill good">yes</span></td><td>Reverb changes with location</td></tr>
         <tr><td>DCA assignment</td><td class="num"><span class="pill low">no</span></td><td>Fixed all night, so a fader always means the same thing</td></tr>
         <tr><td>DCA fader level</td><td class="num"><span class="pill low">no</span></td><td>Never move the operator&rsquo;s hand for them</td></tr>
@@ -1506,9 +1506,9 @@ footer ul { padding-left:18px; }
     <li>Upstage monitors at &plusmn;23&prime;, sightlined from row 1 centre and both extreme sides</li>
     <li>Delays measured and entered; front fill 6&ndash;9&nbsp;dB under the mains</li>
     <li>Front fill M1Ds lying on the apron deck at 0, &plusmn;12&prime; and &plusmn;21&prime;, each aimed along its radius; tops under 0.6&prime; above the deck and clear of the leg ray</li>
-    <li>Subs confirmed aux-fed on Mix 10, mono, with no vocal sends</li>
-    <li>All four delays entered in the show file &mdash; front fill centre three 20 ms on Matrix 1, front fill outer two about 15 ms on Matrix 2, Mix 10 at 7.75 ms, Mix 7&ndash;8 at 22 ms &mdash; not in the amplifiers</li>
-    <li>Matrix taps verified: Matrix 1 and 2 post-fade, Matrix 3 and St Matrix 1 to 3 pre-fade. Pull the master and confirm backstage, dressing rooms, the recording and the stream keep running</li>
+    <li>Subs confirmed aux-fed on Aux 4, mono, with no vocal sends</li>
+    <li>All four delays entered in the show file &mdash; front fill centre three 20 ms on Matrix 1, front fill outer two about 15 ms on Matrix 2, Aux 4 at 7.75 ms, St Aux 1 at 22 ms &mdash; not in the amplifiers</li>
+    <li>Matrix taps verified: Matrix 1 and 2 post-fade, Matrix 3, Matrix 4 and St Matrix 1 and 2 pre-fade. Pull the master and confirm backstage, dressing rooms, the recording and the stream keep running</li>
     <li>All five Groups confirmed feeding LR, and nothing else feeding LR directly</li>
     <li>Bus compressors metered &mdash; 2&ndash;3 dB on Principals, 4&ndash;6 on Ensemble, barely moving on Orchestra</li>
     <li>St Matrix 1 and 2 checked independently: archive flat, stream compressed</li>
@@ -1541,10 +1541,9 @@ footer ul { padding-left:18px; }
       22&nbsp;ms surround &mdash; were computed from the design hang at roughly 25.5&prime; above the house
       floor, with the arrays on the centre line. Re-measure once the arrays are flown; a foot of trim moves
       the fill and sub figures by about a millisecond.</li>
-      <li><strong>Where the 2-track recording comes from, and where the arrays are tuned.</strong> The
-      matrix plan has six matrices and neither of these has one. The flown arrays come straight off LR,
-      so system EQ and delay go on the LR output and room tuning touches LR. The 2-track copy needs a
-      source of its own; Console 11 is free for it.</li>
+      <li><strong>Where the arrays are tuned.</strong> They come straight off LR on Console 11&ndash;12 with
+      no matrix, so system EQ and delay for the room sit on the LR output and tuning the room touches LR.
+      Re-check that against the master fader and any LR processing before the show file is locked.</li>
       <li><strong>Whether the pit needs four orchestra mics rather than two.</strong> The orchestra is in
       the 16&prime; pit. If it is open across its full width and the band is more than a handful of
       players, a single stereo pair over the middle will favour whoever sits under it. Channels 31&ndash;33
