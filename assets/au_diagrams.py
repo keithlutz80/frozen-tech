@@ -39,8 +39,8 @@ def flow_svg():
             ('DCA 1', 'principals'), ('DCA 2', 'ensemble male'),
             ('DCA 3', 'ensemble female'), ('DCA 4', 'orchestra'), ('DCA 5', 'FX returns')]),
         (530, 'LR &rarr; OUT', [
-            ('Matrix 1', 'flown arrays'), ('Matrix 2', 'front fill'),
-            ('Matrix 3&ndash;4', 'backstage / DR'), ('Matrix 5&ndash;7', 'rec / stream / 2-trk'),
+            ('LR', 'flown arrays'), ('Matrix 1&ndash;2', 'front fill, 2 zones'),
+            ('Matrix 3, St 3', 'dressing / backstage'), ('St Matrix 1&ndash;2', 'video rec / stream'),
             ('Mix 1&ndash;10', 'monitors, surr, subs')]),
     ]
     W, H, GAP = 158, 42, 14
