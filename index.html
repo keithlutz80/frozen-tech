@@ -341,7 +341,7 @@ footer ul { padding-left:18px; }
       <article class="card">
         <p class="cnum">PART III</p>
         <h3>Sound</h3>
-        <p>Twenty-four radio mics on an Allen &amp; Heath Avantis with a GX4816 stagebox &mdash; five audio Groups under five DCAs, six matrices, and a one-second scene crossfade.</p>
+        <p>Twenty-four radio mics on an Allen &amp; Heath Avantis with a GX4816 stagebox &mdash; five audio Groups under five DCAs, seven matrices, and a one-second scene crossfade.</p>
         <dl><div><dt>Console</dt><dd>Avantis + GX4816</dd></div><div><dt>Inputs</dt><dd>34 of 64</dd></div><div><dt>Groups</dt><dd>5 &rarr; 5 DCAs</dd></div></dl>
         <ol><li><a href="#au-premise">The premise</a></li><li><a href="#au-console">The console, and where it runs out</a></li><li><a href="#au-patch">Input patch and routing</a></li><li><a href="#au-outputs">Mixes, Matrices and outputs</a></li><li><a href="#au-method">The mixing method</a></li><li><a href="#au-conflict">Where audio collides with the other two plots</a></li><li><a href="#au-rf">RF &mdash; three systems, one coordination</a></li><li><a href="#au-showfile">Show file and scene plan</a></li><li><a href="#au-process">Order of process</a></li><li><a href="#au-checks">Checklists</a></li><li><a href="#au-open">Still open</a></li><li><a href="#au-assets">Companion files</a></li></ol>
         <a class="go" href="#au-premise">Open sound &rarr;</a>
@@ -910,7 +910,7 @@ footer ul { padding-left:18px; }
         <tr><td class="id">Line outputs</td><td class="num">12 local<br>+ 16 on GX4816</td><td class="num">19</td>
           <td><span class="pill good">comfortable</span> 9 spare</td></tr>
         <tr><td class="id">Configurable buses</td><td class="num">42</td><td class="num">~32</td>
-          <td><span class="pill good">comfortable</span> 5 groups, aux and stereo aux mixes, 4 mono and 2 stereo matrices</td></tr>
+          <td><span class="pill good">comfortable</span> 5 groups, aux and stereo aux mixes, 5 mono and 3 stereo matrices</td></tr>
         <tr><td class="id">DCAs</td><td class="num">16</td><td class="num">5</td>
           <td><span class="pill good">comfortable</span> deliberately &mdash; five is what one person can hold</td></tr>
         <tr><td class="id">FX engines</td><td class="num">12 RackExtra</td><td class="num">4</td>
@@ -1030,8 +1030,9 @@ footer ul { padding-left:18px; }
       <caption>Mixes &mdash; fed from channel sends</caption>
       <thead><tr><th class="num">Mix</th><th>Destination</th><th class="num">Width</th><th>Content</th></tr></thead>
       <tbody>
-        <tr><td class="num">Aux 1</td><td>Monitors &mdash; four outputs: wedges SR / SL and flown SR / SL</td><td class="num">mono</td><td>Orchestra-heavy, vocals low. One mix feeds all four, so the flown pair gets the same balance as the wedges</td></tr>
-        <tr><td class="num">Aux 2&ndash;3</td><td><em>spare</em></td><td class="num">&mdash;</td><td>Held for separate flown-monitor balance, a conductor feed or a third monitor position</td></tr>
+        <tr><td class="num">Aux 1</td><td>Downstage monitors &mdash; wedges SR / SL</td><td class="num">mono</td><td>Orchestra-heavy, vocals low</td></tr>
+        <tr><td class="num">Aux 2</td><td>Upstage monitors &mdash; flown SR / SL</td><td class="num">mono</td><td>More vocal than the wedges &mdash; they are further from the arrays</td></tr>
+        <tr><td class="num">Aux 3</td><td><em>spare</em></td><td class="num">&mdash;</td><td>Held for a conductor feed or a third monitor position</td></tr>
         <tr><td class="num">Aux 4</td><td>Subwoofers</td><td class="num">mono</td><td>Aux-fed: Music, SFX and the orchestra low end. <strong>No vocals</strong></td></tr>
         <tr><td class="num">St Aux 1</td><td>Surround L / R, spot booth</td><td class="num">stereo</td><td><strong>SFX and reverb returns only.</strong> No dialogue, ever</td></tr>
       </tbody>
@@ -1040,7 +1041,7 @@ footer ul { padding-left:18px; }
 
   <div class="tablewrap">
     <table>
-      <caption>Matrices &mdash; fed from LR</caption>
+      <caption>Matrices &mdash; fed from LR and Mixes</caption>
       <thead><tr><th class="num">Matrix</th><th>Destination</th><th class="num">Width</th><th class="num">Tap</th><th class="num">I/O</th><th>Why</th></tr></thead>
       <tbody>
         <tr><td class="num">LR</td><td>Flown arrays L / R</td><td class="num">stereo</td><td class="num"><strong>post</strong></td><td class="num">Console 11&ndash;12</td><td>Straight off LR, no matrix. System EQ and delay for the room go on the LR output</td></tr>
@@ -1048,6 +1049,7 @@ footer ul { padding-left:18px; }
         <tr><td class="num">Matrix 2</td><td>Front fill, outer (FF-1, FF-5)</td><td class="num">mono</td><td class="num"><strong>post</strong></td><td class="num">Console 9</td><td>Same as Matrix 1, but these sit nearer the stage edge and serve the side blocks, so they need their own delay (about 15 ms) and level</td></tr>
         <tr><td class="num">Matrix 3</td><td>Dressing rooms</td><td class="num">mono</td><td class="num"><strong>pre</strong></td><td class="num">GX 9</td><td>It competes with a room of teenagers, so it runs loud and must survive the master being pulled</td></tr>
         <tr><td class="num">Matrix 4</td><td>Backstage</td><td class="num">mono</td><td class="num"><strong>pre</strong></td><td class="num">Console 5&ndash;6</td><td>Cast cues must survive the master being pulled. Two outputs carry the one mono feed</td></tr>
+        <tr><td class="num">Matrix 5</td><td>Monitors &mdash; one fade for both zones</td><td class="num">mono</td><td class="num"><strong>post</strong></td><td class="num">Console 1&ndash;4</td><td>Fed from Aux 1 and Aux 2, not LR, so a single fader fades the downstage and upstage monitors together</td></tr>
         <tr><td class="num">St Matrix 1</td><td>Video recording</td><td class="num">stereo</td><td class="num"><strong>pre</strong></td><td class="num">GX 11&ndash;12</td><td>The archive must not record a fader move made for the room</td></tr>
         <tr><td class="num">St Matrix 2</td><td>Video stream</td><td class="num">stereo</td><td class="num"><strong>pre</strong></td><td class="num">Console 7&ndash;8</td><td>Wants more compression and less dynamic range than the archive</td></tr>
         <tr><td class="num">St Matrix 3</td><td><em>spare</em></td><td class="num">stereo</td><td class="num">&mdash;</td><td class="num">&mdash;</td><td>Free</td></tr>
@@ -1135,7 +1137,7 @@ footer ul { padding-left:18px; }
       <caption>Physical output patch</caption>
       <thead><tr><th class="num">Connector</th><th>Carries</th><th class="num">Bus</th></tr></thead>
       <tbody>
-        <tr><td class="num">Console 1&ndash;4</td><td>Monitors</td><td class="num">Aux 1</td></tr>
+        <tr><td class="num">Console 1&ndash;4</td><td>Monitors, both zones</td><td class="num">Matrix 5</td></tr>
         <tr><td class="num">Console 5&ndash;6</td><td>Backstage</td><td class="num">Matrix 4</td></tr>
         <tr><td class="num">Console 7&ndash;8</td><td>Video stream L / R</td><td class="num">St Matrix 2</td></tr>
         <tr><td class="num">Console 9</td><td>Front fill &mdash; outer two</td><td class="num">Matrix 2</td></tr>
@@ -1179,7 +1181,7 @@ footer ul { padding-left:18px; }
         <tr><td class="id">D</td><td>FX Sends 1&ndash;8</td>
           <td>FX Returns 1&ndash;8 <span class="dim">(1&ndash;8)</span> &middot; Sub <span class="dim">(11)</span> &middot; Main <span class="dim">(12)</span></td></tr>
         <tr><td class="id">E</td><td>Monitor sends</td>
-          <td>Matrix 1&ndash;4 <span class="dim">(1&ndash;4)</span> &middot; St Matrix 1&ndash;2 <span class="dim">(5&ndash;6)</span> &middot; Sub <span class="dim">(11)</span> &middot; Main <span class="dim">(12)</span></td></tr>
+          <td>Matrix 1&ndash;5 <span class="dim">(1&ndash;5)</span> &middot; St Matrix 1&ndash;2 <span class="dim">(6&ndash;7)</span> &middot; Sub <span class="dim">(11)</span> &middot; Main <span class="dim">(12)</span></td></tr>
         <tr><td class="id">F</td><td>Groups 1&ndash;5 <span class="dim">(1&ndash;5)</span></td>
           <td>Sub <span class="dim">(11)</span> &middot; Main <span class="dim">(12)</span></td></tr>
       </tbody>
@@ -1402,7 +1404,7 @@ footer ul { padding-left:18px; }
         <tr><td><strong>Channel fader level</strong></td><td class="num"><span class="pill good">yes</span></td><td><strong>This is the whole method.</strong> Up for this unit, parked 15 dB down otherwise &mdash; over a 1.0 s crossfade</td></tr>
         <tr><td>Channel mute</td><td class="num"><span class="pill good">yes</span></td><td>Hard cuts only &mdash; mutes are instant and do not glide</td></tr>
         <tr><td>Surround and sub sends</td><td class="num"><span class="pill good">yes</span></td><td>St Aux 1 and Aux 4 change with the cue &mdash; an SFX moment is a routing change</td></tr>
-        <tr><td>Monitor sends</td><td class="num"><span class="pill low">no</span></td><td>Aux 1 is set at the sitzprobe. A monitor balance that moves under a performer is worse than one that is slightly wrong</td></tr>
+        <tr><td>Monitor sends</td><td class="num"><span class="pill low">no</span></td><td>Aux 1 and 2 are set at the sitzprobe. A monitor balance that moves under a performer is worse than one that is slightly wrong</td></tr>
         <tr><td>FX parameters</td><td class="num"><span class="pill good">yes</span></td><td>Reverb changes with location</td></tr>
         <tr><td>DCA assignment</td><td class="num"><span class="pill low">no</span></td><td>Fixed all night, so a fader always means the same thing</td></tr>
         <tr><td>DCA fader level</td><td class="num"><span class="pill low">no</span></td><td>Never move the operator&rsquo;s hand for them</td></tr>
@@ -1534,13 +1536,18 @@ footer ul { padding-left:18px; }
 <section id="au-open">
   <div class="sechead"><span class="secnum">11</span><h2>Still open</h2></div>
   <div class="col">
-    <p>Three things this plot assumes rather than knows. None blocks the build.</p>
+    <p>Four things this plot assumes rather than knows. None blocks the build.</p>
     <ul>
       <li><strong>The array&rsquo;s actual hang position and height.</strong> The delay values in
       Section 04 &mdash; 20&nbsp;ms inner front fills, about 15&nbsp;ms outer front fills, 7.75&nbsp;ms subs,
       22&nbsp;ms surround &mdash; were computed from the design hang at roughly 25.5&prime; above the house
       floor, with the arrays on the centre line. Re-measure once the arrays are flown; a foot of trim moves
       the fill and sub figures by about a millisecond.</li>
+      <li><strong>Two monitor zones through one mono matrix.</strong> Matrix 5 is mono, so it sums Aux 1
+      and Aux 2 into one signal and all four monitors get the same mix. That gives one fade, but it
+      also removes the separate downstage and upstage balances. If the zones need to stay different,
+      keep Aux 1 and Aux 2 on their own outputs and put one fader over both another way, such as a
+      DCA.</li>
       <li><strong>Where the arrays are tuned.</strong> They come straight off LR on Console 11&ndash;12 with
       no matrix, so system EQ and delay for the room sit on the LR output and tuning the room touches LR.
       Re-check that against the master fader and any LR processing before the show file is locked.</li>
