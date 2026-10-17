@@ -220,7 +220,7 @@ def coverage_svg():
         A(f'<text x="{sx(z):.1f}" y="{sy(0)+32:.1f}" text-anchor="middle" class="svg-label sm">{lbl}</text>')
     A('</svg>')
 
-    cap = ('Coverage and time alignment, one value per system. The inner three front fills run 20&nbsp;ms and the '
+    cap = ('Coverage and time alignment, one value per system and two for the front fill. The centre three front fills run 20&nbsp;ms and the '
            'outer two about 15&nbsp;ms, so the image stays on the actor rather than at the lip; the subs 7.75&nbsp;ms to sit with the arrays. '
            'The surround is a different problem &mdash; sitting behind the audience, no single value is '
            'right everywhere &mdash; so it is tuned to 22&nbsp;ms for the middle of the house, kept low, '
