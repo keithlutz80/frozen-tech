@@ -6,12 +6,14 @@ import math
 BOX = ('fill="var(--surface)" stroke="var(--rule-strong)" stroke-width="1.4" rx="3"')
 
 # Front fill: Meyer M1D, four cabinets on the curved apron (feet; x from centre, z upstage of plaster).
-# Arc geometry is read off the seating plan, scaled from the 50 ft opening. Each cabinet lies on the
-# apron deck and is aimed along its radius from the arc centre.
-APRON_R = 30.3          # apron arc radius
-APRON_CZ = 17.1         # arc centre, upstage of plaster
-FILL_X = (-20.0, -6.7, 6.7, 20.0)
-ROW1, ROW_PITCH = 23.4, 3.18   # row 1 distance from plaster, row spacing (house rows are arcs on the same centre)
+# Geometry is read off the seating plan, scaled from the 50 ft opening: the apron is a 50 ft chord, 15.2 ft deep,
+# so the apron edge is 8.2 ft from row 1. Each cabinet lies on the apron deck and is aimed along its radius from
+# the arc centre.
+APRON_R = 28.2          # apron arc radius
+APRON_CZ = 13.0         # apron arc centre, upstage of plaster
+SEAT_CZ = 20.7          # centre of the seat fan (where the aisle lines meet)
+FILL_X = (-21.0, -8.0, 8.0, 21.0)
+ROW1, ROW_PITCH = 23.4, 3.18   # row 1 distance from plaster, row spacing
 M1D_W, M1D_H, M1D_D = 23.04 / 12, 7.12 / 12, 8.50 / 12   # feet, from the datasheet
 DECK = 3.5              # apron deck height above house floor
 
@@ -88,16 +90,16 @@ def _fill_level(x, z, cabs):
 
 
 def _seats(rows=range(1, 6)):
-    """Seat grid for the first five rows: fan on the apron centre, aisles at 17-22 deg."""
+    """Seat grid for the first five rows: a fan about SEAT_CZ, aisles at 17-22 deg."""
     out = []
-    r1 = APRON_CZ + ROW1
+    r1 = SEAT_CZ + ROW1
     for n in rows:
         r = r1 + (n - 1) * ROW_PITCH
         for deg in range(-50, 51):
             if 17 < abs(deg) < 22:
                 continue
             a = math.radians(deg)
-            out.append((n, deg, r * math.sin(a), APRON_CZ - r * math.cos(a)))
+            out.append((n, deg, r * math.sin(a), SEAT_CZ - r * math.cos(a)))
     return out
 
 
@@ -140,8 +142,8 @@ def fill_plan_svg():
         col = 'var(--warn)' if dv > 3 else ('var(--aurora)' if dv < -3 else 'var(--good)')
         A(f'<circle cx="{px(x):.1f}" cy="{pz(z):.1f}" r="1.7" fill="{col}"/>')
     for n in (1, 3, 5):
-        r = APRON_CZ + ROW1 + (n - 1) * ROW_PITCH
-        A(f'<text x="{px(0):.1f}" y="{pz(APRON_CZ - r)+12:.1f}" text-anchor="middle" class="svg-label sm">row {n}</text>')
+        r = SEAT_CZ + ROW1 + (n - 1) * ROW_PITCH
+        A(f'<text x="{px(0):.1f}" y="{pz(SEAT_CZ - r)+12:.1f}" text-anchor="middle" class="svg-label sm">row {n}</text>')
     for i, (x, z, aim) in enumerate(cabs):
         A(f'<g transform="translate({px(x):.1f} {pz(z):.1f}) rotate({-aim:.1f})"><rect x="{-M1D_W*S/2:.1f}" '
           f'y="{-M1D_D*S:.1f}" width="{M1D_W*S:.1f}" height="{M1D_D*S:.1f}" rx="1.5" fill="var(--surface)" '
@@ -173,9 +175,9 @@ def coverage_svg():
       'fill and surround coverage with delay times.">')
 
     # rake / floor
-    A(f'<line x1="{sx(-95):.1f}" y1="{sy(0):.1f}" x2="{sx(-13.2):.1f}" y2="{sy(0):.1f}" '
+    A(f'<line x1="{sx(-95):.1f}" y1="{sy(0):.1f}" x2="{sx(-(APRON_R - APRON_CZ)):.1f}" y2="{sy(0):.1f}" '
       'stroke="var(--ink-3)" stroke-width="2"/>')
-    A(f'<path d="M{sx(-13.2):.1f} {sy(0):.1f} V{sy(DECK):.1f} H{sx(12):.1f}" fill="none" '
+    A(f'<path d="M{sx(-(APRON_R - APRON_CZ)):.1f} {sy(0):.1f} V{sy(DECK):.1f} H{sx(12):.1f}" fill="none" '
       'stroke="var(--ink)" stroke-width="2.5"/>')
     A(f'<text x="{sx(11):.1f}" y="{sy(3.5)+16:.1f}" text-anchor="end" class="svg-label sm">STAGE</text>')
 
