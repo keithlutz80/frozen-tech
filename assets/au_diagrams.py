@@ -5,14 +5,14 @@ import math
 
 BOX = ('fill="var(--surface)" stroke="var(--rule-strong)" stroke-width="1.4" rx="3"')
 
-# Front fill: Meyer M1D, four cabinets on the curved apron (feet; x from centre, z upstage of plaster).
+# Front fill: Meyer M1D, five cabinets on the curved apron (feet; x from centre, z upstage of plaster).
 # Geometry is read off the seating plan, scaled from the 50 ft opening: the apron is a 50 ft chord, 15.2 ft deep,
 # so the apron edge is 8.2 ft from row 1. Each cabinet lies on the apron deck and is aimed along its radius from
 # the arc centre.
 APRON_R = 28.2          # apron arc radius
 APRON_CZ = 13.0         # apron arc centre, upstage of plaster
 SEAT_CZ = 20.7          # centre of the seat fan (where the aisle lines meet)
-FILL_X = (-21.0, -8.0, 8.0, 21.0)
+FILL_X = (-21.0, -12.0, 0.0, 12.0, 21.0)
 ROW1, ROW_PITCH = 23.4, 3.18   # row 1 distance from plaster, row spacing
 M1D_W, M1D_H, M1D_D = 23.04 / 12, 7.12 / 12, 8.50 / 12   # feet, from the datasheet
 DECK = 3.5              # apron deck height above house floor
@@ -78,7 +78,7 @@ def _fill_cabs():
 
 
 def _fill_level(x, z, cabs):
-    """Relative level (dB) of the four fills at a seat: -6 dB at +-50 deg off axis, inverse distance."""
+    """Relative level (dB) of the five fills at a seat: -6 dB at +-50 deg off axis, inverse distance."""
     p = 0.0
     for cx, cz, aim in cabs:
         dx, dz = x - cx, cz - z
@@ -104,7 +104,7 @@ def _seats(rows=range(1, 6)):
 
 
 def fill_plan_svg():
-    """Plan of the apron, the four M1Ds and the first five rows, seats coloured by predicted level."""
+    """Plan of the apron, the five M1Ds and the first five rows, seats coloured by predicted level."""
     S, X0 = 7.3, 360
     px = lambda x: X0 + x * S
     pz = lambda z: 40 + (4.0 - z) * S
@@ -115,7 +115,7 @@ def fill_plan_svg():
     H = pz(-38) + 16
     p = []
     A = p.append
-    A(f'<svg viewBox="0 0 720 {H:.0f}" role="img" aria-label="Plan of the curved apron with four M1D '
+    A(f'<svg viewBox="0 0 720 {H:.0f}" role="img" aria-label="Plan of the curved apron with five M1D '
       'front fill cabinets aimed along its radii and the first five rows coloured by predicted level.">')
     A(f'<rect x="{px(-31):.1f}" y="{pz(0)-70:.1f}" width="{62*S:.1f}" height="70" fill="var(--surface-2)" '
       'stroke="var(--rule-strong)"/>')
@@ -150,11 +150,11 @@ def fill_plan_svg():
           'stroke="var(--accent)" stroke-width="2"/></g>')
         A(f'<text x="{px(x):.1f}" y="{pz(z)-10:.1f}" text-anchor="middle" class="svg-label hi">FF-{i+1}</text>')
     A('</svg>')
-    cap = ('Front fill plan. Four M1Ds lie on the apron deck and follow its arc, each aimed along its radius '
+    cap = ('Front fill plan. Five M1Ds lie on the apron deck and follow its arc, each aimed along its radius '
            'from the arc centre. Dashed wedges are the 100&deg; horizontal coverage at its &minus;6&nbsp;dB '
            'edges. Seats in rows 1 to 5 are <span style="color:var(--good)">green</span> within 3&nbsp;dB of the '
            'median, <span style="color:var(--warn)">orange</span> more than 3&nbsp;dB hot and '
-           '<span style="color:var(--aurora)">violet</span> more than 3&nbsp;dB low. The model sums the four '
+           '<span style="color:var(--aurora)">violet</span> more than 3&nbsp;dB low. The model sums the five '
            'cabinets as power and ignores the vertical pattern, so treat it as a layout check and run the '
            'final aim in MAPP.')
     return ('\n  <figure>\n    <div class="figbox">\n      ' + ''.join(p) +
@@ -184,7 +184,7 @@ def coverage_svg():
     # coverage wedges
     A(f'<path d="M{sx(2):.1f} {sy(25.5):.1f} L{sx(-88):.1f} {sy(0):.1f} L{sx(-30):.1f} {sy(0):.1f} Z" '
       'fill="var(--accent)" opacity=".13"/>')
-    zf = _fill_cabs()[1][1]                      # inner fill pair, centre-line section
+    zf = _fill_cabs()[2][1]                      # centre cabinet FF-3, centre-line section
     yf = DECK + M1D_H / 2
     z5 = -(ROW1 + 4 * ROW_PITCH)
     dy = abs(z5 - zf) * math.tan(math.radians(5))   # 10 deg vertical minimum, single cabinet
@@ -195,7 +195,7 @@ def coverage_svg():
 
     # boxes
     for z, y, col, lbl, sub in ((2.0, 25.5, 'var(--accent)', 'FLOWN ARRAY', 'L / R'),
-                                (_fill_cabs()[1][1], DECK + M1D_H / 2, 'var(--good)', 'FRONT FILL', '4 &times; M1D, two delays'),
+                                (_fill_cabs()[2][1], DECK + M1D_H / 2, 'var(--good)', 'FRONT FILL', '5 &times; M1D, two delays'),
                                 (-89.0, 33.5, 'var(--warn)', 'SURROUND', 'spot booth')):
         A(f'<rect x="{sx(z)-11:.1f}" y="{sy(y)-7:.1f}" width="22" height="14" rx="2" '
           f'fill="var(--surface)" stroke="{col}" stroke-width="2"/>')
@@ -220,8 +220,8 @@ def coverage_svg():
         A(f'<text x="{sx(z):.1f}" y="{sy(0)+32:.1f}" text-anchor="middle" class="svg-label sm">{lbl}</text>')
     A('</svg>')
 
-    cap = ('Coverage and time alignment, one value per system. The inner front fill pair runs 20&nbsp;ms and the '
-           'outer pair about 15&nbsp;ms, so the image stays on the actor rather than at the lip; the subs 7.75&nbsp;ms to sit with the arrays. '
+    cap = ('Coverage and time alignment, one value per system. The inner three front fills run 20&nbsp;ms and the '
+           'outer two about 15&nbsp;ms, so the image stays on the actor rather than at the lip; the subs 7.75&nbsp;ms to sit with the arrays. '
            'The surround is a different problem &mdash; sitting behind the audience, no single value is '
            'right everywhere &mdash; so it is tuned to 22&nbsp;ms for the middle of the house, kept low, '
            'and never carries dialogue.')
